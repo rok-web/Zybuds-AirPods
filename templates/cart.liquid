@@ -1,0 +1,42 @@
+{% comment %} Simple cart page {% endcomment %}
+
+<div style="max-width:700px;margin:0 auto;padding:60px 5%;">
+  <div class="editorial-label">Your Cart</div>
+  <h1 class="p2-title" style="margin-bottom:30px;">Order <em>Summary</em></h1>
+
+  {% if cart.item_count == 0 %}
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;text-align:center;">
+      <p style="color:var(--muted);margin-bottom:20px;">Your cart is empty.</p>
+      <a href="/collections/all" style="display:inline-block;background:var(--accent);color:#000;border-radius:12px;padding:13px 28px;font-weight:800;text-decoration:none;">
+        Continue Shopping
+      </a>
+    </div>
+  {% else %}
+    <form action="/cart" method="post">
+      {% for item in cart.items %}
+        <div style="display:flex;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--border);">
+          {% if item.image %}
+            <img src="{{ item.image | image_url: width: 80 }}" alt="{{ item.title }}" style="width:80px;height:80px;object-fit:contain;border-radius:10px;background:var(--bg3);">
+          {% endif %}
+          <div style="flex:1;">
+            <div style="font-weight:700;color:var(--ink);margin-bottom:4px;">{{ item.product.title }}</div>
+            <div style="font-size:12px;color:var(--muted);">{{ item.variant.title }}</div>
+            <div style="font-size:13px;color:var(--accent);margin-top:6px;font-weight:700;">{{ item.price | money }}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <input type="number" name="updates[]" value="{{ item.quantity }}" min="0"
+              style="width:50px;background:var(--bg4);border:1px solid var(--border);color:var(--ink);border-radius:8px;padding:6px;text-align:center;font-family:inherit;">
+          </div>
+        </div>
+      {% endfor %}
+
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-top:1px solid var(--border);margin-top:10px;">
+        <div style="font-size:18px;font-weight:700;color:var(--white);">Total: {{ cart.total_price | money }}</div>
+        <div style="display:flex;gap:10px;">
+          <button type="submit" name="update" style="background:var(--bg3);border:1px solid var(--border);color:var(--ink);border-radius:10px;padding:10px 20px;cursor:pointer;font-family:inherit;font-size:13px;">Update</button>
+          <a href="/checkout" style="background:var(--accent);color:#000;border-radius:10px;padding:10px 24px;font-weight:800;text-decoration:none;font-size:13px;">Checkout →</a>
+        </div>
+      </div>
+    </form>
+  {% endif %}
+</div>

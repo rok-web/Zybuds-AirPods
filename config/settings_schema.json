@@ -1,0 +1,45 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Zybuds",
+    "theme_version": "1.0.0",
+    "theme_author": "Zybuds",
+    "theme_documentation_url": "https://zybuds.com",
+    "theme_support_url": "https://zybuds.com"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "text",
+        "id": "shop_name_override",
+        "label": "Shop Name Override",
+        "info": "Leave blank to use Shopify store name",
+        "default": "Zybuds"
+      },
+      {
+        "type": "text",
+        "id": "shop_tagline",
+        "label": "Shop Tagline (under logo)",
+        "default": "Trendy Accessories"
+      }
+    ]
+  },
+  {
+    "name": "Social & Contact",
+    "settings": [
+      {
+        "type": "text",
+        "id": "instagram_handle",
+        "label": "Instagram Handle",
+        "default": "zybuds"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp Number (with country code)",
+        "default": "+919100000000"
+      }
+    ]
+  }
+]

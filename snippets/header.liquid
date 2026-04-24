@@ -1,0 +1,49 @@
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span>🚀 Same Day Delivery — All Hyderabad</span><span class="dot">✦</span>
+    <span>📦 Open Box — Check Before You Pay</span><span class="dot">✦</span>
+    <span>🛡️ 1 Year Warranty Included</span><span class="dot">✦</span>
+    <span>💰 COD Available — Pay ₹99 to Confirm</span><span class="dot">✦</span>
+    <span>📍 Based in Secunderabad, Hyderabad</span><span class="dot">✦</span>
+    <span>5,089+ Orders Delivered</span><span class="dot">✦</span>
+    <span>🚀 Same Day Delivery — All Hyderabad</span><span class="dot">✦</span>
+    <span>📦 Open Box — Check Before You Pay</span><span class="dot">✦</span>
+    <span>🛡️ 1 Year Warranty Included</span><span class="dot">✦</span>
+    <span>💰 COD Available — Pay ₹99 to Confirm</span><span class="dot">✦</span>
+    <span>📍 Based in Secunderabad, Hyderabad</span><span class="dot">✦</span>
+    <span>5,089+ Orders Delivered</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="{{ routes.root_url }}" class="logo" style="text-decoration: none;">
+    <div class="logo-main">{{ shop.name | default: 'Zybuds' }}</div>
+    <div class="logo-sub">Trendy Accessories</div>
+  </a>
+  <div class="nav-links">
+    <a href="{{ routes.root_url }}">Home</a>
+    <a href="/collections/earbuds">Earbuds</a>
+    <a href="/collections/smartwatches">Smartwatches</a>
+    <a href="/pages/about">About</a>
+  </div>
+  <div class="nav-right">
+    <button class="nav-order" onclick="handleOrder()">Order Now</button>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="{{ routes.root_url }}">Home</a>&nbsp;›&nbsp;
+  {%- if template == 'product' -%}
+    {%- if product.collections.first -%}
+      <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>&nbsp;›&nbsp;
+    {%- else -%}
+      <a href="/collections/all">Earbuds &amp; Audio</a>&nbsp;›&nbsp;
+    {%- endif -%}
+    <span style="color:var(--ink2);">{{ product.title }}</span>
+  {%- else -%}
+    <span style="color:var(--ink2);">{{ page_title }}</span>
+  {%- endif -%}
+</div>

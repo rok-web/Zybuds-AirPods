@@ -1,0 +1,36 @@
+<footer>
+  <div class="footer2-inner">
+    <div class="f2-brand">
+      <a href="{{ routes.root_url }}" class="logo" style="text-decoration: none; margin-bottom: 12px;">
+        <div class="logo-main" style="font-size: 22px;">{{ shop.name | default: 'Zybuds' }}</div>
+        <div class="logo-sub" style="font-size: 6px;">Trendy Accessories</div>
+      </a>
+      <p>Hyderabad's trusted local audio brand. Same-day delivery, open box, COD. Based in Secunderabad since 2024.</p>
+    </div>
+    <div class="f2-col">
+      <h4>Products</h4>
+      <a href="/collections/earbuds">Earbuds</a>
+      <a href="/collections/smartwatches">Smartwatches</a>
+      <a href="/collections/power-banks">Power Banks</a>
+      <a href="/collections/neckbands">Neckbands</a>
+    </div>
+    <div class="f2-col">
+      <h4>Support</h4>
+      <a href="/pages/contact">Contact Us</a>
+      <a href="/pages/warranty">Warranty Claim</a>
+      <a href="/policies/refund-policy">Return Policy</a>
+      <a href="/pages/faq">FAQ</a>
+    </div>
+    <div class="f2-col">
+      <h4>About</h4>
+      <a href="/pages/about">Our Story</a>
+      <a href="https://instagram.com/zybuds" target="_blank" rel="noopener">Instagram</a>
+      <a href="/pages/contact">Contact</a>
+      <a href="/policies/privacy-policy">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer2-bottom">
+    <div>© {{ 'now' | date: '%Y' }} {{ shop.name }} · Suman Housing Colony, Secunderabad, Hyderabad</div>
+    <div>📦 Open Box · 🚀 Same Day · 🛡️ 1 Yr Warranty · 💰 COD</div>
+  </div>
+</footer>
