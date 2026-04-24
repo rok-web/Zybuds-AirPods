@@ -150,31 +150,11 @@ nav {
   height: 66px;
 }
 
-.logo-mark {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--bg3) 0%, var(--bg2) 100%);
-  border: 1.2px solid var(--accent);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-shadow: 0 4px 15px rgba(232, 201, 122, 0.15);
-}
-
-.logo-mark svg {
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 2;
-  stroke-linecap: round;
-}
-
-.logo-text-group {
+.logo {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
 }
 
 .logo-main {
@@ -184,7 +164,6 @@ nav {
   font-style: italic;
   color: var(--white);
   letter-spacing: -0.5px;
-  line-height: 1;
 }
 
 .logo-sub {
@@ -195,7 +174,7 @@ nav {
   letter-spacing: 1.5px;
   text-transform: uppercase;
   margin-top: -2px;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .nav-links {

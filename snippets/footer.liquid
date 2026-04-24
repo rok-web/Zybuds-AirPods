@@ -2,7 +2,10 @@
   <div class="footer2-inner">
     <div class="f2-brand">
       <a href="{{ routes.root_url }}" class="logo" style="text-decoration: none; margin-bottom: 12px;">
-        <div class="logo-main" style="font-size: 22px;">{{ shop.name | default: 'Zybuds' }}</div>
+        <div class="logo-main" style="font-size: 22px;">{{ settings.shop_name_override | default: shop.name | default: 'Zybuds' }}</div>
+        {% if settings.shop_tagline != blank %}
+          <div class="logo-sub" style="font-size: 6px;">{{ settings.shop_tagline }}</div>
+        {% endif %}
       </a>
       <p>Hyderabad's trusted local audio brand. Same-day delivery, open box, COD. Based in Secunderabad since 2024.</p>
     </div>
