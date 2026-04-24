@@ -27,7 +27,9 @@
     </div>
     <div class="logo-text-group">
       <div class="logo-main">{{ settings.shop_name_override | default: shop.name | default: 'Zybuds' }}</div>
-      <div class="logo-sub">{{ settings.shop_tagline | default: 'Trendy Accessories' }}</div>
+      {% if settings.shop_tagline != blank %}
+        <div class="logo-sub">{{ settings.shop_tagline }}</div>
+      {% endif %}
     </div>
   </a>
   <div class="nav-links">
