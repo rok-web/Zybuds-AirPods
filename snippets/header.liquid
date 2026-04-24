@@ -18,9 +18,17 @@
 
 <!-- NAVBAR -->
 <nav>
-  <a href="{{ routes.root_url }}" class="logo" style="text-decoration: none;">
-    <div class="logo-main">{{ shop.name | default: 'Zybuds' }}</div>
-    <div class="logo-sub">Trendy Accessories</div>
+  <a href="{{ routes.root_url }}" class="logo" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 4h16l-8 8 8 8H4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="3" fill="var(--accent)" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="logo-text-group">
+      <div class="logo-main">{{ settings.shop_name_override | default: shop.name | default: 'Zybuds' }}</div>
+      <div class="logo-sub">{{ settings.shop_tagline | default: 'Trendy Accessories' }}</div>
+    </div>
   </a>
   <div class="nav-links">
     <a href="{{ routes.root_url }}">Home</a>
