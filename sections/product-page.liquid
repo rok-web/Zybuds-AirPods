@@ -4,9 +4,12 @@
    ============================================================ -->
 
 {%- assign advance = settings.advance_amount | default: 99 -%}
-{%- assign remaining = product.price | minus: advance -%}
 {%- assign city = settings.city | default: 'Hyderabad' -%}
 {%- assign warranty = settings.warranty_years | default: '1' -%}
+
+{%- if product -%}
+  {%- assign remaining = product.price | minus: advance -%}
+{%- endif -%}
 
 <!-- HERO GRID -->
 <div class="hero">
@@ -352,18 +355,20 @@
 {% render 'founder' %}
 
 <!-- Pass Shopify product data to JS -->
+{%- if product -%}
 <script>
   window.ShopifyProduct = {
-    id: {{ product.id }},
+    id: {{ product.id | json }},
     title: {{ product.title | json }},
-    price: {{ product.price }},
+    price: {{ product.price | default: 0 }},
     compareAtPrice: {{ product.compare_at_price | default: 0 }},
-    variantId: {{ product.selected_or_first_available_variant.id }},
+    variantId: {{ product.selected_or_first_available_variant.id | json }},
     advanceAmount: {{ settings.advance_amount | default: 99 }},
     currency: {{ cart.currency.symbol | json }},
-    available: {{ product.selected_or_first_available_variant.available }}
+    available: {{ product.selected_or_first_available_variant.available | default: false }}
   };
 </script>
+{%- endif -%}
 
 
 {% schema %}
