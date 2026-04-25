@@ -1,24 +1,6 @@
 {% comment %}
-  Homepage — shows a simple landing page with a link to the product collection.
+  Homepage — configured as a single product landing page.
+  This theme is designed for high-conversion single-product sales.
 {% endcomment %}
 
-<div class="homepage-hero">
-  <div class="editorial-label" style="justify-content:center;">Welcome to {{ settings.shop_name_override | default: shop.name | default: 'Zybuds' }}</div>
-  <h1 class="p2-title" style="text-align:center;margin-bottom:20px;">Premium Audio<br><em>{{ settings.city | default: 'Hyderabad' }}'s Own</em></h1>
-  <p class="p2-tagline" style="margin:0 auto 36px;text-align:center;">
-    Same-day delivery · Open box · {{ settings.warranty_years | default: '1' }} Year Warranty · COD
-  </p>
-  <div style="text-align:center;">
-    <a href="/collections/all" class="btn2-primary" style="display:inline-flex;width:auto;padding:16px 40px;">
-      <span>Shop Now →</span>
-    </a>
-  </div>
-</div>
-
-<style>
-  .homepage-hero {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 120px 5% 80px;
-  }
-</style>
+{% section 'product-page' %}

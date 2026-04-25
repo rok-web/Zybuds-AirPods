@@ -3,35 +3,48 @@
    Complete product landing page section
    ============================================================ -->
 
+{%- assign product_obj = product | default: section.settings.product -%}
 {%- assign advance = settings.advance_amount | default: 99 -%}
 {%- assign city = settings.city | default: 'Hyderabad' -%}
 {%- assign warranty = settings.warranty_years | default: '1' -%}
 
-{%- if product -%}
-  {%- assign remaining = product.price | minus: advance -%}
+{%- if product_obj -%}
+  {%- assign remaining = product_obj.price | minus: advance -%}
 {%- endif -%}
 
 <!-- HERO GRID -->
 <div class="hero">
 
   <!-- LEFT — IMAGE PANEL -->
-  {% render 'product-image-gallery' %}
+  <div class="img-panel">
+    <div class="main-img" id="mainImgBox">
+      <div class="main-img-glow"></div>
+      <div class="img-tag-tl">✅ QC Tested</div>
+      <div class="img-tag-tr">⚡ Same Day</div>
+      
+      <!-- Product image switcher snippet -->
+      {% render 'product-image-gallery', product: product_obj %}
+    </div>
+  </div>
 
   <!-- RIGHT — INFO PANEL -->
   <div class="info-panel">
     <div class="editorial-label">Premium TWS · {{ city }}</div>
 
     <h1 class="p2-title">
-      {%- assign title_parts = product.title | split: ' with ' -%}
-      {%- if title_parts.size > 1 -%}
-        {{ title_parts[0] }} <em>with {{ title_parts[1] }}</em>
+      {%- if product_obj -%}
+        {{ product_obj.title }}
       {%- else -%}
-        {{ product.title }}
+        Zybuds AirPods Pro 2 <em>with ANC</em>
       {%- endif -%}
     </h1>
 
     <p class="p2-tagline">
-      {{- product.description | strip_html | truncate: 180 -}}
+      {%- if product_obj -%}
+        {{ product_obj.description | strip_html | truncatewords: 30 }}
+      {%- else -%}
+        3D Spatial Audio, GPS Tracking, and 13mm Drivers — premium sound with Active Noise Cancellation engineered for everyday life.
+      {%- endif -%}
     </p>
 
     <!-- Live Activity -->
@@ -45,7 +58,7 @@
         <div class="po-sub">Rest on Delivery</div>
       </div>
       <div class="pay-opt" onclick="selectPayOption('full', this)">
-        <div class="po-title">Pay Full {{ product.price | money }}</div>
+        <div class="po-title">Pay Full {%- if product_obj -%}{{ product_obj.price | money }}{%- else -%}₹1,400{%- endif -%}</div>
         <div class="po-sub">Skip COD Process</div>
       </div>
     </div>
@@ -54,18 +67,25 @@
     <div class="price-box2">
       <div class="price-box2-top">
         <div class="p2-main-price">
-          <sup>{{ cart.currency.symbol }}</sup>{{ product.price | money_without_currency }}
+          {%- if product_obj -%}
+            {{ product_obj.price | money }}
+          {%- else -%}
+            <sup>₹</sup>1,400
+          {%- endif -%}
         </div>
-        {%- if product.compare_at_price > product.price -%}
-          <div class="p2-old-price">{{ product.compare_at_price | money }}</div>
+        {%- if product_obj and product_obj.compare_at_price > product_obj.price -%}
+          <div class="p2-old-price">{{ product_obj.compare_at_price | money }}</div>
           <div class="p2-save-chip">
-            Save {{ product.compare_at_price | minus: product.price | money }}
+            Save {{ product_obj.compare_at_price | minus: product_obj.price | money }}
           </div>
+        {%- elsif product_obj == nil -%}
+          <div class="p2-old-price">₹3,499</div>
+          <div class="p2-save-chip">Save ₹2,099</div>
         {%- endif -%}
       </div>
       <div id="priceBreakdown" class="price-breakdown">
         Pay <strong>₹{{ advance }} now</strong> to confirm →
-        Remaining <strong>{{ remaining | money }} cash</strong> on delivery, after you check the product
+        Remaining <strong>{% if remaining %}{{ remaining | money }}{% else %}₹1,301{% endif %} cash</strong> on delivery, after you check the product
       </div>
     </div>
 
@@ -73,8 +93,8 @@
     {% render 'why99-box' %}
 
     <!-- COLOR / VARIANT PICKER -->
-    {%- if product.variants.size > 1 -%}
-      {%- for option in product.options_with_values -%}
+    {%- if product_obj and product_obj.variants.size > 1 -%}
+      {%- for option in product_obj.options_with_values -%}
         <div class="opt2-label">{{ option.name }}: <span id="col2Name">{{ option.selected_value | default: option.values.first }}</span></div>
         <div class="colors2">
           {%- for value in option.values -%}
@@ -97,13 +117,17 @@
     <div class="stock2">
       <div class="sdot"></div>
       <div>
-        {%- assign stock = product.selected_or_first_available_variant.inventory_quantity -%}
-        {%- if stock > 0 and stock <= 10 -%}
-          <span class="stock2-text">Only {{ stock }} pieces left</span>
-        {%- elsif stock <= 0 -%}
-          <span class="stock2-text">Only 7 pieces left</span>
+        {%- if product_obj -%}
+          {%- assign stock = product_obj.selected_or_first_available_variant.inventory_quantity -%}
+          {%- if stock > 0 and stock <= 10 -%}
+            <span class="stock2-text">Only {{ stock }} pieces left</span>
+          {%- elsif stock <= 0 -%}
+            <span class="stock2-text">Only 7 pieces left</span>
+          {%- else -%}
+            <span class="stock2-text">In Stock — Ready to Ship</span>
+          {%- endif -%}
         {%- else -%}
-          <span class="stock2-text">In Stock — Ready to Ship</span>
+          <span class="stock2-text">Only 7 pieces left</span>
         {%- endif -%}
         <span class="stock2-sub"> · <span id="dailyViewCount">19</span> people viewed this today</span>
       </div>
@@ -119,27 +143,26 @@
       <div class="wr-badge">{{ warranty }} Year<br>Warranty</div>
     </div>
 
-    <!-- ADD TO CART / ORDER BUTTON — Uses Shopify Ajax Cart API -->
-    {%- form 'product', product, id: 'ProductForm', data-product-form: '' -%}
-      <input type="hidden" name="id" id="variantId" value="{{ product.selected_or_first_available_variant.id }}">
-      <input type="hidden" name="quantity" value="1">
-
-      <button
-        type="submit"
-        class="btn2-primary"
-        id="orderBtn"
-        {%- unless product.selected_or_first_available_variant.available -%} disabled{%- endunless -%}
-      >
-        <span>
-          {%- if product.selected_or_first_available_variant.available -%}
-            🛒 Confirm Order — Pay ₹{{ advance }}
-          {%- else -%}
-            Out of Stock
-          {%- endif -%}
-        </span>
-        <span class="btn-right">Same Day Delivery →</span>
-      </button>
-    {%- endform -%}
+    <!-- PRODUCT FORM -->
+    <div class="product-form-container">
+      {%- if product_obj -%}
+        {%- form 'product', product_obj, id: 'ProductForm', data-product-form: '' -%}
+          <input type="hidden" name="id" value="{{ product_obj.selected_or_first_available_variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <input type="hidden" name="properties[Payment Type]" value="Advance" id="paymentTypeInput">
+          
+          <button type="submit" class="btn2-primary" id="orderBtn">
+            <span>🛒 Confirm Order — Pay ₹{{ advance }}</span>
+            <span class="btn-right">Same Day Delivery →</span>
+          </button>
+        {%- endform -%}
+      {%- else -%}
+        <button class="btn2-primary" id="orderBtn" onclick="handleOrder()">
+          <span>🛒 Confirm Order — Pay ₹{{ advance }}</span>
+          <span class="btn-right">Same Day Delivery →</span>
+        </button>
+      {%- endif -%}
+    </div>
 
     <!-- GUARANTEE -->
     <div class="guarantee2">
@@ -355,17 +378,17 @@
 {% render 'founder' %}
 
 <!-- Pass Shopify product data to JS -->
-{%- if product -%}
+{%- if product_obj -%}
 <script>
   window.ShopifyProduct = {
-    id: {{ product.id | json }},
-    title: {{ product.title | json }},
-    price: {{ product.price | default: 0 }},
-    compareAtPrice: {{ product.compare_at_price | default: 0 }},
-    variantId: {{ product.selected_or_first_available_variant.id | json }},
+    id: {{ product_obj.id | json }},
+    title: {{ product_obj.title | json }},
+    price: {{ product_obj.price | default: 0 }},
+    compareAtPrice: {{ product_obj.compare_at_price | default: 0 }},
+    variantId: {{ product_obj.selected_or_first_available_variant.id | json }},
     advanceAmount: {{ settings.advance_amount | default: 99 }},
     currency: {{ cart.currency.symbol | json }},
-    available: {{ product.selected_or_first_available_variant.available | default: false }}
+    available: {{ product_obj.selected_or_first_available_variant.available | default: false }}
   };
 </script>
 {%- endif -%}
@@ -377,6 +400,12 @@
   "tag": "div",
   "class": "product-page-section",
   "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Select Product",
+      "info": "Choose the product to display on the landing page."
+    },
     {
       "type": "header",
       "content": "Store Stats"
