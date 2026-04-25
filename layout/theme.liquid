@@ -69,10 +69,7 @@
     <button class="mob-order" id="mobOrderBtn" onclick="handleOrder()">Pay ₹{{ settings.advance_amount | default: '99' }} → Confirm</button>
   </div>
 
-  <!-- Floating Order Now button -->
-  <button class="float-order-btn" onclick="handleOrder()" aria-label="Order Now">
-    <span>Order Now</span>
-  </button>
+
 
   <!-- Pass global settings to JS -->
   {%- assign popup_msg = settings.popup_message | default: '🔥 {orders} people ordered today|📦 7 orders delivered this morning|⚡ 3 people just viewed this product|✅ 500+ orders completed in Hyderabad' -%}
