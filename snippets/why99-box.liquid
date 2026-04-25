@@ -7,11 +7,12 @@
 {%- assign advance_cents = advance_raw | times: 100 -%}
 {%- assign product_obj = product | default: section.settings.product -%}
 
-{%- if product_obj -%}
-  {%- assign remaining = product_obj.price | minus: advance_cents -%}
+{%- if product_obj and product_obj.price > 0 -%}
+  {%- assign product_cost = product_obj.price -%}
 {%- else -%}
-  {%- assign remaining = 140000 | minus: advance_cents -%}
+  {%- assign product_cost = 140000 -%}
 {%- endif -%}
+{%- assign remaining = product_cost | minus: advance_cents -%}
 
 {%- assign city = settings.city | default: 'Hyderabad' -%}
 
@@ -24,7 +25,7 @@
     <br><br>
     If we ask {{ advance_raw }} rs from fake persons they won't pay because they don't take product but genuine members pay's {{ advance_raw }} 
     because they really want product and {{ advance_raw }} rupees is not extra it will be decreased in final amount
-    (product cost {% if product_obj %}{{ product_obj.price | money_without_trailing_zeros }}{% else %}₹1,400{% endif %})
+    (product cost {{ product_cost | money_without_trailing_zeros }})
     ({{ advance_raw }} pay advance remaining {{ remaining | money_without_trailing_zeros }} at delivery time) no extra paying this just to avoid fake orders only.
   </div>
   <div class="why99-steps">

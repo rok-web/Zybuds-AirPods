@@ -924,6 +924,14 @@ nav {
   transform: scaleX(1);
 }
 
+.feat2-wide {
+  grid-column: 1 / -1;
+}
+
+.feat2-wide .feat2-video {
+  height: clamp(280px, 28vw, 380px);
+}
+
 .feat2-video {
   width: 100%;
   height: clamp(280px, 31vw, 430px);
@@ -1127,6 +1135,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); color: var
     height: auto;
     aspect-ratio: 9 / 13;
   }
+  .feat2-wide { grid-column: auto; }
   .feat2-content { padding: 18px 18px 22px; }
   .btn2-primary {
     align-items: flex-start;

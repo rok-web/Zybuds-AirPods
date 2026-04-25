@@ -263,6 +263,19 @@
           <div class="feat2-desc">Swipe or press to adjust volume, play or pause music, and answer or end calls.</div>
         </div>
       </div>
+      <div class="feat2 feat2-wide">
+        <div class="feat2-video">
+          {%- if section.settings.video_url_5 != blank -%}
+            <video src="{{ section.settings.video_url_5 }}" controls playsinline preload="metadata"></video>
+          {%- else -%}
+            <div class="feat2-video-empty">3D Spatial Audio Clip</div>
+          {%- endif -%}
+        </div>
+        <div class="feat2-content">
+          <div class="feat2-title">3D Spatial Audio</div>
+          <div class="feat2-desc">Enjoy a wider, surround-style listening effect for music, movies, and games.</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -273,7 +286,7 @@
     <p class="sec2-sub">Everything you need to know before buying.</p>
     <div class="specs2-layout">
       <div class="spec2-table">
-        <div class="spec2-row"><span class="sk">Features</span><span class="sv">Pop-Up + ANC + Find My + Touch</span></div>
+        <div class="spec2-row"><span class="sk">Features</span><span class="sv">Pop-Up + ANC + Find My + Touch + 3D Audio</span></div>
         <div class="spec2-row"><span class="sk">Drivers</span><span class="sv">13mm Pro Drivers</span></div>
         <div class="spec2-row"><span class="sk">Earbud Battery</span><span class="sv">8 Hours</span></div>
         <div class="spec2-row"><span class="sk">Case Battery</span><span class="sv">32 Hours</span></div>
@@ -297,6 +310,7 @@
           <div class="spec-bullet"><div class="sb-dot"></div>Active noise cancellation</div>
           <div class="spec-bullet"><div class="sb-dot"></div>Find my device</div>
           <div class="spec-bullet"><div class="sb-dot"></div>Touch controls</div>
+          <div class="spec-bullet"><div class="sb-dot"></div>3D spatial audio</div>
         </div>
       </div>
     </div>
@@ -410,6 +424,12 @@
       "type": "text",
       "id": "video_url_4",
       "label": "Touch Controls Video URL (MP4)",
+      "info": "Upload video to Files and paste URL here."
+    },
+    {
+      "type": "text",
+      "id": "video_url_5",
+      "label": "3D Spatial Audio Video URL (MP4)",
       "info": "Upload video to Files and paste URL here."
     },
     {
