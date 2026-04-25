@@ -1,17 +1,44 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "shop_name_override": "Zybuds",
     "tagline": "Trendy Accessories",
     "advance_amount": "99",
     "warranty_years": "1",
-    "orders_delivered": "500+",
+    "orders_delivered": "5000+",
     "city": "Hyderabad",
     "city_area": "Secunderabad",
     "founder_name": "Mahesh",
     "founder_location": "Suman Housing Colony, Secunderabad",
     "popup_message": "🔥 {orders} people ordered today|📦 7 orders delivered this morning|⚡ 3 people just viewed this product|✅ 500+ orders completed in Hyderabad",
     "whatsapp_number": "9100000000",
-    "instagram_handle": "zybuds"
+    "instagram_handle": "zybuds",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "product-page": {
+        "type": "product-page",
+        "settings": {
+          "product": "",
+          "review_count": "214",
+          "show_video_section": true,
+          "video_url_1": "https://cdn.shopify.com/placeholder-video.mp4",
+          "video_url_2": "https://cdn.shopify.com/placeholder-video.mp4",
+          "founder_message": "Hi, I'm Mahesh. I run Zybuds from Secunderabad."
+        }
+      }
+    },
+    "content_for_index": []
   },
   "presets": {}
 }
