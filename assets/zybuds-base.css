@@ -229,22 +229,23 @@ nav {
 /* ── HERO GRID ── */
 .hero {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 0.9fr 1.1fr; /* Info on left, Images on right */
   min-height: 90vh;
   max-width: 1440px;
   margin: 0 auto;
   align-items: start;
 }
 
-/* LEFT — IMAGE PANEL */
+/* RIGHT — IMAGE PANEL */
 .img-panel {
+  grid-column: 2;
   background: var(--bg2);
-  border-right: 1px solid var(--border);
+  border-left: 1px solid var(--border);
   padding: 36px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  height: auto; /* Let it scroll */
+  height: auto;
 }
 
 .main-img {
@@ -412,8 +413,9 @@ nav {
   margin-top: 4px;
 }
 
-/* RIGHT — INFO PANEL */
+/* LEFT — INFO PANEL */
 .info-panel {
+  grid-column: 1;
   padding: 44px 44px 100px;
   background: var(--bg);
   position: sticky;

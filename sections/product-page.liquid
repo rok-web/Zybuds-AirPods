@@ -9,10 +9,12 @@
 {%- assign city = settings.city | default: 'Hyderabad' -%}
 {%- assign warranty = settings.warranty_years | default: '1' -%}
 
-{%- if product_obj -%}
+{%- if product_obj and product_obj.id != blank -%}
   {%- assign remaining = product_obj.price | minus: advance_cents -%}
+  {%- assign has_product = true -%}
 {%- else -%}
   {%- assign remaining = 140000 | minus: advance_cents -%}
+  {%- assign has_product = false -%}
 {%- endif -%}
 
 <!-- HERO GRID -->
@@ -148,7 +150,7 @@
 
     <!-- PRODUCT FORM -->
     <div class="product-form-container">
-      {%- if product_obj -%}
+      {%- if has_product -%}
         {%- form 'product', product_obj, id: 'ProductForm', data-product-form: '' -%}
           <input type="hidden" name="id" value="{{ product_obj.selected_or_first_available_variant.id }}">
           <input type="hidden" name="quantity" value="1">
