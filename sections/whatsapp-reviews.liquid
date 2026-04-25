@@ -1,0 +1,61 @@
+<!--
+  Section: WhatsApp Reviews
+  Displays up to 8 WhatsApp screenshot images as customer reviews.
+-->
+<div class="whatsapp-reviews-section">
+  <h2>What Our Customer Says!</h2>
+  <div class="whatsapp-reviews-gallery">
+    {% for i in (1..8) %}
+      {% assign img = section.settings["review_image_" | append: i ] %}
+      {% if img != blank %}
+        <div class="whatsapp-review-image">
+          <img src="{{ img | img_url: '800x' }}" alt="WhatsApp Review {{ i }}" loading="lazy" />
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+.whatsapp-reviews-section {
+  padding: 40px 0;
+  background: #f9f9f9;
+  text-align: center;
+}
+.whatsapp-reviews-section h2 {
+  margin-bottom: 24px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.whatsapp-reviews-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+.whatsapp-review-image img {
+  max-width: 180px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  background: #fff;
+}
+</style>
+
+{% schema %}
+{
+  "name": "WhatsApp Reviews",
+  "settings": [
+    { "type": "image_picker", "id": "review_image_1", "label": "Review Image 1" },
+    { "type": "image_picker", "id": "review_image_2", "label": "Review Image 2" },
+    { "type": "image_picker", "id": "review_image_3", "label": "Review Image 3" },
+    { "type": "image_picker", "id": "review_image_4", "label": "Review Image 4" },
+    { "type": "image_picker", "id": "review_image_5", "label": "Review Image 5" },
+    { "type": "image_picker", "id": "review_image_6", "label": "Review Image 6" },
+    { "type": "image_picker", "id": "review_image_7", "label": "Review Image 7" },
+    { "type": "image_picker", "id": "review_image_8", "label": "Review Image 8" }
+  ],
+  "presets": [
+    { "name": "WhatsApp Reviews", "category": "Custom" }
+  ]
+}
+{% endschema %}
