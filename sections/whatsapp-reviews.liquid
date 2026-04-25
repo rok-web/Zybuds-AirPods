@@ -6,12 +6,13 @@
   <h2>What Our Customer Says!</h2>
   <div class="whatsapp-reviews-gallery">
     {% for i in (1..8) %}
-      {% assign img = section.settings["review_image_" | append: i ] %}
-      {% if img != blank %}
-        <div class="whatsapp-review-image">
-          <img src="{{ img | img_url: '800x' }}" alt="WhatsApp Review {{ i }}" loading="lazy" />
-        </div>
-      {% endif %}
+        {% capture img_key %}review_image_{{ i }}{% endcapture %}
+        {% assign img = section.settings[img_key] %}
+        {% if img != blank %}
+          <div class="whatsapp-review-image">
+            <img src="{{ img | img_url: '800x' }}" alt="WhatsApp Review {{ i }}" loading="lazy" />
+          </div>
+        {% endif %}
     {% endfor %}
   </div>
 </div>
