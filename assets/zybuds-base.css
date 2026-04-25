@@ -243,10 +243,7 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  position: sticky;
-  top: 67px;
-  height: calc(100vh - 67px);
-  overflow: hidden;
+  height: auto; /* Let it scroll */
 }
 
 .main-img {
@@ -418,6 +415,9 @@ nav {
 .info-panel {
   padding: 44px 44px 100px;
   background: var(--bg);
+  position: sticky;
+  top: 67px;
+  height: calc(100vh - 67px);
   overflow-y: auto;
 }
 

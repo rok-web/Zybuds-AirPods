@@ -4,12 +4,15 @@
    ============================================================ -->
 
 {%- assign product_obj = product | default: section.settings.product -%}
-{%- assign advance = settings.advance_amount | default: 99 -%}
+{%- assign advance_raw = settings.advance_amount | default: 99 | plus: 0 -%}
+{%- assign advance_cents = advance_raw | times: 100 -%}
 {%- assign city = settings.city | default: 'Hyderabad' -%}
 {%- assign warranty = settings.warranty_years | default: '1' -%}
 
 {%- if product_obj -%}
-  {%- assign remaining = product_obj.price | minus: advance -%}
+  {%- assign remaining = product_obj.price | minus: advance_cents -%}
+{%- else -%}
+  {%- assign remaining = 140000 | minus: advance_cents -%}
 {%- endif -%}
 
 <!-- HERO GRID -->
@@ -54,7 +57,7 @@
     <div class="opt2-label">Payment Option:</div>
     <div class="payment-options">
       <div class="pay-opt active" onclick="selectPayOption('advance', this)">
-        <div class="po-title">Pay ₹{{ advance }} Advance</div>
+        <div class="po-title">Pay ₹{{ advance_raw }} Advance</div>
         <div class="po-sub">Rest on Delivery</div>
       </div>
       <div class="pay-opt" onclick="selectPayOption('full', this)">
@@ -84,8 +87,8 @@
         {%- endif -%}
       </div>
       <div id="priceBreakdown" class="price-breakdown">
-        Pay <strong>₹{{ advance }} now</strong> to confirm →
-        Remaining <strong>{% if remaining %}{{ remaining | money }}{% else %}₹1,301{% endif %} cash</strong> on delivery, after you check the product
+        Pay <strong>₹{{ advance_raw }} now</strong> to confirm →
+        Remaining <strong>{{ remaining | money_without_trailing_zeros }} cash</strong> on delivery, after you check the product
       </div>
     </div>
 
@@ -152,13 +155,14 @@
           <input type="hidden" name="properties[Payment Type]" value="Advance" id="paymentTypeInput">
           
           <button type="submit" class="btn2-primary" id="orderBtn">
-            <span>🛒 Confirm Order — Pay ₹{{ advance }}</span>
+            <span>🛒 Confirm Order — Pay ₹{{ advance_raw }}</span>
             <span class="btn-right">Same Day Delivery →</span>
           </button>
         {%- endform -%}
       {%- else -%}
+        <div class="no-product-warning" style="margin-bottom:10px; color:var(--red); font-size:12px; font-weight:700;">Please select a product in Theme Editor</div>
         <button class="btn2-primary" id="orderBtn" onclick="handleOrder()">
-          <span>🛒 Confirm Order — Pay ₹{{ advance }}</span>
+          <span>🛒 Confirm Order — Pay ₹{{ advance_raw }}</span>
           <span class="btn-right">Same Day Delivery →</span>
         </button>
       {%- endif -%}

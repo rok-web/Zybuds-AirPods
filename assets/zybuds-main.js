@@ -125,10 +125,10 @@
     const settings = window.ZybudsSettings || {};
     const product = window.ShopifyProduct || {};
 
-    const advanceAmount = settings.advanceAmount || 99;
-    const fullPrice = product.price / 100 || 1400;
+    const advanceAmount = parseInt(settings.advanceAmount) || 99;
+    const fullPrice = (product.price ? product.price / 100 : 1400);
     const currencySymbol = product.currency || '₹';
-    const remaining = fullPrice - advanceAmount;
+    const remaining = Math.max(0, fullPrice - advanceAmount);
 
     if (type === 'full') {
       if (breakdown) {
