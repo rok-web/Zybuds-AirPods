@@ -310,10 +310,30 @@
 
     <!-- TRUST BADGES -->
     <div class="trust2-row">
-      <div class="t2"><span class="ti">📦</span><div class="tl">Open Box<br>Delivery</div></div>
-      <div class="t2"><span class="ti">🚀</span><div class="tl">Same Day<br>Hyderabad</div></div>
-      <div class="t2"><span class="ti">🛡️</span><div class="tl">1 Year<br>Warranty</div></div>
-      <div class="t2"><span class="ti">💰</span><div class="tl">Cash on<br>Delivery</div></div>
+      <div class="t2">
+        <span class="ti">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+        </span>
+        <div class="tl">Open Box<br>Delivery</div>
+      </div>
+      <div class="t2">
+        <span class="ti">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </span>
+        <div class="tl">Same Day<br>Hyderabad</div>
+      </div>
+      <div class="t2">
+        <span class="ti">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </span>
+        <div class="tl">1 Year<br>Warranty</div>
+      </div>
+      <div class="t2">
+        <span class="ti">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </span>
+        <div class="tl">Cash on<br>Delivery</div>
+      </div>
     </div>
   </div><!-- /info-panel -->
 </div><!-- /hero -->
@@ -676,7 +696,13 @@
 <!-- FOUNDER SECTION -->
 <div style="max-width:1440px;margin:0 auto;padding:0 5%;">
   <div class="founder2 reveal">
-    <div class="founder2-av">{{ section.settings.founder_initial | default: 'M' }}</div>
+    <div class="founder2-av">
+      {%- if section.settings.founder_image -%}
+        <img src="{{ section.settings.founder_image | image_url: width: 150 }}" alt="Founder" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+      {%- else -%}
+        {{ section.settings.founder_initial | default: 'M' }}
+      {%- endif -%}
+    </div>
     <div class="founder2-content">
       <div class="founder2-eyebrow">A Message From Our Founder</div>
       <div class="founder2-title">{{ section.settings.founder_greeting | default: "Hi, I'm Mahesh." }}<br>{{ section.settings.founder_subtitle | default: 'I run Zybuds from Secunderabad.' }}</div>
@@ -699,6 +725,7 @@
     price: {{ product.price }},
     compareAtPrice: {{ product.compare_at_price | default: 0 }},
     variantId: {{ product.selected_or_first_available_variant.id }},
+    advanceVariantId: {{ product.metafields.custom.advance_variant_id | default: 'null' }},
     currency: {{ cart.currency.symbol | json }},
     available: {{ product.selected_or_first_available_variant.available }}
   };
@@ -798,9 +825,15 @@
       "content": "Founder Section"
     },
     {
+      "type": "image_picker",
+      "id": "founder_image",
+      "label": "Founder Photo",
+      "info": "Optional: upload a square photo of the founder."
+    },
+    {
       "type": "text",
       "id": "founder_initial",
-      "label": "Founder Avatar Initial",
+      "label": "Founder Initial (if no photo)",
       "default": "M"
     },
     {

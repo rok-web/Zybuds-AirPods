@@ -147,6 +147,17 @@ function switchView(type, el) {
   el.classList.add('active');
 }
 
+/* Scroll to form when ordering */
+function handleOrder() {
+  const form = document.getElementById('ProductForm');
+  if (form) {
+    form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Flash the form to draw attention
+    form.classList.add('pulse-glow');
+    setTimeout(() => form.classList.remove('pulse-glow'), 2000);
+  }
+}
+
 /* Real image switcher — used when product images exist in Shopify */
 function switchToImage(url, alt, el) {
   const wrap = document.getElementById('productImgWrap');
@@ -188,6 +199,7 @@ function selectPayOption(type, el) {
 
   const breakdown = document.getElementById('priceBreakdown');
   const btn = document.getElementById('orderBtn');
+  const variantInput = document.querySelector('input[name="id"]');
 
   /* Use Shopify product data if available */
   const price = (window.ShopifyProduct && window.ShopifyProduct.price)
@@ -199,23 +211,20 @@ function selectPayOption(type, el) {
   if (type === 'full') {
     if (breakdown) breakdown.innerHTML = `You are paying <strong>${symbol}${price.toLocaleString('en-IN')} in full</strong> upfront. No additional payment needed on delivery.`;
     if (btn) btn.querySelector('span:first-child').textContent = `🛒 Confirm Order — Pay ${symbol}${price.toLocaleString('en-IN')}`;
+    
+    // Switch to main variant ID
+    if (variantInput && window.ShopifyProduct) {
+      variantInput.value = window.ShopifyProduct.variantId;
+    }
   } else {
     if (breakdown) breakdown.innerHTML = `Pay <strong>₹99 now</strong> to confirm → Remaining <strong>${symbol}${remaining.toLocaleString('en-IN')} cash</strong> on delivery, after you check the product`;
     if (btn) btn.querySelector('span:first-child').textContent = '🛒 Confirm Order — Pay ₹99';
-  }
-}
-
-/* Order handler */
-function handleOrder() {
-  const price = (window.ShopifyProduct && window.ShopifyProduct.price)
-    ? (window.ShopifyProduct.price / 100)
-    : 1400;
-  const symbol = (window.ShopifyProduct && window.ShopifyProduct.currency) || '₹';
-  const amt = selectedPayment === 'full' 
-    ? `${symbol}${price.toLocaleString('en-IN')} (Full Amount)` 
-    : '₹99 (Advance)';
     
-  alert(`✅ Order Confirmed!\n\nPayment Mode: ${amt}\n\nOur team will call you within 30 minutes.\nSame-day delivery from Secunderabad to your door.\n\n📍 Zybuds — Suman Housing Colony, Secunderabad`);
+    // Switch to Advance variant ID if defined (User should set this in Shopify admin)
+    if (variantInput && window.ShopifyProduct && window.ShopifyProduct.advanceVariantId) {
+      variantInput.value = window.ShopifyProduct.advanceVariantId;
+    }
+  }
 }
 
 /* Scroll reveal */
