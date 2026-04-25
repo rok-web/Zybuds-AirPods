@@ -22,8 +22,10 @@
           "product": "",
           "review_count": "214",
           "show_video_section": true,
-          "video_url_1": "https://cdn.shopify.com/placeholder-video.mp4",
-          "video_url_2": "https://cdn.shopify.com/placeholder-video.mp4",
+          "video_url_1": "",
+          "video_url_2": "",
+          "video_url_3": "",
+          "video_url_4": "",
           "founder_message": "Hi, I'm Mahesh. I run Zybuds from Secunderabad."
         }
       }

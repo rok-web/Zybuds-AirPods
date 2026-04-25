@@ -18,14 +18,14 @@
 <div class="why99-box">
   <div class="why99-title">💡 Why do we ask for ₹{{ advance_raw }}?</div>
   <div class="why99-explanation">
-    We deliver across {{ city }} with open box COD. In the past, some customers placed fake orders for "timepass" — 
+    We deliver across {{ city }} with open box COD. In the past, some customers placed fake orders for timepass —
     our delivery person would travel across the city, and the customer wouldn't answer the door. 
     This wasted large amount of time and money.
     <br><br>
     If we ask {{ advance_raw }} rs from fake persons they won't pay because they don't take product but genuine members pay's {{ advance_raw }} 
-    because they really want product and {{ advance_raw }} rupees is not extra it will be decreased in final amount 
-    (product cost {% if product_obj %}{{ product_obj.price | money_without_trailing_zeros }}{% else %}₹1,400{% endif %}). 
-    This is just to avoid fake orders only.
+    because they really want product and {{ advance_raw }} rupees is not extra it will be decreased in final amount
+    (product cost {% if product_obj %}{{ product_obj.price | money_without_trailing_zeros }}{% else %}₹1,400{% endif %})
+    ({{ advance_raw }} pay advance remaining {{ remaining | money_without_trailing_zeros }} at delivery time) no extra paying this just to avoid fake orders only.
   </div>
   <div class="why99-steps">
     <div class="why99-step">

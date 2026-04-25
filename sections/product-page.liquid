@@ -28,14 +28,10 @@
 
   <!-- RIGHT — INFO PANEL -->
   <div class="info-panel">
-    <div class="editorial-label">Premium TWS · {{ city }}</div>
+    <div class="editorial-label">Premium TWS · Hyderabad</div>
 
     <h1 class="p2-title">
-      {%- if product_obj -%}
-        {{ product_obj.title }}
-      {%- else -%}
-        Zybuds AirPods Pro 2 with ANC + GPS Tracking, 3D Spatial Audio and 13mm Drivers
-      {%- endif -%}
+      Zybuds AirPods Pro 2 with ANC + GPS Tracking, 3D Spatial Audio and 13mm Drivers
     </h1>
 
     <p class="p2-tagline">
@@ -212,28 +208,60 @@
   <!-- FEATURES -->
   <div class="section2 reveal">
     <div class="sec2-eyebrow">Why Choose This</div>
-    <div class="sec2-title">Built for <em>Real Life</em></div>
-    <p class="sec2-sub">Four features that actually matter to your daily life.</p>
+    <div class="sec2-title">Smart Features <em>That Work</em></div>
+    <p class="sec2-sub">Watch each feature in action before you order.</p>
     <div class="feat2-grid">
       <div class="feat2">
-        <span class="feat2-icon">🔇</span>
-        <div class="feat2-title">Active Noise Cancellation</div>
-        <div class="feat2-desc">Block out the {{ city }} traffic. Advanced ANC technology filters background noise so you can focus on your music.</div>
+        <div class="feat2-video">
+          {%- if section.settings.video_url_1 != blank -%}
+            <video src="{{ section.settings.video_url_1 }}" controls playsinline preload="metadata"></video>
+          {%- else -%}
+            <div class="feat2-video-empty">Working Pop-Up Clip</div>
+          {%- endif -%}
+        </div>
+        <div class="feat2-content">
+          <div class="feat2-title">Working Pop-Up</div>
+          <div class="feat2-desc">Open the case near your phone and connect quickly with the familiar pop-up pairing flow.</div>
+        </div>
       </div>
       <div class="feat2">
-        <span class="feat2-icon">🔋</span>
-        <div class="feat2-title">40-Hour Total Battery</div>
-        <div class="feat2-desc">8 hours in earbuds + 32 hours in the case. Survive your full week of commute without touching the charger.</div>
+        <div class="feat2-video">
+          {%- if section.settings.video_url_2 != blank -%}
+            <video src="{{ section.settings.video_url_2 }}" controls playsinline preload="metadata"></video>
+          {%- else -%}
+            <div class="feat2-video-empty">Active Noise Cancellation Clip</div>
+          {%- endif -%}
+        </div>
+        <div class="feat2-content">
+          <div class="feat2-title">Active Noise Cancellation</div>
+          <div class="feat2-desc">Reduce outside noise during calls, travel, and daily listening so your audio feels cleaner.</div>
+        </div>
       </div>
       <div class="feat2">
-        <span class="feat2-icon">🎧</span>
-        <div class="feat2-title">3D Spatial Audio</div>
-        <div class="feat2-desc">Experience sound like it's coming from all around you. Immersive 360-degree audio for movies and music.</div>
+        <div class="feat2-video">
+          {%- if section.settings.video_url_3 != blank -%}
+            <video src="{{ section.settings.video_url_3 }}" controls playsinline preload="metadata"></video>
+          {%- else -%}
+            <div class="feat2-video-empty">Find My Device Clip</div>
+          {%- endif -%}
+        </div>
+        <div class="feat2-content">
+          <div class="feat2-title">Find My Device</div>
+          <div class="feat2-desc">Locate your earbuds from your phone when they are misplaced, with a simple device-finding view.</div>
+        </div>
       </div>
       <div class="feat2">
-        <span class="feat2-icon">📍</span>
-        <div class="feat2-title">Find My Device (GPS)</div>
-        <div class="feat2-desc">Never lose your AirPods again. Integrated GPS tracking works with Find My apps to pinpoint your earbuds' location.</div>
+        <div class="feat2-video">
+          {%- if section.settings.video_url_4 != blank -%}
+            <video src="{{ section.settings.video_url_4 }}" controls playsinline preload="metadata"></video>
+          {%- else -%}
+            <div class="feat2-video-empty">Touch Controls Clip</div>
+          {%- endif -%}
+        </div>
+        <div class="feat2-content">
+          <div class="feat2-title">Touch Controls</div>
+          <div class="feat2-desc">Swipe or press to adjust volume, play or pause music, and answer or end calls.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -245,7 +273,7 @@
     <p class="sec2-sub">Everything you need to know before buying.</p>
     <div class="specs2-layout">
       <div class="spec2-table">
-        <div class="spec2-row"><span class="sk">Features</span><span class="sv">ANC + GPS + Spatial Audio</span></div>
+        <div class="spec2-row"><span class="sk">Features</span><span class="sv">Pop-Up + ANC + Find My + Touch</span></div>
         <div class="spec2-row"><span class="sk">Drivers</span><span class="sv">13mm Pro Drivers</span></div>
         <div class="spec2-row"><span class="sk">Earbud Battery</span><span class="sv">8 Hours</span></div>
         <div class="spec2-row"><span class="sk">Case Battery</span><span class="sv">32 Hours</span></div>
@@ -267,8 +295,8 @@
         <div class="spec-bullets" style="margin-top:20px;">
           <div class="spec-bullet"><div class="sb-dot"></div>Working pop up</div>
           <div class="spec-bullet"><div class="sb-dot"></div>Active noise cancellation</div>
-          <div class="spec-bullet"><div class="sb-dot"></div>3D spatial audio</div>
           <div class="spec-bullet"><div class="sb-dot"></div>Find my device</div>
+          <div class="spec-bullet"><div class="sb-dot"></div>Touch controls</div>
         </div>
       </div>
     </div>
@@ -352,7 +380,7 @@
     },
     {
       "type": "header",
-      "content": "Video Section"
+      "content": "Feature Videos"
     },
     {
       "type": "checkbox",
@@ -363,16 +391,26 @@
     {
       "type": "text",
       "id": "video_url_1",
-      "label": "Video 1 URL (MP4)",
-      "info": "Upload video to Files and paste URL here.",
-      "default": "https://cdn.shopify.com/placeholder-video.mp4"
+      "label": "Working Pop-Up Video URL (MP4)",
+      "info": "Upload video to Files and paste URL here."
     },
     {
       "type": "text",
       "id": "video_url_2",
-      "label": "Video 2 URL (MP4)",
-      "info": "Upload video to Files and paste URL here.",
-      "default": "https://cdn.shopify.com/placeholder-video.mp4"
+      "label": "Active Noise Cancellation Video URL (MP4)",
+      "info": "Upload video to Files and paste URL here."
+    },
+    {
+      "type": "text",
+      "id": "video_url_3",
+      "label": "Find My Device Video URL (MP4)",
+      "info": "Upload video to Files and paste URL here."
+    },
+    {
+      "type": "text",
+      "id": "video_url_4",
+      "label": "Touch Controls Video URL (MP4)",
+      "info": "Upload video to Files and paste URL here."
     },
     {
       "type": "header",
