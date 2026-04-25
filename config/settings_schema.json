@@ -81,7 +81,7 @@
         "type": "text",
         "id": "founder_location",
         "label": "Founder Address / Location",
-        "default": "Suman Housing Colony, Secunderabad"
+        "default": "Suman Housing Colony, near Sachin Studio, Secunderabad"
       }
     ]
   },

@@ -4,33 +4,44 @@
    ============================================================ -->
 
 {%- assign advance = settings.advance_amount | default: '99' -%}
-{%- assign remaining = product.price | minus: advance -%}
+{%- assign product_obj = product | default: section.settings.product -%}
+
+{%- if product_obj -%}
+  {%- assign remaining = product_obj.price | minus: advance -%}
+{%- else -%}
+  {%- assign remaining = 140000 | minus: advance -%}
+{%- endif -%}
+
 {%- assign city = settings.city | default: 'Hyderabad' -%}
 
 <div class="why99-box">
   <div class="why99-title">💡 Why do we ask for ₹{{ advance }}?</div>
   <div class="why99-explanation">
-    In the past, unverified customers placed fake orders for "timepass" — our delivery team would travel across
-    {{ city }}, and the customer wouldn't answer the door. This wasted a lot of time and money. Genuine customers
-    pay ₹{{ advance }} to confirm they are real. <strong>₹{{ advance }} is NOT extra</strong> — it is deducted from your final
-    {{ product.price | money }} bill.
+    We deliver across {{ city }} with open box COD. In the past, some customers placed fake orders for "timepass" — 
+    our delivery person would travel across the city, and the customer wouldn't answer the door. 
+    This wasted large amount of time and money.
+    <br><br>
+    If we ask {{ advance }} rs from fake persons they won't pay because they don't take product but genuine members pay's {{ advance }} 
+    because they really want product and {{ advance }} rupees is not extra it will be decreased in final amount 
+    (product cost {% if product_obj %}{{ product_obj.price | money_without_trailing_zeros }}{% else %}₹1,400{% endif %}). 
+    This is just to avoid fake orders only.
   </div>
   <div class="why99-steps">
     <div class="why99-step">
       <div class="w99-icon">1</div>
-      <div><strong>Pay ₹{{ advance }} now</strong> — confirms you're genuine &amp; filters fake orders</div>
+      <div><strong>Pay ₹{{ advance }} now</strong> — just to avoid fake orders confirms you're genuine</div>
     </div>
     <div class="why99-step">
       <div class="w99-icon">2</div>
-      <div>We call within <strong>30 minutes</strong> to confirm delivery time</div>
+      <div>We call you within <strong>30 minutes</strong> and confirm delivery time</div>
     </div>
     <div class="why99-step">
       <div class="w99-icon">3</div>
-      <div>Delivery arrives — <strong>open &amp; fully check</strong> the product first</div>
+      <div>Delivery arrives — you <strong>open & fully check</strong> the product first</div>
     </div>
     <div class="why99-step">
       <div class="w99-icon">4</div>
-      <div>Happy? Pay <strong>{{ remaining | money }} cash</strong>. Not satisfied? Full ₹{{ advance }} refund</div>
+      <div>Happy? Pay <strong>{% if remaining %}{{ remaining | money_without_trailing_zeros }}{% else %}₹1,301{% endif %} cash</strong> to delivery person. Done!</div>
     </div>
   </div>
   <div class="why99-refund">
