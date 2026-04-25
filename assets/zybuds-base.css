@@ -248,12 +248,9 @@ nav {
   gap: 14px;
   position: sticky;
   top: 67px;
-  max-height: calc(100vh - 67px);
   min-height: 0;
   height: auto;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border2) transparent;
+  overflow: visible;
 }
 
 .main-img {
