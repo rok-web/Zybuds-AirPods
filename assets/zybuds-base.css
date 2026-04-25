@@ -229,7 +229,7 @@ nav {
 /* ── HERO GRID ── */
 .hero {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr; /* Images on left, Info on right */
+  grid-template-columns: 58% 42%; /* Images on left, Info on right */
   min-height: 90vh;
   max-width: 1440px;
   margin: 0 auto;

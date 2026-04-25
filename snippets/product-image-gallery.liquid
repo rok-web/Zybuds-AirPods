@@ -10,12 +10,12 @@
         {%- if product.featured_image -%}
           <img
             id="mainProductImg"
-            src="{{ product.featured_image | image_url: width: 600 }}"
+            src="{{ product.featured_image | image_url: width: 800 }}"
             alt="{{ product.featured_image.alt | escape | default: product.title }}"
-            width="600"
-            height="600"
+            width="800"
+            height="800"
             loading="eager"
-            style="width:100%;max-width:340px;object-fit:contain;border-radius:12px;"
+            style="width:100%;max-width:480px;object-fit:contain;border-radius:12px;"
           >
         {%- else -%}
           <!-- Fallback SVG illustration when no product image is set -->

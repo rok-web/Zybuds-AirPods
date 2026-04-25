@@ -19,10 +19,8 @@
 <!-- NAVBAR -->
 <nav>
   <a href="{{ routes.root_url }}" class="logo" style="text-decoration: none;">
-    <div class="logo-main">{{ settings.shop_name_override | default: shop.name | default: 'Zybuds' }}</div>
-    {% if settings.shop_tagline != blank %}
-      <div class="logo-sub">{{ settings.shop_tagline }}</div>
-    {% endif %}
+    <div class="logo-main">Zybuds</div>
+    <div class="logo-sub">TRENDY ACCESSORIES</div>
   </a>
   <div class="nav-links">
     <a href="{{ routes.root_url }}">Home</a>
