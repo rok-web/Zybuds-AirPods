@@ -46,7 +46,7 @@
         "id": "orders_delivered",
         "label": "Orders Delivered Count",
         "info": "Displayed across the site as social proof",
-        "default": "500+"
+        "default": "5000+"
       }
     ]
   },

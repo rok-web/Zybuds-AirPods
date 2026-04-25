@@ -229,10 +229,11 @@ nav {
 /* ── HERO GRID ── */
 .hero {
   display: grid;
-  grid-template-columns: 52% 48%;
+  grid-template-columns: 1.1fr 0.9fr;
   min-height: 90vh;
   max-width: 1440px;
   margin: 0 auto;
+  align-items: start;
 }
 
 /* LEFT — IMAGE PANEL */
@@ -970,7 +971,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); color: var
 .reveal.shown { opacity: 1; transform: translateY(0); }
 
 /* RESPONSIVE */
-@media(max-width:1100px) {
+@media(max-width:992px) {
   .hero { grid-template-columns: 1fr; }
   .img-panel { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
   .feat2-grid { grid-template-columns: repeat(2, 1fr); }
