@@ -75,6 +75,7 @@
   </a>
 
   <!-- Pass global settings to JS -->
+  {%- assign popup_msg = settings.popup_message | default: '🔥 {orders} people ordered today|📦 7 orders delivered this morning|⚡ 3 people just viewed this product|✅ 500+ orders completed in Hyderabad' -%}
   <script>
     window.ZybudsSettings = {
       advanceAmount: {{ settings.advance_amount | default: 99 }},
@@ -83,7 +84,7 @@
       founderName: {{ settings.founder_name | default: 'Mahesh' | json }},
       ordersDelivered: {{ settings.orders_delivered | default: '500+' | json }},
       whatsappNumber: {{ settings.whatsapp_number | default: '9100000000' | json }},
-      popupMessages: {{ settings.popup_message | default: '🔥 {orders} people ordered today|📦 7 orders delivered this morning|⚡ 3 people just viewed this product|✅ 500+ orders completed in Hyderabad' | json }}
+      popupMessages: {{ popup_msg | json }}
     };
   </script>
 
