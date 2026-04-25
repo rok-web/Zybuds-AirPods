@@ -4,8 +4,12 @@
    and stats row. Uses product images if available, falls back
    to inline SVG illustrations.
    ============================================================ -->
+    <div class="main-img" id="mainImgBox">
+      <div class="main-img-glow"></div>
+      <div class="img-tag-tl">✅ QC Tested</div>
+      <div class="img-tag-tr">⚡ Same Day</div>
 
-    <div class="product-img-wrap" id="productImgWrap">
+      <div class="product-img-wrap" id="productImgWrap">
       <div class="product-placeholder">
         {%- if product.featured_image -%}
           <img
@@ -51,6 +55,7 @@
         {%- endif -%}
       </div>
     </div>
+  </div>
 
   <!-- Thumbnails -->
   <div class="thumbs-row">
