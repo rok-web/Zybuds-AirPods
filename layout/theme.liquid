@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
     {%- if template == 'product' -%}
-      {{ product.title }} | {{ shop.name }}
+      {{ product.title }} — {{ settings.shop_name_override | default: shop.name }} | {{ settings.city | default: 'Hyderabad' }}
     {%- elsif page_title -%}
-      {{ page_title }} | {{ shop.name }}
+      {{ page_title }} | {{ settings.shop_name_override | default: shop.name }}
     {%- else -%}
-      {{ shop.name }}
+      {{ settings.shop_name_override | default: shop.name }} — Premium Wireless Earbuds | {{ settings.city | default: 'Hyderabad' }}
     {%- endif -%}
   </title>
   <meta name="description" content="{{ page_description | default: shop.description | escape }}">
@@ -26,7 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Theme CSS -->
-  {{ 'style.css' | asset_url | stylesheet_tag }}
+  {{ 'zybuds-base.css' | asset_url | stylesheet_tag }}
 </head>
 
 <body>
@@ -37,8 +37,8 @@
     🔥 <span id="notifText">23 people ordered today</span>
   </div>
 
-  <!-- Header -->
-  {% render 'header' %}
+  <!-- Header Section -->
+  {% section 'header' %}
 
   <!-- Main content -->
   <main>
@@ -49,9 +49,9 @@
   {% render 'footer' %}
 
   <!-- Mobile sticky bar -->
-  <div class="mob-bar">
+  <div class="mob-bar" id="mobBar">
     <div class="mob-price-wrap">
-      <div class="mob-price-main">
+      <div class="mob-price-main" id="mobPriceMain">
         {%- if template == 'product' -%}
           {{ product.price | money }}
         {%- else -%}
@@ -66,15 +66,28 @@
         {%- endif -%}
       </div>
     </div>
-    <button class="mob-order" onclick="handleOrder()">Pay ₹99 → Confirm</button>
+    <button class="mob-order" id="mobOrderBtn" onclick="handleOrder()">Pay ₹{{ settings.advance_amount | default: '99' }} → Confirm</button>
   </div>
 
   <!-- WhatsApp floating button -->
-  <a href="https://wa.me/91{{ settings.whatsapp_number | default: '0000000000' }}" class="wa-float-btn" target="_blank" rel="noopener">
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-2.32 0-4.591.536-6.559 1.551l-.47.244-3.52-.924.94 3.434-.27.428A6.386 6.386 0 0 0 1.2 13.912c0 3.521 2.864 6.386 6.386 6.386 1.488 0 2.924-.511 4.073-1.442l.462-.375 3.551.931-.945-3.46.287-.457a6.368 6.368 0 0 0 .973-3.383c0-3.522-2.864-6.387-6.387-6.387h-.002zm5.424 9.12c-.223.63-.889 1.157-1.465 1.423-.42.193-.949.349-2.585-.316-2.09-.851-3.434-2.986-3.539-3.125-.105-.139-.854-1.134-.854-2.18s.554-1.56.751-1.77c.197-.21.43-.263.573-.263.143 0 .287.001.41.007.135.006.314-.051.493.381.185.445.632 1.538.687 1.648.055.111.092.24.018.388-.074.148-.111.24-.222.37-.111.13-.233.29-.333.388-.111.111-.227.232-.098.454.129.222.574.947 1.233 1.533.849.755 1.564 1.002 1.786 1.113.222.111.351.093.481-.055.13-.149.554-.648.702-.87.148-.223.296-.186.498-.111.204.074 1.295.611 1.517.722.222.111.37.167.425.26.056.093.056.537-.166 1.168z"/></svg>
+  <a href="https://wa.me/91{{ settings.whatsapp_number | default: '9100000000' }}" class="wa-float-btn" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
+  <!-- Pass global settings to JS -->
+  <script>
+    window.ZybudsSettings = {
+      advanceAmount: {{ settings.advance_amount | default: 99 }},
+      warrantyYears: {{ settings.warranty_years | default: 1 }},
+      city: {{ settings.city | default: 'Hyderabad' | json }},
+      founderName: {{ settings.founder_name | default: 'Mahesh' | json }},
+      ordersDelivered: {{ settings.orders_delivered | default: '500+' | json }},
+      whatsappNumber: {{ settings.whatsapp_number | default: '9100000000' | json }},
+      popupMessages: {{ settings.popup_message | default: '🔥 {orders} people ordered today|📦 7 orders delivered this morning|⚡ 3 people just viewed this product|✅ 500+ orders completed in Hyderabad' | json }}
+    };
+  </script>
+
   <!-- Theme JS -->
-  {{ 'script.js' | asset_url | script_tag }}
+  {{ 'zybuds-main.js' | asset_url | script_tag }}
 </body>
 </html>

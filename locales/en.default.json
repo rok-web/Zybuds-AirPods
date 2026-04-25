@@ -2,13 +2,60 @@
   "general": {
     "accessibility": {
       "skip_to_content": "Skip to content"
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
     }
   },
   "products": {
     "product": {
       "add_to_cart": "Add to Cart",
       "sold_out": "Sold Out",
-      "unavailable": "Unavailable"
+      "unavailable": "Unavailable",
+      "confirm_order": "Confirm Order",
+      "same_day_delivery": "Same Day Delivery",
+      "pay_advance": "Pay ₹{{ amount }} Advance",
+      "rest_on_delivery": "Rest on Delivery",
+      "pay_full": "Pay Full",
+      "skip_cod": "Skip COD Process",
+      "viewing_now": "Viewing now",
+      "orders_today": "Orders today",
+      "avg_rating": "Avg rating",
+      "verified_purchase": "Verified Purchase",
+      "qc_tested": "QC Tested",
+      "same_day": "Same Day"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Cart",
+      "empty": "Your cart is empty",
+      "continue_shopping": "Continue Shopping"
+    }
+  },
+  "sections": {
+    "header": {
+      "home": "Home",
+      "earbuds": "Earbuds",
+      "smartwatches": "Smartwatches",
+      "about": "About",
+      "order_now": "Order Now"
+    },
+    "footer": {
+      "products": "Products",
+      "support": "Support",
+      "about": "About",
+      "contact_us": "Contact Us",
+      "warranty_claim": "Warranty Claim",
+      "return_policy": "Return Policy",
+      "faq": "FAQ",
+      "our_story": "Our Story",
+      "instagram": "Instagram",
+      "contact": "Contact",
+      "privacy_policy": "Privacy Policy",
+      "power_banks": "Power Banks",
+      "neckbands": "Neckbands"
     }
   }
 }

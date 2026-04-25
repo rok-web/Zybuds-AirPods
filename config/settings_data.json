@@ -1,9 +1,17 @@
 {
   "current": {
     "shop_name_override": "Zybuds",
-    "shop_tagline": "",
-    "instagram_handle": "zybuds",
-    "whatsapp_number": "+919100000000"
+    "tagline": "Trendy Accessories",
+    "advance_amount": "99",
+    "warranty_years": "1",
+    "orders_delivered": "500+",
+    "city": "Hyderabad",
+    "city_area": "Secunderabad",
+    "founder_name": "Mahesh",
+    "founder_location": "Suman Housing Colony, Secunderabad",
+    "popup_message": "🔥 {orders} people ordered today|📦 7 orders delivered this morning|⚡ 3 people just viewed this product|✅ 500+ orders completed in Hyderabad",
+    "whatsapp_number": "9100000000",
+    "instagram_handle": "zybuds"
   },
   "presets": {}
 }

@@ -2,9 +2,9 @@
   {
     "name": "theme_info",
     "theme_name": "Zybuds",
-    "theme_version": "1.0.0",
+    "theme_version": "2.0.0",
     "theme_author": "Zybuds",
-    "theme_documentation_url": "https://zybuds.com",
+    "theme_documentation_url": "https://github.com/rok-web/Zybuds-AirPods",
     "theme_support_url": "https://zybuds.com"
   },
   {
@@ -19,9 +19,81 @@
       },
       {
         "type": "text",
-        "id": "shop_tagline",
-        "label": "Shop Tagline (under logo)",
+        "id": "tagline",
+        "label": "Tagline (under logo)",
         "default": "Trendy Accessories"
+      }
+    ]
+  },
+  {
+    "name": "Product & Pricing",
+    "settings": [
+      {
+        "type": "text",
+        "id": "advance_amount",
+        "label": "Advance Amount (₹)",
+        "info": "The advance booking amount customers pay upfront",
+        "default": "99"
+      },
+      {
+        "type": "text",
+        "id": "warranty_years",
+        "label": "Warranty Duration (years)",
+        "default": "1"
+      },
+      {
+        "type": "text",
+        "id": "orders_delivered",
+        "label": "Orders Delivered Count",
+        "info": "Displayed across the site as social proof",
+        "default": "500+"
+      }
+    ]
+  },
+  {
+    "name": "Location",
+    "settings": [
+      {
+        "type": "text",
+        "id": "city",
+        "label": "City Name",
+        "info": "Used throughout the site for delivery messaging",
+        "default": "Hyderabad"
+      },
+      {
+        "type": "text",
+        "id": "city_area",
+        "label": "City Area / Locality",
+        "default": "Secunderabad"
+      }
+    ]
+  },
+  {
+    "name": "Founder",
+    "settings": [
+      {
+        "type": "text",
+        "id": "founder_name",
+        "label": "Founder Name",
+        "default": "Mahesh"
+      },
+      {
+        "type": "text",
+        "id": "founder_location",
+        "label": "Founder Address / Location",
+        "default": "Suman Housing Colony, Secunderabad"
+      }
+    ]
+  },
+  {
+    "name": "Notifications & Popups",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "popup_message",
+        "label": "Popup Notification Messages",
+        "info": "Separate multiple messages with | (pipe). Use {orders} for dynamic order count.",
+        "default": "🔥 {orders} people ordered today|📦 7 orders delivered this morning|⚡ 3 people just viewed this product|✅ 500+ orders completed in Hyderabad"
       }
     ]
   },
@@ -30,15 +102,16 @@
     "settings": [
       {
         "type": "text",
-        "id": "instagram_handle",
-        "label": "Instagram Handle",
-        "default": "zybuds"
+        "id": "whatsapp_number",
+        "label": "WhatsApp Number (10 digits, no country code)",
+        "info": "Indian mobile number for WhatsApp button",
+        "default": "9100000000"
       },
       {
         "type": "text",
-        "id": "whatsapp_number",
-        "label": "WhatsApp Number (with country code)",
-        "default": "+919100000000"
+        "id": "instagram_handle",
+        "label": "Instagram Handle",
+        "default": "zybuds"
       }
     ]
   }

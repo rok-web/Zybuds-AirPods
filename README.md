@@ -1,133 +1,70 @@
-# Zybuds — Shopify Theme
+# Zybuds Shopify Theme
 
-A dark premium product landing page theme for Zybuds, optimized for high-conversion COD sales in Hyderabad.
+A premium, production-ready Shopify theme designed specifically for high-conversion product landing pages. Optimized for local delivery businesses with features like ₹99 advance payment, same-day delivery messaging, and social proof counters.
 
----
+## ✨ Key Features
+
+- **Premium Dark Aesthetic**: Sleek #080808 background with #e8c97a gold accents and Playfair Display typography.
+- **Conversion-Focused Layout**: Built to replicate high-performing landing pages exactly.
+- **₹99 Advance Payment System**: Integrated toggle to switch between Advance Payment (COD) and Full Payment.
+- **Live Activity Social Proof**: Dynamic counters for "Viewers Now" and "Orders Today".
+- **Notification Popups**: Cycling trust messages to increase urgency and credibility.
+- **Fully Customizable**: Control city names, founder details, warranty duration, and contact info via the Shopify Theme Editor.
+- **Mobile Optimized**: Custom sticky footer bar for mobile users with dynamic pricing updates.
+- **WhatsApp Integration**: Floating WhatsApp button for instant customer support.
 
 ## 📁 File Structure
 
-```
+```text
 zybuds-theme/
-├── layout/
-│   └── theme.liquid              ← Master layout (header/footer/scripts)
-├── templates/
-│   ├── product.liquid            ← Product page (calls section)
-│   ├── index.liquid              ← Homepage
-│   ├── collection.liquid         ← Collection page
-│   ├── cart.liquid               ← Cart page
-│   ├── page.liquid               ← Static pages (About, FAQ)
-│   └── 404.liquid                ← 404 page
-├── sections/
-│   └── product-main.liquid       ← Full product section + schema settings
-├── snippets/
-│   ├── header.liquid             ← Ticker + Navbar + Breadcrumb
-│   └── footer.liquid             ← Footer
 ├── assets/
-│   ├── style.css                 ← All CSS
-│   └── script.js                 ← All JavaScript
+│   ├── zybuds-base.css      # Core styles, animations, and responsive layout
+│   └── zybuds-main.js      # All interactive logic (counters, popups, toggles)
 ├── config/
-│   ├── settings_schema.json      ← Theme settings (brand, social)
-│   └── settings_data.json        ← Default settings values
+│   ├── settings_schema.json # Theme Editor configuration
+│   └── settings_data.json   # Default theme settings
+├── layout/
+│   └── theme.liquid         # Main layout with header, footer, and scripts
 ├── locales/
-│   └── en.default.json           ← English translations
+│   └── en.default.json      # English translations
+├── sections/
+│   ├── header.liquid        # Ticker + Navigation + Breadcrumb
+│   └── product-page.liquid  # The main product landing page section
+├── snippets/
+│   ├── faq.liquid           # FAQ Accordion
+│   ├── footer.liquid        # Site footer
+│   ├── founder.liquid       # Founder message section
+│   ├── live-activity.liquid # Live viewer/order counters
+│   ├── product-image-gallery.liquid # Image viewer with fallback SVGs
+│   ├── reviews.liquid       # Customer review cards and score
+│   └── why99-box.liquid     # Explanation of the advance payment system
+└── templates/
+    ├── index.liquid         # Homepage redirect/landing
+    └── product.liquid       # Product page template
 ```
 
----
+## 🚀 Installation & Setup
 
-## 🚀 Setup Instructions
+1. **Upload to Shopify**:
+   - Zip the `zybuds-theme` folder.
+   - Go to **Online Store > Themes** in your Shopify Admin.
+   - Click **Add Theme > Upload zip file**.
 
-### 1. Push to GitHub
+2. **Configure Product Data**:
+   - For the **₹99 Advance** system to work perfectly with the Shopify Checkout, it is recommended to create a separate "Advance Payment" variant or a dedicated hidden product that costs ₹99.
+   - Update the `advance_amount` in the Theme Editor to match your choice.
 
-```bash
-git init
-git add .
-git commit -m "Initial Zybuds theme"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/zybuds-theme.git
-git push -u origin main
-```
+3. **Theme Customization**:
+   - Go to **Customize** theme.
+   - **Global Settings**: Set your city (e.g., Hyderabad), WhatsApp number, founder name, and warranty years.
+   - **Product Page**: Use the "Product Page" section to add technical specs, customer reviews, and FAQ items.
 
-### 2. Connect to Shopify
+## 🛠️ Customization Tips
 
-1. Go to **Shopify Admin → Online Store → Themes**
-2. Click **Add theme → Connect from GitHub**
-3. Authorize and select your repo
-4. Click **Publish**
+- **Typography**: The theme uses Google Fonts (Playfair Display and DM Sans). You can change these in `layout/theme.liquid` if needed.
+- **Brand Colors**: To change the gold accent, update the `--accent` variable in `assets/zybuds-base.css`.
+- **Review Count**: The review count in the snippet defaults to "214" (fixing a typo from the original landing page). This can be changed in the section settings.
 
----
+## 🤝 Support
 
-## ⚙️ Shopify Admin Configuration
-
-### Product Setup
-- Create a product titled: **Zybuds AirPods Pro 2 with ANC**
-- Set price: **₹1,400**
-- Set compare-at price: **₹3,499**
-- Upload product images (earbuds photos)
-- Enable inventory tracking and set quantity
-
-### Section Settings (Customize)
-Go to **Online Store → Customize → Product page** to edit:
-
-| Setting | Description |
-|---|---|
-| Orders Delivered Count | e.g. `5,089+` |
-| Review Count | e.g. `2,140` |
-| Warranty Title / Text | Edit warranty messaging |
-| Why ₹99 Explanation | Edit the explanation text |
-| Show Video Section | Toggle on/off |
-| Video URL 1 & 2 | Upload MP4s to Files, paste URL |
-| Founder Section | Name, message, location |
-
-### Adding Spec Rows (Blocks)
-In the Customizer, under **Product Main → Add block → Spec Row**:
-- Add each spec: Features, Drivers, Battery, etc.
-
-### Adding Reviews (Blocks)
-Under **Product Main → Add block → Customer Review**:
-- Fill in name, location, avatar gradient, review text, date
-
-### Adding FAQs (Blocks)
-Under **Product Main → Add block → FAQ Item**:
-- Fill in question and answer
-
----
-
-## 🎨 Design Tokens
-
-All colors are CSS variables in `assets/style.css`:
-
-```css
-:root {
-  --accent: #e8c97a;    /* Gold */
-  --bg: #080808;        /* Main background */
-  --green: #4caf6e;     /* Success/warranty */
-  --red: #e85d5d;       /* Stock urgency */
-}
-```
-
----
-
-## 📦 Features
-
-- ✅ Dark premium design — no UI changes from original
-- ✅ Full Shopify Liquid — product title, price, images, variants
-- ✅ Shopify cart integration (native form)
-- ✅ Section schema — edit content from Shopify admin
-- ✅ Blocks for specs, reviews, FAQs — fully editable
-- ✅ Video section toggle
-- ✅ Animated counters, popup notifications, scroll reveals
-- ✅ Mobile sticky bar
-- ✅ Responsive — all breakpoints maintained
-- ✅ Fallback SVG illustrations when no product images
-- ✅ All pages: product, home, collection, cart, page, 404
-
----
-
-## 🛠 Customization Tips
-
-- **Product images**: Upload 4+ images in Shopify. Thumbnails auto-populate.
-- **Videos**: Upload MP4 to **Settings → Files**, copy URL into section settings.
-- **WhatsApp**: Set your number in **Theme Settings → Social & Contact**.
-- **COD ₹99 logic**: Handled in `assets/script.js` → `selectPayOption()` function.
-
-# Zybuds-AirPods
+For technical issues or feature requests, contact the development team at [support@zybuds.com](mailto:support@zybuds.com).

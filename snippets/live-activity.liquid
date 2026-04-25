@@ -1,0 +1,28 @@
+<!-- ============================================================
+   snippets/live-activity.liquid
+   Live activity strip showing viewers, orders today, rating
+   ============================================================ -->
+
+<div class="live-activity">
+  <div class="la-item">
+    <div class="la-dot"></div>
+    <div>
+      <div class="la-num" id="viewCount">47</div>
+      <div class="la-sublabel">{{ 'products.product.viewing_now' | t }}</div>
+    </div>
+  </div>
+  <div class="la-sep"></div>
+  <div class="la-item">
+    <div>
+      <div class="la-num" id="orderCount">23</div>
+      <div class="la-sublabel">{{ 'products.product.orders_today' | t }}</div>
+    </div>
+  </div>
+  <div class="la-sep"></div>
+  <div class="la-item">
+    <div>
+      <div class="la-num">4.9</div>
+      <div class="la-sublabel">{{ 'products.product.avg_rating' | t }}</div>
+    </div>
+  </div>
+</div>

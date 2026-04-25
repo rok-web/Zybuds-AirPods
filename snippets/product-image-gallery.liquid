@@ -1,0 +1,118 @@
+<!-- ============================================================
+   snippets/product-image-gallery.liquid
+   Left-side image panel with main image, thumbnail switcher,
+   and stats row. Uses product images if available, falls back
+   to inline SVG illustrations.
+   ============================================================ -->
+
+<div class="img-panel">
+  <div class="main-img" id="mainImgBox">
+    <div class="main-img-glow"></div>
+    <div class="img-tag-tl">✅ {{ 'products.product.qc_tested' | t }}</div>
+    <div class="img-tag-tr">⚡ {{ 'products.product.same_day' | t }}</div>
+
+    <div class="product-img-wrap" id="productImgWrap">
+      <div class="product-placeholder">
+        {%- if product.featured_image -%}
+          <img
+            id="mainProductImg"
+            src="{{ product.featured_image | image_url: width: 600 }}"
+            alt="{{ product.featured_image.alt | escape | default: product.title }}"
+            width="600"
+            height="600"
+            loading="eager"
+            style="width:100%;max-width:340px;object-fit:contain;border-radius:12px;"
+          >
+        {%- else -%}
+          <!-- Fallback SVG illustration when no product image is set -->
+          <svg class="earbuds-svg" id="mainProductSvg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(50,80)">
+              <ellipse cx="55" cy="110" rx="38" ry="52" fill="#1a1a1a" stroke="#2e2e2e" stroke-width="2"/>
+              <ellipse cx="55" cy="110" rx="28" ry="40" fill="#141414"/>
+              <circle cx="55" cy="110" r="16" fill="#0a0a0a" stroke="#333" stroke-width="1.5"/>
+              <circle cx="55" cy="110" r="8" fill="#1c1c1c"/>
+              <ellipse cx="55" cy="65" rx="14" ry="28" fill="#222" stroke="#2e2e2e" stroke-width="1.5"/>
+              <circle cx="49" cy="108" r="1.5" fill="#333"/>
+              <circle cx="55" cy="105" r="1.5" fill="#333"/>
+              <circle cx="61" cy="108" r="1.5" fill="#333"/>
+              <circle cx="55" cy="113" r="1.5" fill="#333"/>
+              <circle cx="55" cy="110" r="21" fill="none" stroke="#e8c97a" stroke-width="0.8" opacity="0.6"/>
+            </g>
+            <g transform="translate(155,80)">
+              <ellipse cx="55" cy="110" rx="38" ry="52" fill="#1a1a1a" stroke="#2e2e2e" stroke-width="2"/>
+              <ellipse cx="55" cy="110" rx="28" ry="40" fill="#141414"/>
+              <circle cx="55" cy="110" r="16" fill="#0a0a0a" stroke="#333" stroke-width="1.5"/>
+              <circle cx="55" cy="110" r="8" fill="#1c1c1c"/>
+              <ellipse cx="55" cy="65" rx="14" ry="28" fill="#222" stroke="#2e2e2e" stroke-width="1.5"/>
+              <circle cx="49" cy="108" r="1.5" fill="#333"/>
+              <circle cx="55" cy="105" r="1.5" fill="#333"/>
+              <circle cx="61" cy="108" r="1.5" fill="#333"/>
+              <circle cx="55" cy="113" r="1.5" fill="#333"/>
+              <circle cx="55" cy="110" r="21" fill="none" stroke="#e8c97a" stroke-width="0.8" opacity="0.6"/>
+            </g>
+            <rect x="88" y="250" width="124" height="34" rx="17" fill="#181818" stroke="#282828" stroke-width="1.5"/>
+            <line x1="148" y1="260" x2="154" y2="260" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="150" cy="265" r="3" fill="none" stroke="#555" stroke-width="1"/>
+          </svg>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <!-- Thumbnails -->
+  <div class="thumbs-row">
+    {%- if product.images.size > 0 -%}
+      {%- for image in product.images limit: 4 -%}
+        <div class="thumb2 {% if forloop.first %}active{% endif %}"
+             onclick="switchToImage('{{ image | image_url: width: 600 }}', '{{ image.alt | escape }}', this)">
+          <img src="{{ image | image_url: width: 120 }}"
+               alt="{{ image.alt | escape | default: product.title }}"
+               loading="lazy"
+               style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <!-- SVG fallback thumbnails when no product images -->
+      <div class="thumb2 active" onclick="switchView('earbuds',this)">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="13" cy="22" rx="7" ry="10" fill="#2a2a2a" stroke="#e8c97a" stroke-width="1"/>
+          <ellipse cx="27" cy="22" rx="7" ry="10" fill="#2a2a2a" stroke="#555" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="thumb2" onclick="switchView('case',this)">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="12" width="28" height="20" rx="10" fill="#2a2a2a" stroke="#555" stroke-width="1"/>
+          <line x1="18" y1="21" x2="22" y2="21" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="thumb2" onclick="switchView('side',this)">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="20" cy="22" rx="8" ry="11" fill="#2a2a2a" stroke="#555" stroke-width="1"/>
+          <ellipse cx="20" cy="13" rx="4" ry="7" fill="#333" stroke="#555" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="thumb2" onclick="switchView('cable',this)">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 8 Q10 20 14 32" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+          <rect x="12" y="30" width="5" height="6" rx="1" fill="#2a2a2a" stroke="#555" stroke-width="1"/>
+          <rect x="23" y="8" width="4" height="9" rx="2" fill="#2a2a2a" stroke="#e8c97a" stroke-width="1"/>
+        </svg>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="img-stats-row">
+    <div class="img-stat">
+      <div class="s-num">{{ settings.orders_delivered | default: '500+' }}</div>
+      <div class="s-lbl">Orders Delivered</div>
+    </div>
+    <div class="img-stat">
+      <div class="s-num">4.9★</div>
+      <div class="s-lbl">Avg Rating</div>
+    </div>
+    <div class="img-stat">
+      <div class="s-num">{{ settings.warranty_years | default: '1' }} Yr</div>
+      <div class="s-lbl">Warranty</div>
+    </div>
+  </div>
+</div>

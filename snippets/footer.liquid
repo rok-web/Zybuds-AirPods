@@ -1,38 +1,51 @@
+<!-- ============================================================
+   snippets/footer.liquid
+   Site footer with brand info, nav columns, and bottom bar
+   ============================================================ -->
+
+{%- assign brand = settings.shop_name_override | default: shop.name | default: 'Zybuds' -%}
+{%- assign city = settings.city | default: 'Hyderabad' -%}
+{%- assign city_area = settings.city_area | default: 'Secunderabad' -%}
+{%- assign founder_location = settings.founder_location | default: 'Suman Housing Colony, Secunderabad' -%}
+{%- assign warranty = settings.warranty_years | default: '1' -%}
+
 <footer>
   <div class="footer2-inner">
     <div class="f2-brand">
-      <a href="{{ routes.root_url }}" class="logo" style="text-decoration: none; margin-bottom: 12px;">
-        <div class="logo-main" style="font-size: 22px;">{{ settings.shop_name_override | default: shop.name | default: 'Zybuds' }}</div>
-        {% if settings.shop_tagline != blank %}
-          <div class="logo-sub" style="font-size: 6px;">{{ settings.shop_tagline }}</div>
-        {% endif %}
+      <a href="{{ routes.root_url }}" class="logo f2-logo-link" style="text-decoration: none; margin-bottom: 12px;">
+        <div class="logo-main" style="font-size: 22px;">{{ brand }}</div>
+        {%- if settings.tagline != blank -%}
+          <div class="logo-sub" style="font-size: 6px;">{{ settings.tagline }}</div>
+        {%- endif -%}
       </a>
-      <p>Hyderabad's trusted local audio brand. Same-day delivery, open box, COD. Based in Secunderabad since 2024.</p>
+      <p>{{ city }}'s trusted local audio brand. Same-day delivery, open box, COD. Based in {{ city_area }} since 2024.</p>
     </div>
     <div class="f2-col">
-      <h4>Products</h4>
-      <a href="/collections/earbuds">Earbuds</a>
-      <a href="/collections/smartwatches">Smartwatches</a>
-      <a href="/collections/power-banks">Power Banks</a>
-      <a href="/collections/neckbands">Neckbands</a>
+      <h4>{{ 'sections.footer.products' | t }}</h4>
+      <a href="/collections/earbuds">{{ 'sections.footer.earbuds' | t | default: 'Earbuds' }}</a>
+      <a href="/collections/smartwatches">{{ 'sections.footer.smartwatches' | t | default: 'Smartwatches' }}</a>
+      <a href="/collections/power-banks">{{ 'sections.footer.power_banks' | t | default: 'Power Banks' }}</a>
+      <a href="/collections/neckbands">{{ 'sections.footer.neckbands' | t | default: 'Neckbands' }}</a>
     </div>
     <div class="f2-col">
-      <h4>Support</h4>
-      <a href="/pages/contact">Contact Us</a>
-      <a href="/pages/warranty">Warranty Claim</a>
-      <a href="/policies/refund-policy">Return Policy</a>
-      <a href="/pages/faq">FAQ</a>
+      <h4>{{ 'sections.footer.support' | t }}</h4>
+      <a href="/pages/contact">{{ 'sections.footer.contact_us' | t | default: 'Contact Us' }}</a>
+      <a href="/pages/warranty">{{ 'sections.footer.warranty_claim' | t | default: 'Warranty Claim' }}</a>
+      <a href="/policies/refund-policy">{{ 'sections.footer.return_policy' | t | default: 'Return Policy' }}</a>
+      <a href="/pages/faq">{{ 'sections.footer.faq' | t | default: 'FAQ' }}</a>
     </div>
     <div class="f2-col">
-      <h4>About</h4>
-      <a href="/pages/about">Our Story</a>
-      <a href="https://instagram.com/zybuds" target="_blank" rel="noopener">Instagram</a>
-      <a href="/pages/contact">Contact</a>
-      <a href="/policies/privacy-policy">Privacy Policy</a>
+      <h4>{{ 'sections.footer.about' | t }}</h4>
+      <a href="/pages/about">{{ 'sections.footer.our_story' | t | default: 'Our Story' }}</a>
+      {%- if settings.instagram_handle != blank -%}
+        <a href="https://instagram.com/{{ settings.instagram_handle }}" target="_blank" rel="noopener">{{ 'sections.footer.instagram' | t | default: 'Instagram' }}</a>
+      {%- endif -%}
+      <a href="/pages/contact">{{ 'sections.footer.contact' | t | default: 'Contact' }}</a>
+      <a href="/policies/privacy-policy">{{ 'sections.footer.privacy_policy' | t | default: 'Privacy Policy' }}</a>
     </div>
   </div>
   <div class="footer2-bottom">
-    <div>© {{ 'now' | date: '%Y' }} {{ shop.name }} · Suman Housing Colony, Secunderabad, Hyderabad</div>
-    <div>📦 Open Box · 🚀 Same Day · 🛡️ 1 Yr Warranty · 💰 COD</div>
+    <div>© {{ 'now' | date: '%Y' }} {{ brand }} · {{ founder_location }}, {{ city }}</div>
+    <div>📦 Open Box · 🚀 Same Day · 🛡️ {{ warranty }} Yr Warranty · 💰 COD</div>
   </div>
 </footer>

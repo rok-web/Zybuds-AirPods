@@ -1,0 +1,45 @@
+<!-- ============================================================
+   snippets/founder.liquid
+   Founder message section
+   ============================================================ -->
+
+{%- assign founder_name = settings.founder_name | default: 'Mahesh' -%}
+{%- assign founder_initial = founder_name | slice: 0 -%}
+{%- assign founder_location = settings.founder_location | default: 'Suman Housing Colony, Secunderabad' -%}
+{%- assign city = settings.city | default: 'Hyderabad' -%}
+{%- assign city_area = settings.city_area | default: 'Secunderabad' -%}
+{%- assign brand = settings.shop_name_override | default: shop.name | default: 'Zybuds' -%}
+{%- assign advance = settings.advance_amount | default: '99' -%}
+
+<div style="max-width:1440px;margin:0 auto;padding:0 5%;">
+  <div class="founder2 reveal">
+    <div class="founder2-av">
+      {%- if section.settings.founder_image -%}
+        <img src="{{ section.settings.founder_image | image_url: width: 150 }}" alt="{{ founder_name }}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+      {%- else -%}
+        {{ founder_initial }}
+      {%- endif -%}
+    </div>
+    <div class="founder2-content">
+      <div class="founder2-eyebrow">A Message From Our Founder</div>
+      <div class="founder2-title">Hi, I'm {{ founder_name }}.<br>I run {{ brand }} from {{ city_area }}.</div>
+      <div class="founder2-text">
+        {%- if section.settings.founder_message != blank -%}
+          {{ section.settings.founder_message }}
+        {%- else -%}
+          I started {{ brand }} because too many people in {{ city }} were overpaying for gadgets online — with nobody to call
+          when things went wrong. We are based in <strong>{{ founder_location }}</strong>. Every
+          product is personally tested before it leaves. I built the open box delivery system so you never take any
+          risk. The ₹{{ advance }} advance exists purely to avoid fake orders from people wasting our time. Genuine customers
+          have no risk — if you aren't happy, I refund your ₹{{ advance }} immediately.
+        {%- endif -%}
+      </div>
+      <div class="founder2-meta">
+        <div class="f2-chip">👤 {{ founder_name }}, Founder</div>
+        <div class="f2-chip">📍 {{ founder_location }}</div>
+        <div class="f2-chip">🏙️ {{ city }}, Telangana</div>
+        <div class="f2-chip">🛡️ {{ settings.warranty_years | default: '1' }} Year Warranty on All Products</div>
+      </div>
+    </div>
+  </div>
+</div>

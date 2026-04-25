@@ -1,0 +1,515 @@
+<!-- ============================================================
+   ZYBUDS — sections/product-page.liquid
+   Complete product landing page section
+   ============================================================ -->
+
+{%- assign advance = settings.advance_amount | default: 99 -%}
+{%- assign remaining = product.price | minus: advance -%}
+{%- assign city = settings.city | default: 'Hyderabad' -%}
+{%- assign warranty = settings.warranty_years | default: '1' -%}
+
+<!-- HERO GRID -->
+<div class="hero">
+
+  <!-- LEFT — IMAGE PANEL -->
+  {% render 'product-image-gallery' %}
+
+  <!-- RIGHT — INFO PANEL -->
+  <div class="info-panel">
+    <div class="editorial-label">Premium TWS · {{ city }}</div>
+
+    <h1 class="p2-title">
+      {%- assign title_parts = product.title | split: ' with ' -%}
+      {%- if title_parts.size > 1 -%}
+        {{ title_parts[0] }} <em>with {{ title_parts[1] }}</em>
+      {%- else -%}
+        {{ product.title }}
+      {%- endif -%}
+    </h1>
+
+    <p class="p2-tagline">
+      {{- product.description | strip_html | truncate: 180 -}}
+    </p>
+
+    <!-- Live Activity -->
+    {% render 'live-activity' %}
+
+    <!-- PAYMENT OPTION TOGGLE -->
+    <div class="opt2-label">Payment Option:</div>
+    <div class="payment-options">
+      <div class="pay-opt active" onclick="selectPayOption('advance', this)">
+        <div class="po-title">Pay ₹{{ advance }} Advance</div>
+        <div class="po-sub">Rest on Delivery</div>
+      </div>
+      <div class="pay-opt" onclick="selectPayOption('full', this)">
+        <div class="po-title">Pay Full {{ product.price | money }}</div>
+        <div class="po-sub">Skip COD Process</div>
+      </div>
+    </div>
+
+    <!-- PRICE BOX -->
+    <div class="price-box2">
+      <div class="price-box2-top">
+        <div class="p2-main-price">
+          <sup>{{ cart.currency.symbol }}</sup>{{ product.price | money_without_currency }}
+        </div>
+        {%- if product.compare_at_price > product.price -%}
+          <div class="p2-old-price">{{ product.compare_at_price | money }}</div>
+          <div class="p2-save-chip">
+            Save {{ product.compare_at_price | minus: product.price | money }}
+          </div>
+        {%- endif -%}
+      </div>
+      <div id="priceBreakdown" class="price-breakdown">
+        Pay <strong>₹{{ advance }} now</strong> to confirm →
+        Remaining <strong>{{ remaining | money }} cash</strong> on delivery, after you check the product
+      </div>
+    </div>
+
+    <!-- WHY ₹99 -->
+    {% render 'why99-box' %}
+
+    <!-- COLOR / VARIANT PICKER -->
+    {%- if product.variants.size > 1 -%}
+      {%- for option in product.options_with_values -%}
+        <div class="opt2-label">{{ option.name }}: <span id="col2Name">{{ option.selected_value | default: option.values.first }}</span></div>
+        <div class="colors2">
+          {%- for value in option.values -%}
+            {%- assign color_class = value | downcase | replace: ' ', '' -%}
+            <div class="col2 {{ color_class }}2 {% if forloop.first %}active{% endif %}"
+                 title="{{ value }}"
+                 onclick="pickCol2('{{ value }}', this)">
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <div class="opt2-label">Color: <span id="col2Name">White</span></div>
+      <div class="colors2">
+        <div class="col2 white2 active" title="White" onclick="pickCol2('White', this)"></div>
+      </div>
+    {%- endif -%}
+
+    <!-- STOCK / URGENCY -->
+    <div class="stock2">
+      <div class="sdot"></div>
+      <div>
+        {%- assign stock = product.selected_or_first_available_variant.inventory_quantity -%}
+        {%- if stock > 0 and stock <= 10 -%}
+          <span class="stock2-text">Only {{ stock }} pieces left</span>
+        {%- elsif stock <= 0 -%}
+          <span class="stock2-text">Only 7 pieces left</span>
+        {%- else -%}
+          <span class="stock2-text">In Stock — Ready to Ship</span>
+        {%- endif -%}
+        <span class="stock2-sub"> · <span id="dailyViewCount">19</span> people viewed this today</span>
+      </div>
+    </div>
+
+    <!-- WARRANTY -->
+    <div class="warranty-ribbon">
+      <div class="wr-icon">🛡️</div>
+      <div class="wr-text">
+        <h4>{{ warranty }} Year Full Warranty — Included</h4>
+        <p>Anything fails within {{ warranty | times: 12 }} months, we replace or fix it. No questions asked.</p>
+      </div>
+      <div class="wr-badge">{{ warranty }} Year<br>Warranty</div>
+    </div>
+
+    <!-- ADD TO CART / ORDER BUTTON — Uses Shopify Ajax Cart API -->
+    {%- form 'product', product, id: 'ProductForm', data-product-form: '' -%}
+      <input type="hidden" name="id" id="variantId" value="{{ product.selected_or_first_available_variant.id }}">
+      <input type="hidden" name="quantity" value="1">
+
+      <button
+        type="submit"
+        class="btn2-primary"
+        id="orderBtn"
+        {%- unless product.selected_or_first_available_variant.available -%} disabled{%- endunless -%}
+      >
+        <span>
+          {%- if product.selected_or_first_available_variant.available -%}
+            🛒 Confirm Order — Pay ₹{{ advance }}
+          {%- else -%}
+            Out of Stock
+          {%- endif -%}
+        </span>
+        <span class="btn-right">Same Day Delivery →</span>
+      </button>
+    {%- endform -%}
+
+    <!-- GUARANTEE -->
+    <div class="guarantee2">
+      <div class="g2-title">🔒 Your Complete Protection</div>
+      <div class="g2-grid">
+        <div class="g2-item"><span class="g2-check">✅</span>
+          <div><strong>Open Box Delivery</strong><br>Check before you pay</div>
+        </div>
+        <div class="g2-item"><span class="g2-check">✅</span>
+          <div><strong>Same Day {{ city }}</strong><br>Order before 2 PM</div>
+        </div>
+        <div class="g2-item"><span class="g2-check">✅</span>
+          <div><strong>₹{{ advance }} Refundable</strong><br>Not happy? Full refund</div>
+        </div>
+        <div class="g2-item"><span class="g2-check">✅</span>
+          <div><strong>{{ warranty }} Year Warranty</strong><br>Full product coverage</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRUST BADGES -->
+    <div class="trust2-row">
+      <div class="t2"><span class="ti">📦</span>
+        <div class="tl">Open Box<br>Delivery</div>
+      </div>
+      <div class="t2"><span class="ti">🚀</span>
+        <div class="tl">Same Day<br>{{ city }}</div>
+      </div>
+      <div class="t2"><span class="ti">🛡️</span>
+        <div class="tl">{{ warranty }} Year<br>Warranty</div>
+      </div>
+      <div class="t2"><span class="ti">💰</span>
+        <div class="tl">Cash on<br>Delivery</div>
+      </div>
+    </div>
+  </div><!-- /info-panel -->
+</div><!-- /hero -->
+
+
+<!-- ============================================================
+   BELOW FOLD
+   ============================================================ -->
+<div class="below-fold">
+
+  <!-- VIDEO SECTION -->
+  {%- if section.settings.show_video_section -%}
+  <div class="section2 section2-video reveal">
+    <div class="sec2-eyebrow">See It In Action</div>
+    <div class="sec2-title">Real <em>Unboxing</em></div>
+    <p class="sec2-sub">Watch real customers test and receive their orders in {{ city }}.</p>
+    <div class="video-strip">
+      <div class="video-block">
+        {%- if section.settings.video_url_1 != blank -%}
+          <video autoplay muted loop playsinline>
+            <source src="{{ section.settings.video_url_1 }}" type="video/mp4">
+          </video>
+        {%- else -%}
+          <div class="video-ph" id="vh1">
+            <div class="vid-play">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+            <div class="video-ph-label">Unboxing Video · {{ city }}</div>
+          </div>
+        {%- endif -%}
+        <div class="video-overlay">
+          <div class="video-caption">📦 Customer Unboxing — Open Box Delivery</div>
+        </div>
+      </div>
+      <div class="video-block">
+        {%- if section.settings.video_url_2 != blank -%}
+          <video autoplay muted loop playsinline>
+            <source src="{{ section.settings.video_url_2 }}" type="video/mp4">
+          </video>
+        {%- else -%}
+          <div class="video-ph" id="vh2">
+            <div class="vid-play">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+            <div class="video-ph-label">Sound Demo · Bass Test</div>
+          </div>
+        {%- endif -%}
+        <div class="video-overlay">
+          <div class="video-caption">🎵 Deep Bass Sound Demo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+
+  <!-- FEATURES -->
+  <div class="section2 reveal">
+    <div class="sec2-eyebrow">Why Choose This</div>
+    <div class="sec2-title">Built for <em>Real Life</em></div>
+    <p class="sec2-sub">Four features that actually matter to your daily life.</p>
+    <div class="feat2-grid">
+      <div class="feat2">
+        <span class="feat2-icon">🔇</span>
+        <div class="feat2-title">Active Noise Cancellation</div>
+        <div class="feat2-desc">Block out the {{ city }} traffic. Advanced ANC technology filters background noise so you can focus on your music.</div>
+      </div>
+      <div class="feat2">
+        <span class="feat2-icon">🔋</span>
+        <div class="feat2-title">40-Hour Total Battery</div>
+        <div class="feat2-desc">8 hours in earbuds + 32 hours in the case. Survive your full week of commute without touching the charger.</div>
+      </div>
+      <div class="feat2">
+        <span class="feat2-icon">🎧</span>
+        <div class="feat2-title">3D Spatial Audio</div>
+        <div class="feat2-desc">Experience sound like it's coming from all around you. Immersive 360-degree audio for movies and music.</div>
+      </div>
+      <div class="feat2">
+        <span class="feat2-icon">📍</span>
+        <div class="feat2-title">Find My Device (GPS)</div>
+        <div class="feat2-desc">Never lose your AirPods again. Integrated GPS tracking works with Find My apps to pinpoint your earbuds' location.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPECS -->
+  <div class="section2 reveal">
+    <div class="sec2-eyebrow">Technical Details</div>
+    <div class="sec2-title">Full <em>Specifications</em></div>
+    <p class="sec2-sub">Everything you need to know before buying.</p>
+    <div class="specs2-layout">
+      <div class="spec2-table">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'spec_row' -%}
+            <div class="spec2-row" {{ block.shopify_attributes }}>
+              <span class="sk">{{ block.settings.spec_key }}</span>
+              <span class="sv" {%- if block.settings.spec_highlight -%} style="color:var(--green);" {%- endif -%}>
+                {{ block.settings.spec_value }}
+              </span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- comment -%} Fallback static specs if no blocks defined {%- endcomment -%}
+        {%- assign has_specs = false -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'spec_row' -%}{%- assign has_specs = true -%}{%- endif -%}
+        {%- endfor -%}
+        {%- unless has_specs -%}
+          <div class="spec2-row"><span class="sk">Features</span><span class="sv">ANC + GPS Tracking</span></div>
+          <div class="spec2-row"><span class="sk">Drivers</span><span class="sv">13mm Pro Drivers</span></div>
+          <div class="spec2-row"><span class="sk">Earbud Battery</span><span class="sv">8 Hours</span></div>
+          <div class="spec2-row"><span class="sk">Case Battery</span><span class="sv">32 Hours</span></div>
+          <div class="spec2-row"><span class="sk">Total Battery</span><span class="sv">40 Hours</span></div>
+          <div class="spec2-row"><span class="sk">Microphone</span><span class="sv">Dual Noise Reduction</span></div>
+          <div class="spec2-row"><span class="sk">Water Rating</span><span class="sv">IPX4 Sweat Proof</span></div>
+          <div class="spec2-row"><span class="sk">Colors</span><span class="sv">White</span></div>
+          <div class="spec2-row"><span class="sk">Compatibility</span><span class="sv">iOS + Android + PC</span></div>
+          <div class="spec2-row"><span class="sk">Warranty</span><span class="sv" style="color:var(--green);">{{ warranty }} Full Year ✓</span></div>
+        {%- endunless -%}
+      </div>
+      <div class="spec2-visual">
+        <svg class="spec-big-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="70" width="180" height="120" rx="60" fill="#111" stroke="#222" stroke-width="2"/>
+          <rect x="20" y="70" width="180" height="60" rx="30" fill="#151515" stroke="#282828" stroke-width="1.5"/>
+          <ellipse cx="75" cy="110" rx="26" ry="36" fill="#0d0d0d" stroke="#2a2a2a" stroke-width="1.5"/>
+          <circle cx="75" cy="110" r="10" fill="#181818"/>
+          <circle cx="75" cy="110" r="4" fill="#1f1f1f" stroke="#e8c97a" stroke-width="0.5"/>
+          <ellipse cx="145" cy="110" rx="26" ry="36" fill="#0d0d0d" stroke="#2a2a2a" stroke-width="1.5"/>
+          <circle cx="145" cy="110" r="10" fill="#181818"/>
+          <circle cx="145" cy="110" r="4" fill="#1f1f1f" stroke="#e8c97a" stroke-width="0.5"/>
+          <circle cx="110" cy="176" r="4" fill="#e8c97a" opacity="0.8"/>
+          <rect x="97" y="183" width="26" height="6" rx="3" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+          <line x1="50" y1="130" x2="170" y2="130" stroke="#1e1e1e" stroke-width="1.5"/>
+          <text x="110" y="58" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#e8c97a" opacity="0.6" letter-spacing="3">ZYBUDS</text>
+        </svg>
+        <div class="spec-bullets">
+          <div class="spec-bullet"><div class="sb-dot"></div>Real Working Pop-up</div>
+          <div class="spec-bullet"><div class="sb-dot"></div>Active Noise Cancellation</div>
+          <div class="spec-bullet"><div class="sb-dot"></div>GPS / Find My Device</div>
+          <div class="spec-bullet"><div class="sb-dot"></div>13mm Hi-Fi Audio Drivers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOX CONTENTS -->
+  <div class="section2 reveal">
+    <div class="sec2-eyebrow">In The Box</div>
+    <div class="sec2-title">Everything <em>Included</em></div>
+    <p class="sec2-sub">Unbox and start listening immediately — nothing extra to buy.</p>
+    <div class="box2-grid">
+      <div class="box2-item"><span class="box2-em">🎧</span>
+        <div class="box2-name">{{ product.title | split: ' with ' | first }}</div>
+        <div class="box2-qty">× 1 Pair</div>
+      </div>
+      <div class="box2-item"><span class="box2-em">📦</span>
+        <div class="box2-name">Charging Case</div>
+        <div class="box2-qty">× 1</div>
+      </div>
+      <div class="box2-item"><span class="box2-em">🔌</span>
+        <div class="box2-name">USB-C Cable</div>
+        <div class="box2-qty">× 1</div>
+      </div>
+      <div class="box2-item"><span class="box2-em">📄</span>
+        <div class="box2-name">Warranty Card</div>
+        <div class="box2-qty">× 1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVIEWS -->
+  {% render 'reviews' %}
+
+  <!-- FAQ -->
+  {% render 'faq' %}
+
+</div><!-- /below-fold -->
+
+<!-- FOUNDER SECTION -->
+{% render 'founder' %}
+
+<!-- Pass Shopify product data to JS -->
+<script>
+  window.ShopifyProduct = {
+    id: {{ product.id }},
+    title: {{ product.title | json }},
+    price: {{ product.price }},
+    compareAtPrice: {{ product.compare_at_price | default: 0 }},
+    variantId: {{ product.selected_or_first_available_variant.id }},
+    advanceAmount: {{ settings.advance_amount | default: 99 }},
+    currency: {{ cart.currency.symbol | json }},
+    available: {{ product.selected_or_first_available_variant.available }}
+  };
+</script>
+
+
+{% schema %}
+{
+  "name": "Product Page",
+  "tag": "div",
+  "class": "product-page-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Store Stats"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Total Reviews Count",
+      "info": "Displayed in the reviews section header",
+      "default": "214"
+    },
+    {
+      "type": "header",
+      "content": "Video Section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_video_section",
+      "label": "Show Video Section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "video_url_1",
+      "label": "Video 1 URL (MP4)",
+      "info": "Upload video to Files and paste URL here. Leave empty to show placeholder.",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "video_url_2",
+      "label": "Video 2 URL (MP4)",
+      "info": "Upload video to Files and paste URL here. Leave empty to show placeholder.",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Founder Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "founder_image",
+      "label": "Founder Photo",
+      "info": "Optional: upload a square photo of the founder."
+    },
+    {
+      "type": "textarea",
+      "id": "founder_message",
+      "label": "Founder Message",
+      "info": "Leave blank for auto-generated message using global settings.",
+      "default": ""
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spec_row",
+      "name": "Spec Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "spec_key",
+          "label": "Spec Name",
+          "default": "Feature"
+        },
+        {
+          "type": "text",
+          "id": "spec_value",
+          "label": "Spec Value",
+          "default": "Value"
+        },
+        {
+          "type": "checkbox",
+          "id": "spec_highlight",
+          "label": "Highlight in green",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Customer Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name",
+          "default": "Ravi Kumar"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_location",
+          "label": "Reviewer Location",
+          "default": "Ameerpet, Hyderabad"
+        },
+        {
+          "type": "text",
+          "id": "avatar_color",
+          "label": "Avatar Gradient (CSS)",
+          "default": "linear-gradient(135deg,#c8410a,#e85d1a)"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "Amazing product! Great sound quality and fast delivery."
+        },
+        {
+          "type": "text",
+          "id": "review_date",
+          "label": "Review Date",
+          "default": "1 week ago"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "faq_question",
+          "label": "Question",
+          "default": "Your question here?"
+        },
+        {
+          "type": "textarea",
+          "id": "faq_answer",
+          "label": "Answer",
+          "default": "Your answer here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Page",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

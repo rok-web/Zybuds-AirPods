@@ -1,0 +1,72 @@
+<!-- ============================================================
+   snippets/faq.liquid
+   FAQ accordion section
+   ============================================================ -->
+
+{%- assign advance = settings.advance_amount | default: '99' -%}
+{%- assign city = settings.city | default: 'Hyderabad' -%}
+{%- assign city_area = settings.city_area | default: 'Secunderabad' -%}
+{%- assign brand = settings.shop_name_override | default: shop.name | default: 'Zybuds' -%}
+{%- assign orders = settings.orders_delivered | default: '500+' -%}
+
+<div class="section2 reveal">
+  <div class="sec2-eyebrow">Got Questions?</div>
+  <div class="sec2-title">Frequently <em>Asked</em></div>
+  <p class="sec2-sub">Honest answers — no fine print, no hidden surprises.</p>
+  <div class="faq2-list">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'faq' -%}
+        <div class="faq2-item {% if forloop.first %}open{% endif %}" {{ block.shopify_attributes }}>
+          <div class="faq2-q" onclick="toggleFaq2(this)">
+            {{ block.settings.faq_question }}
+            <div class="faq2-arr">+</div>
+          </div>
+          <div class="faq2-a">{{ block.settings.faq_answer }}</div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%} Fallback static FAQs {%- endcomment -%}
+    {%- assign has_faqs = false -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'faq' -%}{%- assign has_faqs = true -%}{%- endif -%}
+    {%- endfor -%}
+    {%- unless has_faqs -%}
+      <div class="faq2-item open">
+        <div class="faq2-q" onclick="toggleFaq2(this)">
+          Why do you ask for ₹{{ advance }} in advance?
+          <div class="faq2-arr">+</div>
+        </div>
+        <div class="faq2-a">We ask for ₹{{ advance }} purely to avoid fake orders. In the past, unverified customers placed orders for "timepass" with wrong addresses or didn't open the door — wasting our delivery person's time. Genuine members pay ₹{{ advance }} because they really want the product. <strong>This is NOT an extra charge</strong> — it will be deducted from your final payment, so you still pay exactly {{ product.price | money }} total. It's just a filter to avoid fake orders.</div>
+      </div>
+      <div class="faq2-item">
+        <div class="faq2-q" onclick="toggleFaq2(this)">
+          What exactly is open box delivery?
+          <div class="faq2-arr">+</div>
+        </div>
+        <div class="faq2-a">Our delivery partner waits while you fully unbox and test the product. Connect to your phone, test sound, check mic, test the charging case — everything. Only when you're satisfied do you pay the remaining cash. If anything's wrong, send it back immediately. Zero risk.</div>
+      </div>
+      <div class="faq2-item">
+        <div class="faq2-q" onclick="toggleFaq2(this)">
+          What does the {{ settings.warranty_years | default: '1' }} Year Warranty cover?
+          <div class="faq2-arr">+</div>
+        </div>
+        <div class="faq2-a">Our {{ settings.warranty_years | default: '1' }} Year Seller Warranty covers all manufacturing defects — if earbuds stop working, charging fails, or sound drops within {{ settings.warranty_years | default: '1' | times: 12 }} months, we replace or repair. Just WhatsApp us with a video of the issue. Personal promise from our founder — we stand behind every product we sell.</div>
+      </div>
+      <div class="faq2-item">
+        <div class="faq2-q" onclick="toggleFaq2(this)">
+          How fast is delivery? Which areas do you cover?
+          <div class="faq2-arr">+</div>
+        </div>
+        <div class="faq2-a">Order before 2 PM — delivered same day. Order after 2 PM — delivered next morning. We cover all of {{ city }}: {{ city_area }}, Ameerpet, LB Nagar, Dilsukhnagar, Kondapur, Madhapur, Begumpet, Uppal, Himayatnagar, SR Nagar, Tarnaka, and more.</div>
+      </div>
+      <div class="faq2-item">
+        <div class="faq2-q" onclick="toggleFaq2(this)">
+          Who is {{ brand }}? Are you a real business?
+          <div class="faq2-arr">+</div>
+        </div>
+        <div class="faq2-a">100% real. {{ brand }} is based in {{ city_area }}, {{ settings.founder_location | default: 'Suman Housing Colony' }}, {{ city }}. We have {{ orders }} completed orders across the city. You can find our delivery videos and unboxings on Instagram. We respond immediately. Our founder personally handles every warranty issue.</div>
+      </div>
+    {%- endunless -%}
+  </div>
+</div>

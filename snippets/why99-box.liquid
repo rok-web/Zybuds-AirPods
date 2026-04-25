@@ -1,0 +1,39 @@
+<!-- ============================================================
+   snippets/why99-box.liquid
+   Explains the ₹99 advance payment system
+   ============================================================ -->
+
+{%- assign advance = settings.advance_amount | default: '99' -%}
+{%- assign remaining = product.price | minus: advance -%}
+{%- assign city = settings.city | default: 'Hyderabad' -%}
+
+<div class="why99-box">
+  <div class="why99-title">💡 Why do we ask for ₹{{ advance }}?</div>
+  <div class="why99-explanation">
+    In the past, unverified customers placed fake orders for "timepass" — our delivery team would travel across
+    {{ city }}, and the customer wouldn't answer the door. This wasted a lot of time and money. Genuine customers
+    pay ₹{{ advance }} to confirm they are real. <strong>₹{{ advance }} is NOT extra</strong> — it is deducted from your final
+    {{ product.price | money }} bill.
+  </div>
+  <div class="why99-steps">
+    <div class="why99-step">
+      <div class="w99-icon">1</div>
+      <div><strong>Pay ₹{{ advance }} now</strong> — confirms you're genuine &amp; filters fake orders</div>
+    </div>
+    <div class="why99-step">
+      <div class="w99-icon">2</div>
+      <div>We call within <strong>30 minutes</strong> to confirm delivery time</div>
+    </div>
+    <div class="why99-step">
+      <div class="w99-icon">3</div>
+      <div>Delivery arrives — <strong>open &amp; fully check</strong> the product first</div>
+    </div>
+    <div class="why99-step">
+      <div class="w99-icon">4</div>
+      <div>Happy? Pay <strong>{{ remaining | money }} cash</strong>. Not satisfied? Full ₹{{ advance }} refund</div>
+    </div>
+  </div>
+  <div class="why99-refund">
+    ✅ Not satisfied? We take the product back. Full ₹{{ advance }} refunded. No questions, no drama.
+  </div>
+</div>
