@@ -102,13 +102,6 @@
     "settings": [
       {
         "type": "text",
-        "id": "whatsapp_number",
-        "label": "WhatsApp Number (10 digits, no country code)",
-        "info": "Indian mobile number for WhatsApp button",
-        "default": "9100000000"
-      },
-      {
-        "type": "text",
         "id": "instagram_handle",
         "label": "Instagram Handle",
         "default": "zybuds"
