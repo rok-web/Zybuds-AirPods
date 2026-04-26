@@ -205,6 +205,17 @@
         const ph = document.getElementById('vh' + (i + 1));
         if (ph) ph.style.display = 'none';
       });
+    // Hover to play feature videos
+    document.querySelectorAll('.feat2').forEach(feat => {
+      const vid = feat.querySelector('video');
+      if (vid) {
+        feat.addEventListener('mouseenter', () => {
+          vid.play().catch(() => {}); // Catch error if autoplay blocked
+        });
+        feat.addEventListener('mouseleave', () => {
+          vid.pause();
+        });
+      }
     });
   });
 
