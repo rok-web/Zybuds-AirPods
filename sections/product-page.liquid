@@ -222,7 +222,7 @@
       <div class="feat2">
         <div class="feat2-video">
           {%- if section.settings.video_url_1 != blank -%}
-            {{ section.settings.video_url_1 | video_tag: controls: true, playsinline: true, preload: "metadata" }}
+            <video src="{{ section.settings.video_url_1 }}" controls playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">Working Pop-Up Clip</div>
           {%- endif -%}
@@ -235,7 +235,7 @@
       <div class="feat2">
         <div class="feat2-video">
           {%- if section.settings.video_url_2 != blank -%}
-            {{ section.settings.video_url_2 | video_tag: controls: true, playsinline: true, preload: "metadata" }}
+            <video src="{{ section.settings.video_url_2 }}" controls playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">Active Noise Cancellation Clip</div>
           {%- endif -%}
@@ -248,7 +248,7 @@
       <div class="feat2">
         <div class="feat2-video">
           {%- if section.settings.video_url_3 != blank -%}
-            {{ section.settings.video_url_3 | video_tag: controls: true, playsinline: true, preload: "metadata" }}
+            <video src="{{ section.settings.video_url_3 }}" controls playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">Find My Device Clip</div>
           {%- endif -%}
@@ -261,7 +261,7 @@
       <div class="feat2">
         <div class="feat2-video">
           {%- if section.settings.video_url_4 != blank -%}
-            {{ section.settings.video_url_4 | video_tag: controls: true, playsinline: true, preload: "metadata" }}
+            <video src="{{ section.settings.video_url_4 }}" controls playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">Touch Controls Clip</div>
           {%- endif -%}
@@ -274,7 +274,7 @@
       <div class="feat2 feat2-wide">
         <div class="feat2-video">
           {%- if section.settings.video_url_5 != blank -%}
-            {{ section.settings.video_url_5 | video_tag: controls: true, playsinline: true, preload: "metadata" }}
+            <video src="{{ section.settings.video_url_5 }}" controls playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">3D Spatial Audio Clip</div>
           {%- endif -%}
@@ -434,29 +434,34 @@
       "default": true
     },
     {
-      "type": "video",
+      "type": "text",
       "id": "video_url_1",
-      "label": "Working Pop-Up Video"
+      "label": "Working Pop-Up Video URL (MP4)",
+      "info": "Since you are on a trial account, upload your video to a host like Google Drive or Dropbox and paste the direct link here."
     },
     {
-      "type": "video",
+      "type": "text",
       "id": "video_url_2",
-      "label": "Active Noise Cancellation Video"
+      "label": "Active Noise Cancellation Video URL (MP4)",
+      "info": "Paste the direct MP4 link here."
     },
     {
-      "type": "video",
+      "type": "text",
       "id": "video_url_3",
-      "label": "Find My Device Video"
+      "label": "Find My Device Video URL (MP4)",
+      "info": "Paste the direct MP4 link here."
     },
     {
-      "type": "video",
+      "type": "text",
       "id": "video_url_4",
-      "label": "Touch Controls Video"
+      "label": "Touch Controls Video URL (MP4)",
+      "info": "Paste the direct MP4 link here."
     },
     {
-      "type": "video",
+      "type": "text",
       "id": "video_url_5",
-      "label": "3D Spatial Audio Video"
+      "label": "3D Spatial Audio Video URL (MP4)",
+      "info": "Paste the direct MP4 link here."
     },
     {
       "type": "header",
