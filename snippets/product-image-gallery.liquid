@@ -11,7 +11,18 @@
 
       <div class="product-img-wrap" id="productImgWrap">
       <div class="product-placeholder">
-        {%- if product.featured_image -%}
+        {%- if custom_images.size > 0 -%}
+          {%- assign main_img = custom_images.first.settings.image -%}
+          <img
+            id="mainProductImg"
+            src="{{ main_img | image_url: width: 800 }}"
+            alt="{{ main_img.alt | escape | default: 'Product Image' }}"
+            width="800"
+            height="800"
+            loading="eager"
+            style="width:100%;max-width:480px;object-fit:contain;border-radius:12px;"
+          >
+        {%- elsif product.featured_image -%}
           <img
             id="mainProductImg"
             src="{{ product.featured_image | image_url: width: 800 }}"
@@ -59,7 +70,22 @@
 
   <!-- Thumbnails -->
   <div class="thumbs-row">
-    {%- if product.images.size > 0 -%}
+    {%- if custom_images.size > 0 -%}
+      {%- for block in custom_images limit: 4 -%}
+        {%- assign thumb_img = block.settings.image -%}
+        <div class="thumb2 {% if forloop.first %}active{% endif %}"
+             onclick="switchToImage('{{ thumb_img | image_url: width: 600 }}', '{{ thumb_img.alt | escape | default: 'Gallery Image' }}', this)">
+          {%- if thumb_img != blank -%}
+            <img src="{{ thumb_img | image_url: width: 120 }}"
+                 alt="{{ thumb_img.alt | escape | default: 'Gallery Image' }}"
+                 loading="lazy"
+                 style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+          {%- else -%}
+            <div style="width:100%;height:100%;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px;">No Image</div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    {%- elsif product.images.size > 0 -%}
       {%- for image in product.images limit: 4 -%}
         <div class="thumb2 {% if forloop.first %}active{% endif %}"
              onclick="switchToImage('{{ image | image_url: width: 600 }}', '{{ image.alt | escape }}', this)">

@@ -23,7 +23,8 @@
   <!-- LEFT — IMAGE PANEL -->
   <div class="img-panel">
     <!-- Product image switcher snippet -->
-    {% render 'product-image-gallery', product: product_obj %}
+    {%- assign custom_images = section.blocks | where: "type", "gallery_image" -%}
+    {% render 'product-image-gallery', product: product_obj, custom_images: custom_images %}
   </div>
 
   <!-- RIGHT — INFO PANEL -->
@@ -308,19 +309,39 @@
     <div class="sec2-title">Everything <em>Included</em></div>
     <p class="sec2-sub">Unbox and start listening immediately — nothing extra to buy.</p>
     <div class="box2-grid">
-      <div class="box2-item"><span class="box2-em">🎧</span>
+      <div class="box2-item">
+        {% if section.settings.box_img_1 %}
+          <img src="{{ section.settings.box_img_1 | image_url: width: 120 }}" alt="Earbuds" class="box2-img" />
+        {% else %}
+          <span class="box2-em">🎧</span>
+        {% endif %}
         <div class="box2-name">{{ product.title | split: ' with ' | first }}</div>
         <div class="box2-qty">× 1 Pair</div>
       </div>
-      <div class="box2-item"><span class="box2-em">📦</span>
+      <div class="box2-item">
+        {% if section.settings.box_img_2 %}
+          <img src="{{ section.settings.box_img_2 | image_url: width: 120 }}" alt="Charging Case" class="box2-img" />
+        {% else %}
+          <span class="box2-em">📦</span>
+        {% endif %}
         <div class="box2-name">Charging Case</div>
         <div class="box2-qty">× 1</div>
       </div>
-      <div class="box2-item"><span class="box2-em">🔌</span>
+      <div class="box2-item">
+        {% if section.settings.box_img_3 %}
+          <img src="{{ section.settings.box_img_3 | image_url: width: 120 }}" alt="USB-C Cable" class="box2-img" />
+        {% else %}
+          <span class="box2-em">🔌</span>
+        {% endif %}
         <div class="box2-name">USB-C Cable</div>
         <div class="box2-qty">× 1</div>
       </div>
-      <div class="box2-item"><span class="box2-em">📄</span>
+      <div class="box2-item">
+        {% if section.settings.box_img_4 %}
+          <img src="{{ section.settings.box_img_4 | image_url: width: 120 }}" alt="Warranty Card" class="box2-img" />
+        {% else %}
+          <span class="box2-em">📄</span>
+        {% endif %}
         <div class="box2-name">Warranty Card</div>
         <div class="box2-qty">× 1</div>
       </div>
@@ -361,6 +382,10 @@
   "tag": "div",
   "class": "product-page-section",
   "settings": [
+    { "type": "image_picker", "id": "box_img_1", "label": "Earbuds Image (In The Box)", "info": "Optional: Upload real image for earbuds." },
+    { "type": "image_picker", "id": "box_img_2", "label": "Charging Case Image (In The Box)", "info": "Optional: Upload real image for charging case." },
+    { "type": "image_picker", "id": "box_img_3", "label": "USB-C Cable Image (In The Box)", "info": "Optional: Upload real image for USB-C cable." },
+    { "type": "image_picker", "id": "box_img_4", "label": "Warranty Card Image (In The Box)", "info": "Optional: Upload real image for warranty card." },
     {
       "type": "product",
       "id": "product",
@@ -512,6 +537,17 @@
           "id": "faq_answer",
           "label": "Answer",
           "default": "Your answer here."
+        }
+      ]
+    },
+    {
+      "type": "gallery_image",
+      "name": "Gallery Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
         }
       ]
     }
