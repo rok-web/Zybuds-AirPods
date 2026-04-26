@@ -223,10 +223,9 @@
         <div class="feat2-video">
           {%- assign v1 = section.settings.video_url_1 -%}
           {%- if v1 contains 'drive.google.com' -%}
-            {%- assign v1 = v1 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-            {%- assign v1 = 'https://drive.google.com/uc?export=download&id=' | append: v1 -%}
-          {%- endif -%}
-          {%- if v1 != blank -%}
+            {%- assign v1_id = v1 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
+            <iframe src="https://drive.google.com/file/d/{{ v1_id }}/preview" width="100%" height="100%" style="border:none;" allow="autoplay"></iframe>
+          {%- elsif v1 != blank -%}
             <video src="{{ v1 }}" autoplay muted loop playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">Working Pop-Up Clip</div>
@@ -241,10 +240,9 @@
         <div class="feat2-video">
           {%- assign v2 = section.settings.video_url_2 -%}
           {%- if v2 contains 'drive.google.com' -%}
-            {%- assign v2 = v2 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-            {%- assign v2 = 'https://drive.google.com/uc?export=download&id=' | append: v2 -%}
-          {%- endif -%}
-          {%- if v2 != blank -%}
+            {%- assign v2_id = v2 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
+            <iframe src="https://drive.google.com/file/d/{{ v2_id }}/preview" width="100%" height="100%" style="border:none;" allow="autoplay"></iframe>
+          {%- elsif v2 != blank -%}
             <video src="{{ v2 }}" autoplay muted loop playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">Active Noise Cancellation Clip</div>
@@ -259,10 +257,9 @@
         <div class="feat2-video">
           {%- assign v3 = section.settings.video_url_3 -%}
           {%- if v3 contains 'drive.google.com' -%}
-            {%- assign v3 = v3 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-            {%- assign v3 = 'https://drive.google.com/uc?export=download&id=' | append: v3 -%}
-          {%- endif -%}
-          {%- if v3 != blank -%}
+            {%- assign v3_id = v3 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
+            <iframe src="https://drive.google.com/file/d/{{ v3_id }}/preview" width="100%" height="100%" style="border:none;" allow="autoplay"></iframe>
+          {%- elsif v3 != blank -%}
             <video src="{{ v3 }}" autoplay muted loop playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">Find My Device Clip</div>
@@ -277,10 +274,9 @@
         <div class="feat2-video">
           {%- assign v4 = section.settings.video_url_4 -%}
           {%- if v4 contains 'drive.google.com' -%}
-            {%- assign v4 = v4 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-            {%- assign v4 = 'https://drive.google.com/uc?export=download&id=' | append: v4 -%}
-          {%- endif -%}
-          {%- if v4 != blank -%}
+            {%- assign v4_id = v4 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
+            <iframe src="https://drive.google.com/file/d/{{ v4_id }}/preview" width="100%" height="100%" style="border:none;" allow="autoplay"></iframe>
+          {%- elsif v4 != blank -%}
             <video src="{{ v4 }}" autoplay muted loop playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">Touch Controls Clip</div>
@@ -295,10 +291,9 @@
         <div class="feat2-video">
           {%- assign v5 = section.settings.video_url_5 -%}
           {%- if v5 contains 'drive.google.com' -%}
-            {%- assign v5 = v5 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-            {%- assign v5 = 'https://drive.google.com/uc?export=download&id=' | append: v5 -%}
-          {%- endif -%}
-          {%- if v5 != blank -%}
+            {%- assign v5_id = v5 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
+            <iframe src="https://drive.google.com/file/d/{{ v5_id }}/preview" width="100%" height="100%" style="border:none;" allow="autoplay"></iframe>
+          {%- elsif v5 != blank -%}
             <video src="{{ v5 }}" autoplay muted loop playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">3D Spatial Audio Clip</div>
