@@ -11,7 +11,17 @@
 
       <div class="product-img-wrap" id="productImgWrap">
       <div class="product-placeholder">
-        {%- if custom_images.size > 0 -%}
+        {%- if gallery_img_1 != blank -%}
+          <img
+            id="mainProductImg"
+            src="{{ gallery_img_1 | image_url: width: 800 }}"
+            alt="Product Image"
+            width="800"
+            height="800"
+            loading="eager"
+            style="width:100%;max-width:480px;object-fit:contain;border-radius:12px;"
+          >
+        {%- elsif custom_images.size > 0 -%}
           {%- assign main_img = custom_images.first.settings.image -%}
           <img
             id="mainProductImg"
@@ -33,7 +43,7 @@
             style="width:100%;max-width:480px;object-fit:contain;border-radius:12px;"
           >
         {%- else -%}
-          <!-- Fallback SVG illustration when no product image is set -->
+          <!-- Fallback SVG illustration -->
           <svg class="earbuds-svg" id="mainProductSvg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(50,80)">
               <ellipse cx="55" cy="110" rx="38" ry="52" fill="#1a1a1a" stroke="#2e2e2e" stroke-width="2"/>
@@ -70,16 +80,46 @@
 
   <!-- Thumbnails -->
   <div class="thumbs-row">
-    {%- if custom_images.size > 0 -%}
+    {%- if gallery_img_1 != blank or gallery_img_2 != blank or gallery_img_3 != blank or gallery_img_4 != blank -%}
+      <!-- BOX 1 -->
+      <div class="thumb2 active" onclick="{% if gallery_img_1 != blank %}switchToImage('{{ gallery_img_1 | image_url: width: 600 }}', 'Earbuds', this){% else %}switchView('earbuds',this){% endif %}">
+        {% if gallery_img_1 != blank %}
+          <img src="{{ gallery_img_1 | image_url: width: 120 }}" alt="Earbuds" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+        {% else %}
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><ellipse cx="13" cy="22" rx="7" ry="10" fill="#2a2a2a" stroke="#e8c97a" stroke-width="1"/><ellipse cx="27" cy="22" rx="7" ry="10" fill="#2a2a2a" stroke="#555" stroke-width="1"/></svg>
+        {% endif %}
+      </div>
+      <!-- BOX 2 -->
+      <div class="thumb2" onclick="{% if gallery_img_2 != blank %}switchToImage('{{ gallery_img_2 | image_url: width: 600 }}', 'Case', this){% else %}switchView('case',this){% endif %}">
+        {% if gallery_img_2 != blank %}
+          <img src="{{ gallery_img_2 | image_url: width: 120 }}" alt="Case" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+        {% else %}
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="12" width="28" height="20" rx="10" fill="#2a2a2a" stroke="#555" stroke-width="1"/><line x1="18" y1="21" x2="22" y2="21" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round"/></svg>
+        {% endif %}
+      </div>
+      <!-- BOX 3 -->
+      <div class="thumb2" onclick="{% if gallery_img_3 != blank %}switchToImage('{{ gallery_img_3 | image_url: width: 600 }}', 'Side', this){% else %}switchView('side',this){% endif %}">
+        {% if gallery_img_3 != blank %}
+          <img src="{{ gallery_img_3 | image_url: width: 120 }}" alt="Side" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+        {% else %}
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><ellipse cx="20" cy="22" rx="8" ry="11" fill="#2a2a2a" stroke="#555" stroke-width="1"/><ellipse cx="20" cy="13" rx="4" ry="7" fill="#333" stroke="#555" stroke-width="1"/></svg>
+        {% endif %}
+      </div>
+      <!-- BOX 4 -->
+      <div class="thumb2" onclick="{% if gallery_img_4 != blank %}switchToImage('{{ gallery_img_4 | image_url: width: 600 }}', 'Cable', this){% else %}switchView('cable',this){% endif %}">
+        {% if gallery_img_4 != blank %}
+          <img src="{{ gallery_img_4 | image_url: width: 120 }}" alt="Cable" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+        {% else %}
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M14 8 Q10 20 14 32" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"/><rect x="12" y="30" width="5" height="6" rx="1" fill="#2a2a2a" stroke="#555" stroke-width="1"/><rect x="23" y="8" width="4" height="9" rx="2" fill="#2a2a2a" stroke="#e8c97a" stroke-width="1"/></svg>
+        {% endif %}
+      </div>
+    {%- elsif custom_images.size > 0 -%}
       {%- for block in custom_images limit: 4 -%}
         {%- assign thumb_img = block.settings.image -%}
         <div class="thumb2 {% if forloop.first %}active{% endif %}"
              onclick="switchToImage('{{ thumb_img | image_url: width: 600 }}', '{{ thumb_img.alt | escape | default: 'Gallery Image' }}', this)">
           {%- if thumb_img != blank -%}
-            <img src="{{ thumb_img | image_url: width: 120 }}"
-                 alt="{{ thumb_img.alt | escape | default: 'Gallery Image' }}"
-                 loading="lazy"
-                 style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+            <img src="{{ thumb_img | image_url: width: 120 }}" alt="{{ thumb_img.alt | escape | default: 'Gallery Image' }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
           {%- else -%}
             <div style="width:100%;height:100%;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:10px;">No Image</div>
           {%- endif -%}
@@ -89,38 +129,22 @@
       {%- for image in product.images limit: 4 -%}
         <div class="thumb2 {% if forloop.first %}active{% endif %}"
              onclick="switchToImage('{{ image | image_url: width: 600 }}', '{{ image.alt | escape }}', this)">
-          <img src="{{ image | image_url: width: 120 }}"
-               alt="{{ image.alt | escape | default: product.title }}"
-               loading="lazy"
-               style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
+          <img src="{{ image | image_url: width: 120 }}" alt="{{ image.alt | escape | default: product.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">
         </div>
       {%- endfor -%}
     {%- else -%}
-      <!-- SVG fallback thumbnails when no product images -->
+      <!-- SVG fallback thumbnails -->
       <div class="thumb2 active" onclick="switchView('earbuds',this)">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="13" cy="22" rx="7" ry="10" fill="#2a2a2a" stroke="#e8c97a" stroke-width="1"/>
-          <ellipse cx="27" cy="22" rx="7" ry="10" fill="#2a2a2a" stroke="#555" stroke-width="1"/>
-        </svg>
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><ellipse cx="13" cy="22" rx="7" ry="10" fill="#2a2a2a" stroke="#e8c97a" stroke-width="1"/><ellipse cx="27" cy="22" rx="7" ry="10" fill="#2a2a2a" stroke="#555" stroke-width="1"/></svg>
       </div>
       <div class="thumb2" onclick="switchView('case',this)">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <rect x="6" y="12" width="28" height="20" rx="10" fill="#2a2a2a" stroke="#555" stroke-width="1"/>
-          <line x1="18" y1="21" x2="22" y2="21" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="12" width="28" height="20" rx="10" fill="#2a2a2a" stroke="#555" stroke-width="1"/><line x1="18" y1="21" x2="22" y2="21" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round"/></svg>
       </div>
       <div class="thumb2" onclick="switchView('side',this)">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="20" cy="22" rx="8" ry="11" fill="#2a2a2a" stroke="#555" stroke-width="1"/>
-          <ellipse cx="20" cy="13" rx="4" ry="7" fill="#333" stroke="#555" stroke-width="1"/>
-        </svg>
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><ellipse cx="20" cy="22" rx="8" ry="11" fill="#2a2a2a" stroke="#555" stroke-width="1"/><ellipse cx="20" cy="13" rx="4" ry="7" fill="#333" stroke="#555" stroke-width="1"/></svg>
       </div>
       <div class="thumb2" onclick="switchView('cable',this)">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14 8 Q10 20 14 32" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"/>
-          <rect x="12" y="30" width="5" height="6" rx="1" fill="#2a2a2a" stroke="#555" stroke-width="1"/>
-          <rect x="23" y="8" width="4" height="9" rx="2" fill="#2a2a2a" stroke="#e8c97a" stroke-width="1"/>
-        </svg>
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M14 8 Q10 20 14 32" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"/><rect x="12" y="30" width="5" height="6" rx="1" fill="#2a2a2a" stroke="#555" stroke-width="1"/><rect x="23" y="8" width="4" height="9" rx="2" fill="#2a2a2a" stroke="#e8c97a" stroke-width="1"/></svg>
       </div>
     {%- endif -%}
   </div>
