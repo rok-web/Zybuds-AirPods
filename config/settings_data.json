@@ -28,6 +28,10 @@
       "product-page": {
         "type": "product-page",
         "settings": {
+          "gallery_img_1": "shopify://shop_images/shopping.webp",
+          "gallery_img_2": "shopify://shop_images/file_00000000addc71faaad784a3c1922677_d872edda-2072-4bdc-a8a8-0f2843dab5c4.png",
+          "gallery_img_3": "shopify://shop_images/gh.jpg",
+          "gallery_img_4": "shopify://shop_images/file_00000000c38c71fa80779aadaa4c62e3_064d3add-ba48-45e8-b9e2-111fdd8893f6.png",
           "box_img_1": "shopify://shop_images/shopping.webp",
           "box_img_2": "shopify://shop_images/file_00000000addc71faaad784a3c1922677_d872edda-2072-4bdc-a8a8-0f2843dab5c4.png",
           "box_img_3": "shopify://shop_images/file_00000000c38c71fa80779aadaa4c62e3_064d3add-ba48-45e8-b9e2-111fdd8893f6.png",
