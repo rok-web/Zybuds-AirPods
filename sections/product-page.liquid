@@ -301,7 +301,7 @@
     <p class="sec2-sub">Everything you need to know before buying.</p>
     <div class="specs2-layout">
       <div class="spec2-table">
-        <div class="spec2-row"><span class="sk">Features</span><span class="sv">Pop-Up + ANC + Find My</span></div>
+        <div class="spec2-row"><span class="sk">Features</span><span class="sv">Pop-Up + ANC + Find My + 3D Audio</span></div>
         <div class="spec2-row"><span class="sk">Drivers</span><span class="sv">13mm Pro Drivers</span></div>
         <div class="spec2-row"><span class="sk">Earbud Battery</span><span class="sv">8 Hours</span></div>
         <div class="spec2-row"><span class="sk">Case Battery</span><span class="sv">32 Hours</span></div>
@@ -386,21 +386,7 @@
 </script>
 {%- endif -%}
 
-<script>
-  /* Video Autoplay on Scroll */
-  document.addEventListener('DOMContentLoaded', () => {
-    const vObs = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.play().catch(() => {});
-        } else {
-          entry.target.pause();
-        }
-      });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('.feat2-video video').forEach(v => vObs.observe(v));
-  });
-</script>
+
 
 
 {% schema %}

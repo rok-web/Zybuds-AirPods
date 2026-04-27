@@ -208,10 +208,23 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-/* Video placeholder: hide placeholder div if video actually loads */
-document.querySelectorAll('.video-block video').forEach((vid, i) => {
-  vid.addEventListener('loadeddata', () => {
-    const ph = document.getElementById('vh' + (i + 1));
-    if (ph) ph.style.display = 'none';
+/* Global Video Autoplay & Touch-to-Play */
+document.addEventListener('DOMContentLoaded', () => {
+  const vObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const vid = entry.target;
+      if (entry.isIntersecting) {
+        vid.play().catch(() => {});
+      } else {
+        vid.pause();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('video').forEach(v => {
+    vObs.observe(v);
+    // Explicitly play on touch/click for mobile browsers that block autoplay
+    v.addEventListener('touchstart', () => v.play(), {passive: true});
+    v.addEventListener('click', () => v.play());
   });
 });

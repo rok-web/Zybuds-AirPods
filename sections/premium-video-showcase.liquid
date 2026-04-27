@@ -136,26 +136,6 @@
 
     if (!video) return;
 
-    // Viewport Detection (Intersection Observer)
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.5
-    };
-
-    const handleIntersection = (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          video.play().catch(e => console.log("Playback interrupted"));
-        } else {
-          video.pause();
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(handleIntersection, observerOptions);
-    observer.observe(video);
-
     // Hover Restart Behavior
     wrapper.addEventListener('mouseenter', () => {
       video.currentTime = 0;
