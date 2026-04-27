@@ -225,13 +225,15 @@
           {%- if v1_url != blank -%}
             {%- if v1_url contains 'drive.google.com' -%}
               {%- assign v1_id = v1_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-              {%- assign v1_url = 'https://drive.google.com/uc?export=download&id=' | append: v1_id -%}
-            {%- elsif v1_url contains 'dropbox.com' -%}
-              {%- assign v1_url = v1_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
+              <iframe src="https://drive.google.com/file/d/{{ v1_id }}/preview" width="100%" height="100%" style="border:none; pointer-events: none;" allow="autoplay"></iframe>
+            {%- else -%}
+              {%- if v1_url contains 'dropbox.com' -%}
+                {%- assign v1_url = v1_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
+              {%- endif -%}
+              <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover;">
+                <source src="{{ v1_url }}" type="video/mp4">
+              </video>
             {%- endif -%}
-            <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover;">
-              <source src="{{ v1_url }}" type="video/mp4">
-            </video>
           {%- else -%}
             <div class="feat2-video-empty">Working Pop-Up Clip</div>
           {%- endif -%}
@@ -247,13 +249,15 @@
           {%- if v2_url != blank -%}
             {%- if v2_url contains 'drive.google.com' -%}
               {%- assign v2_id = v2_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-              {%- assign v2_url = 'https://drive.google.com/uc?export=download&id=' | append: v2_id -%}
-            {%- elsif v2_url contains 'dropbox.com' -%}
-              {%- assign v2_url = v2_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
+              <iframe src="https://drive.google.com/file/d/{{ v2_id }}/preview" width="100%" height="100%" style="border:none; pointer-events: none;" allow="autoplay"></iframe>
+            {%- else -%}
+              {%- if v2_url contains 'dropbox.com' -%}
+                {%- assign v2_url = v2_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
+              {%- endif -%}
+              <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover;">
+                <source src="{{ v2_url }}" type="video/mp4">
+              </video>
             {%- endif -%}
-            <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover;">
-              <source src="{{ v2_url }}" type="video/mp4">
-            </video>
           {%- else -%}
             <div class="feat2-video-empty">Active Noise Cancellation Clip</div>
           {%- endif -%}
@@ -269,13 +273,15 @@
           {%- if v3_url != blank -%}
             {%- if v3_url contains 'drive.google.com' -%}
               {%- assign v3_id = v3_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-              {%- assign v3_url = 'https://drive.google.com/uc?export=download&id=' | append: v3_id -%}
-            {%- elsif v3_url contains 'dropbox.com' -%}
-              {%- assign v3_url = v3_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
+              <iframe src="https://drive.google.com/file/d/{{ v3_id }}/preview" width="100%" height="100%" style="border:none; pointer-events: none;" allow="autoplay"></iframe>
+            {%- else -%}
+              {%- if v3_url contains 'dropbox.com' -%}
+                {%- assign v3_url = v3_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
+              {%- endif -%}
+              <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover;">
+                <source src="{{ v3_url }}" type="video/mp4">
+              </video>
             {%- endif -%}
-            <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover;">
-              <source src="{{ v3_url }}" type="video/mp4">
-            </video>
           {%- else -%}
             <div class="feat2-video-empty">Find My Device Clip</div>
           {%- endif -%}
@@ -291,13 +297,15 @@
           {%- if v4_url != blank -%}
             {%- if v4_url contains 'drive.google.com' -%}
               {%- assign v4_id = v4_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-              {%- assign v4_url = 'https://drive.google.com/uc?export=download&id=' | append: v4_id -%}
-            {%- elsif v4_url contains 'dropbox.com' -%}
-              {%- assign v4_url = v4_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
+              <iframe src="https://drive.google.com/file/d/{{ v4_id }}/preview" width="100%" height="100%" style="border:none; pointer-events: none;" allow="autoplay"></iframe>
+            {%- else -%}
+              {%- if v4_url contains 'dropbox.com' -%}
+                {%- assign v4_url = v4_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
+              {%- endif -%}
+              <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover;">
+                <source src="{{ v4_url }}" type="video/mp4">
+              </video>
             {%- endif -%}
-            <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover;">
-              <source src="{{ v4_url }}" type="video/mp4">
-            </video>
           {%- else -%}
             <div class="feat2-video-empty">Touch Controls Clip</div>
           {%- endif -%}
