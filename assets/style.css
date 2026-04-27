@@ -1651,8 +1651,25 @@ nav {
 }
 
 .feat2-video video, 
-.cv-item video {
+.cv-item video,
+.feat2-video iframe,
+.cv-item iframe {
   display: block !important;
+  pointer-events: none !important;
+}
+
+/* Hide all native browser video controls */
+video::-webkit-media-controls,
+video::-webkit-media-controls-enclosure,
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+video {
+  pointer-events: none !important;
 }
 .faq2-list {
   display: flex;
