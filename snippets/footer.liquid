@@ -20,22 +20,9 @@
       </a>
       <p>{{ city }}'s trusted local audio brand. Same-day delivery, open box, COD. Based in {{ city_area }} since 2024.</p>
     </div>
+
     <div class="f2-col">
-      <h4>{{ 'sections.footer.products' | t }}</h4>
-      <a href="/collections/earbuds">{{ 'sections.footer.earbuds' | t | default: 'Earbuds' }}</a>
-      <a href="/collections/smartwatches">{{ 'sections.footer.smartwatches' | t | default: 'Smartwatches' }}</a>
-      <a href="/collections/power-banks">{{ 'sections.footer.power_banks' | t | default: 'Power Banks' }}</a>
-      <a href="/collections/neckbands">{{ 'sections.footer.neckbands' | t | default: 'Neckbands' }}</a>
-    </div>
-    <div class="f2-col">
-      <h4>{{ 'sections.footer.support' | t }}</h4>
-      <a href="/pages/contact">{{ 'sections.footer.contact_us' | t | default: 'Contact Us' }}</a>
-      <a href="/pages/warranty">{{ 'sections.footer.warranty_claim' | t | default: 'Warranty Claim' }}</a>
-      <a href="/policies/refund-policy">{{ 'sections.footer.return_policy' | t | default: 'Return Policy' }}</a>
-      <a href="/pages/faq">{{ 'sections.footer.faq' | t | default: 'FAQ' }}</a>
-    </div>
-    <div class="f2-col">
-      <h4>{{ 'sections.footer.about' | t }}</h4>
+      <h4>ABOUT</h4>
       <a href="/pages/about">{{ 'sections.footer.our_story' | t | default: 'Our Story' }}</a>
       {%- if settings.instagram_handle != blank -%}
         <a href="https://instagram.com/{{ settings.instagram_handle }}" target="_blank" rel="noopener">{{ 'sections.footer.instagram' | t | default: 'Instagram' }}</a>
