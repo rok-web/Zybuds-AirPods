@@ -1,9 +1,3 @@
-<!-- ============================================================
-   snippets/reviews.liquid
-   Customer reviews section with score header + review cards
-   Review count bug fix: uses 214 instead of 2,140
-   ============================================================ -->
-
 {%- assign review_count = section.settings.review_count | default: '214' -%}
 
 <div class="section2 reveal">
@@ -36,111 +30,130 @@
     </div>
   </div>
 
-  <div class="reviews2-grid">
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'review' -%}
-        <div class="rev2" {{ block.shopify_attributes }}>
+  <div class="reviews2-slider-wrap">
+    <div class="reviews2-grid slider-track" id="reviewSlider">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'review' -%}
+          <div class="rev2" {{ block.shopify_attributes }}>
+            <div class="rev2-top">
+              <div class="rev2-av" style="background:{{ block.settings.avatar_color }};">
+                {{ block.settings.reviewer_name | slice: 0 }}
+              </div>
+              <div>
+                <div class="rev2-name">{{ block.settings.reviewer_name }}</div>
+                <div class="rev2-loc">📍 {{ block.settings.reviewer_location }}</div>
+              </div>
+            </div>
+            <div class="rev2-stars">★★★★★</div>
+            <div class="rev2-text">{{ block.settings.review_text }}</div>
+            <div class="rev2-verified">✓ {{ 'products.product.verified_purchase' | t }}</div>
+            <div class="rev2-date">{{ block.settings.review_date }}</div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- comment -%} Static reviews + New requested reviews {%- endcomment -%}
+      {%- capture static_reviews -%}
+        <!-- NEW REVIEWS -->
+        <div class="rev2">
           <div class="rev2-top">
-            <div class="rev2-av" style="background:{{ block.settings.avatar_color }};">
-              {{ block.settings.reviewer_name | slice: 0 }}
-            </div>
-            <div>
-              <div class="rev2-name">{{ block.settings.reviewer_name }}</div>
-              <div class="rev2-loc">📍 {{ block.settings.reviewer_location }}</div>
-            </div>
+            <div class="rev2-av" style="background:linear-gradient(135deg,#c8410a,#e85d1a);">T</div>
+            <div><div class="rev2-name">Tarun Singh</div><div class="rev2-loc">📍 Kompally, {{ settings.city | default: 'Hyderabad' }}</div></div>
           </div>
           <div class="rev2-stars">★★★★★</div>
-          <div class="rev2-text">{{ block.settings.review_text }}</div>
-          <div class="rev2-verified">✓ {{ 'products.product.verified_purchase' | t }}</div>
-          <div class="rev2-date">{{ block.settings.review_date }}</div>
+          <div class="rev2-text">The bass is phenomenal! I listen to EDM and these earbuds handle it perfectly. No distortion even at max volume. Open box delivery is brilliant — I tested for 5 minutes before paying. 10/10 service!</div>
+          <div class="rev2-verified">✓ Verified Purchase</div>
+          <div class="rev2-date">2 months ago</div>
         </div>
-      {%- endif -%}
-    {%- endfor -%}
+        <div class="rev2">
+          <div class="rev2-top">
+            <div class="rev2-av" style="background:linear-gradient(135deg,#1565c0,#42a5f5);">A</div>
+            <div><div class="rev2-name">Akash Verma</div><div class="rev2-loc">📍 Uppal, {{ settings.city | default: 'Hyderabad' }}</div></div>
+          </div>
+          <div class="rev2-stars">★★★★★</div>
+          <div class="rev2-text">I travel a lot for work. These are my daily drivers now — comfortable for hours, great sound isolation on flights. 1 year warranty means I don't worry about anything. Best purchase of 2025!</div>
+          <div class="rev2-verified">✓ Verified Purchase</div>
+          <div class="rev2-date">2 months ago</div>
+        </div>
+        <div class="rev2">
+          <div class="rev2-top">
+            <div class="rev2-av" style="background:linear-gradient(135deg,#1a7a3c,#4caf50);">N</div>
+            <div><div class="rev2-name">Naveen Kumar</div><div class="rev2-loc">📍 Manikonda, {{ settings.city | default: 'Hyderabad' }}</div></div>
+          </div>
+          <div class="rev2-stars">★★★★★</div>
+          <div class="rev2-text">Sound quality: 10/10. Battery: 10/10. Delivery speed: 10/10. Customer service: 10/10. Mahesh runs a very professional operation. The ₹99 system is smart — keeps fake orders out. Fully recommend!</div>
+          <div class="rev2-verified">✓ Verified Purchase</div>
+          <div class="rev2-date">2 months ago</div>
+        </div>
+        <div class="rev2">
+          <div class="rev2-top">
+            <div class="rev2-av" style="background:linear-gradient(135deg,#6a1b9a,#ab47bc);">S</div>
+            <div><div class="rev2-name">Swathi Rao</div><div class="rev2-loc">📍 Nampally, {{ settings.city | default: 'Hyderabad' }}</div></div>
+          </div>
+          <div class="rev2-stars">★★★★★</div>
+          <div class="rev2-text">Initially hesitant about COD gadgets but GadgetHub changed my mind. Delivery person was polite, waited patiently while I tested. Product is excellent quality. Knowing it's from Telangana Street makes it feel trustworthy. Love it!</div>
+          <div class="rev2-verified">✓ Verified Purchase</div>
+          <div class="rev2-date">2 months ago</div>
+        </div>
+        <div class="rev2">
+          <div class="rev2-top">
+            <div class="rev2-av" style="background:linear-gradient(135deg,#e53935,#ef9a9a);">N</div>
+            <div><div class="rev2-name">Neha Sharma</div><div class="rev2-loc">📍 Banjara Hills, {{ settings.city | default: 'Hyderabad' }}</div></div>
+          </div>
+          <div class="rev2-stars">★★★★★</div>
+          <div class="rev2-text">Ordered for my husband's birthday. Delivery person waited while I checked — battery was full, pairing was instant. The 1 year warranty makes this purchase completely risk-free. Very impressed!</div>
+          <div class="rev2-verified">✓ Verified Purchase</div>
+          <div class="rev2-date">2 months ago</div>
+        </div>
+        <div class="rev2">
+          <div class="rev2-top">
+            <div class="rev2-av" style="background:linear-gradient(135deg,#00838f,#4dd0e1);">H</div>
+            <div><div class="rev2-name">Harish Chandra</div><div class="rev2-loc">📍 Nacharam, {{ settings.city | default: 'Hyderabad' }}</div></div>
+          </div>
+          <div class="rev2-stars">★★★★★</div>
+          <div class="rev2-text">I work night shifts, battery life is crucial for me. These last my full 8-hour shift easily. Pairing with iPhone is instant — no lag at all. Mahesh's customer service is outstanding. Will buy again!</div>
+          <div class="rev2-verified">✓ Verified Purchase</div>
+          <div class="rev2-date">2 months ago</div>
+        </div>
+      {%- endcapture -%}
+      {{ static_reviews }}
+    </div>
 
-    {%- comment -%} Fallback static reviews if no blocks defined {%- endcomment -%}
-    {%- assign has_reviews = false -%}
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'review' -%}{%- assign has_reviews = true -%}{%- endif -%}
-    {%- endfor -%}
-    {%- unless has_reviews -%}
-      <div class="rev2">
-        <div class="rev2-top">
-          <div class="rev2-av" style="background:linear-gradient(135deg,#c8410a,#e85d1a);">R</div>
-          <div>
-            <div class="rev2-name">Ravi Kumar</div>
-            <div class="rev2-loc">📍 Ameerpet, {{ settings.city | default: 'Hyderabad' }}</div>
-          </div>
-        </div>
-        <div class="rev2-stars">★★★★★</div>
-        <div class="rev2-text">I was skeptical about the ₹{{ settings.advance_amount | default: '99' }} advance at first, but it all made perfect sense once explained. The product arrived quickly, I tested it on the spot before paying, and the bass quality is genuinely impressive. Highly recommend!</div>
-        <div class="rev2-verified">✓ Verified Purchase</div>
-        <div class="rev2-date">4 days ago</div>
-      </div>
-      <div class="rev2">
-        <div class="rev2-top">
-          <div class="rev2-av" style="background:linear-gradient(135deg,#1565c0,#42a5f5);">P</div>
-          <div>
-            <div class="rev2-name">Priya Reddy</div>
-            <div class="rev2-loc">📍 Madhapur, {{ settings.city | default: 'Hyderabad' }}</div>
-          </div>
-        </div>
-        <div class="rev2-stars">★★★★★</div>
-        <div class="rev2-text">Ordered at 10 AM, delivered by 2 PM — genuinely same day! The sound quality blew me away. Tested everything before paying, the delivery person waited patiently. The {{ settings.warranty_years | default: '1' }}-year warranty gave me extra confidence to buy.</div>
-        <div class="rev2-verified">✓ Verified Purchase</div>
-        <div class="rev2-date">1 week ago</div>
-      </div>
-      <div class="rev2">
-        <div class="rev2-top">
-          <div class="rev2-av" style="background:linear-gradient(135deg,#1a7a3c,#4caf50);">S</div>
-          <div>
-            <div class="rev2-name">Sai Teja</div>
-            <div class="rev2-loc">📍 LB Nagar, {{ settings.city | default: 'Hyderabad' }}</div>
-          </div>
-        </div>
-        <div class="rev2-stars">★★★★★</div>
-        <div class="rev2-text">This is my third order from {{ settings.shop_name_override | default: shop.name | default: 'Zybuds' }} — smartwatch, power bank, now earbuds. Every single time: same day delivery, open box, everything working perfectly. The warranty coverage is a game-changer at this price point.</div>
-        <div class="rev2-verified">✓ Verified Purchase</div>
-        <div class="rev2-date">2 weeks ago</div>
-      </div>
-      <div class="rev2">
-        <div class="rev2-top">
-          <div class="rev2-av" style="background:linear-gradient(135deg,#6a1b9a,#ab47bc);">A</div>
-          <div>
-            <div class="rev2-name">Ananya Singh</div>
-            <div class="rev2-loc">📍 Begumpet, {{ settings.city | default: 'Hyderabad' }}</div>
-          </div>
-        </div>
-        <div class="rev2-stars">★★★★★</div>
-        <div class="rev2-text">Sound quality exceeded my expectations completely. The call mic is super clear — even tested it while riding an auto. The ₹{{ settings.advance_amount | default: '99' }} system is actually clever and fair. Will definitely order again for my sister too.</div>
-        <div class="rev2-verified">✓ Verified Purchase</div>
-        <div class="rev2-date">3 weeks ago</div>
-      </div>
-      <div class="rev2">
-        <div class="rev2-top">
-          <div class="rev2-av" style="background:linear-gradient(135deg,#e53935,#ef9a9a);">M</div>
-          <div>
-            <div class="rev2-name">Mohammed Farhan</div>
-            <div class="rev2-loc">📍 Dilsukhnagar, {{ settings.city | default: 'Hyderabad' }}</div>
-          </div>
-        </div>
-        <div class="rev2-stars">★★★★★</div>
-        <div class="rev2-text">Saw this on Instagram and honestly expected it to be fake. But the open box delivery and {{ settings.warranty_years | default: '1' }}-year warranty changed my mind. Everything is exactly as described. This is a real local {{ settings.city | default: 'Hyderabad' }} business — fully trustworthy.</div>
-        <div class="rev2-verified">✓ Verified Purchase</div>
-        <div class="rev2-date">1 month ago</div>
-      </div>
-      <div class="rev2">
-        <div class="rev2-top">
-          <div class="rev2-av" style="background:linear-gradient(135deg,#00838f,#4dd0e1);">D</div>
-          <div>
-            <div class="rev2-name">Deepika Rao</div>
-            <div class="rev2-loc">📍 Kondapur, {{ settings.city | default: 'Hyderabad' }}</div>
-          </div>
-        </div>
-        <div class="rev2-stars">★★★★★</div>
-        <div class="rev2-text">Bought this as a gift for my husband — he is absolutely in love with it. Paired with his Samsung in seconds. Battery easily lasts his full work day. Knowing there's a {{ settings.warranty_years | default: '1' }}-year warranty made it a completely stress-free purchase. ❤️</div>
-        <div class="rev2-verified">✓ Verified Purchase</div>
-        <div class="rev2-date">1 month ago</div>
-      </div>
-    {%- endunless -%}
+    <div class="reviews2-controls">
+      <button class="rev2-arrow prev" onclick="scrollReviews(-1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="rev2-page-indicator" id="revIndicator">1 / 4</div>
+      <button class="rev2-arrow next" onclick="scrollReviews(1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
   </div>
 </div>
+
+<script>
+  function scrollReviews(dir) {
+    const track = document.getElementById('reviewSlider');
+    const indicator = document.getElementById('revIndicator');
+    const cardWidth = track.querySelector('.rev2').offsetWidth + 14; // width + gap
+    const currentScroll = track.scrollLeft;
+    const targetScroll = currentScroll + (cardWidth * dir);
+    
+    track.scrollTo({
+      left: targetScroll,
+      behavior: 'smooth'
+    });
+  }
+
+  // Update indicator on scroll
+  document.getElementById('reviewSlider').addEventListener('scroll', function() {
+    const track = this;
+    const cardWidth = track.querySelector('.rev2').offsetWidth + 14;
+    const total = track.querySelectorAll('.rev2').length;
+    const visibleCards = Math.round(track.offsetWidth / cardWidth);
+    const totalPages = Math.ceil(total / visibleCards);
+    const currentPage = Math.round(track.scrollLeft / track.offsetWidth) + 1;
+    
+    document.getElementById('revIndicator').innerText = `${currentPage} / ${totalPages}`;
+  });
+</script>

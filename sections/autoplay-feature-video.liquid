@@ -1,0 +1,143 @@
+{%- style -%}
+  #feature-video-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    margin: 40px auto;
+    max-width: 1200px;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  }
+
+  .video-wrapper-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .video-wrapper-{{ section.id }} video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    outline: none;
+    border: none;
+    -webkit-mask-image: -webkit-radial-gradient(white, black); /* Fix for rounded corners in Safari */
+  }
+
+  /* Hide potential default controls in some browsers */
+  .video-wrapper-{{ section.id }} video::-webkit-media-controls {
+    display: none !important;
+  }
+  
+  @media (max-width: 768px) {
+    #feature-video-{{ section.id }} {
+      border-radius: 16px;
+      margin: 20px auto;
+    }
+  }
+{%- endstyle -%}
+
+<div id="feature-video-{{ section.id }}" class="feature-video-container">
+  <div class="video-wrapper-{{ section.id }}">
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video | video_tag: 
+        autoplay: false, 
+        loop: true, 
+        muted: true, 
+        playsinline: true, 
+        controls: false,
+        id: "video-el-" | append: section.id,
+        class: "autonomous-video"
+      }}
+    {%- else -%}
+      <div style="padding: 100px; color: #555; text-align: center; background: #111; width: 100%;">
+        Upload a video in the theme customizer.
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+(function() {
+  const container = document.querySelector('#feature-video-{{ section.id }}');
+  const video = container.querySelector('video');
+
+  if (!video) return;
+
+  // Intersection Observer for Viewport Autoplay
+  const obsOptions = {
+    root: null,
+    threshold: 0.5 // Play when 50% visible
+  };
+
+  const obsCallback = (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        attemptPlay(video);
+      } else {
+        video.pause();
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(obsCallback, obsOptions);
+  observer.observe(video);
+
+  // Desktop Hover Behavior: Restart and Play
+  container.addEventListener('mouseenter', () => {
+    video.currentTime = 0;
+    attemptPlay(video);
+  });
+
+  // Safe Play Function with Fallback
+  async function attemptPlay(v) {
+    v.muted = true; // Ensure muted is explicitly set for browser compliance
+    try {
+      const playPromise = v.play();
+      if (playPromise !== undefined) {
+        await playPromise;
+      }
+    } catch (error) {
+      console.warn("Autoplay was prevented by the browser. Video will play on next interaction.");
+      
+      // Fallback: Try to play on first user interaction if autoplay is blocked
+      const resumePlay = () => {
+        v.play();
+        document.removeEventListener('click', resumePlay);
+        document.removeEventListener('touchstart', resumePlay);
+      };
+      document.addEventListener('click', resumePlay, { once: true });
+      document.addEventListener('touchstart', resumePlay, { once: true });
+    }
+  }
+
+  // Force playsinline and muted for mobile Safari
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', '');
+  video.muted = true;
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Autoplay Feature Video",
+  "settings": [
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Feature Video",
+      "info": "Upload the MP4 video here."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Autoplay Feature Video"
+    }
+  ]
+}
+{% endschema %}
