@@ -968,30 +968,24 @@ nav {
 }
 
 .pay-opt.advance-opt.active {
-  border-color: #3b82f6;
-  background: rgba(59, 130, 246, 0.15);
+  border-color: #2563eb;
+  background: #2563eb;
 }
 
-.pay-opt.advance-opt.active .po-title {
-  color: #60a5fa;
-}
-
+.pay-opt.advance-opt.active .po-title,
 .pay-opt.advance-opt.active .po-sub {
-  color: #93c5fd;
+  color: #ffffff;
   opacity: 1;
 }
 
 .pay-opt.full-opt.active {
-  border-color: #10b981;
-  background: rgba(16, 185, 129, 0.15);
+  border-color: #059669;
+  background: #059669;
 }
 
-.pay-opt.full-opt.active .po-title {
-  color: #34d399;
-}
-
+.pay-opt.full-opt.active .po-title,
 .pay-opt.full-opt.active .po-sub {
-  color: #6ee7b7;
+  color: #ffffff;
   opacity: 1;
 }
 
