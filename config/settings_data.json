@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "shop_name_override": "Zybuds",
@@ -30,9 +39,9 @@
           "review_count": "214",
           "show_video_section": true,
           "video_url_1": "https://drive.google.com/file/d/1s0b2VOvZ4r5pCv2yKYn6EXhxBJ-wAN0O/view",
-          "video_url_2": "https://drive.google.com/file/d/1noZW02dvvpVq7pHo6pQAas409SBYnWNk/view?usp=drivesdk",
+          "video_url_2": "https://drive.google.com/file/d/1ebFQufPwUv71FQzi37xHrtAb2WkZs5b-/view?usp=drivesdk",
           "video_url_3": "https://drive.google.com/file/d/13kWgzp0BUmSYmdZwPNCIH4ANS3HJqBVD/view?pli=1",
-          "video_url_4": "https://drive.google.com/file/d/1ebFQufPwUv71FQzi37xHrtAb2WkZs5b-/view?usp=drivesdk",
+          "video_url_4": "https://drive.google.com/file/d/1noZW02dvvpVq7pHo6pQAas409SBYnWNk/view?usp=drivesdk",
           "founder_message": "Hi, I'm Mahesh. I run Zybuds from Secunderabad."
         }
       }
