@@ -96,5 +96,17 @@
         "default": "zybuds"
       }
     ]
+  },
+  {
+    "name": "Payments (Razorpay)",
+    "settings": [
+      {
+        "type": "text",
+        "id": "razorpay_key_id",
+        "label": "Razorpay Key ID",
+        "info": "Enter your Razorpay API Key ID (rzp_live_... or rzp_test_...)",
+        "default": "rzp_test_YourKeyHere"
+      }
+    ]
   }
 ]

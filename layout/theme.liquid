@@ -28,6 +28,9 @@
   <!-- Theme CSS -->
   {{ 'zybuds-base.css' | asset_url | stylesheet_tag }}
   {{ 'style.css' | asset_url | stylesheet_tag }}
+
+  <!-- Razorpay SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
 <body>
@@ -74,7 +77,8 @@
       warrantyYears: {{ settings.warranty_years | default: 1 }},
       city: {{ settings.city | default: 'Hyderabad' | json }},
       founderName: {{ settings.founder_name | default: 'Mahesh' | json }},
-      ordersDelivered: {{ settings.orders_delivered | default: '500+' | json }}
+      ordersDelivered: {{ settings.orders_delivered | default: '500+' | json }},
+      razorpayKey: {{ settings.razorpay_key_id | json }}
     };
   </script>
 

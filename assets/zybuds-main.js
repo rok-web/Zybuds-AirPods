@@ -140,6 +140,8 @@
       if (mobOrderBtn) {
         mobOrderBtn.textContent = `Pay ${currencySymbol}${fullPrice.toLocaleString('en-IN')} → Confirm`;
       }
+      const payTypeInput = document.getElementById('paymentTypeInput');
+      if (payTypeInput) payTypeInput.value = 'Full';
     } else {
       if (breakdown) {
         breakdown.innerHTML = `Pay <strong>₹${advanceAmount} now</strong> to confirm → Remaining <strong>${currencySymbol}${remaining.toLocaleString('en-IN')} cash</strong> on delivery, after you check the product`;
@@ -150,6 +152,8 @@
       if (mobOrderBtn) {
         mobOrderBtn.textContent = `Pay ₹${advanceAmount} → Confirm`;
       }
+      const payTypeInput = document.getElementById('paymentTypeInput');
+      if (payTypeInput) payTypeInput.value = 'Advance';
     }
   };
 
@@ -193,11 +197,59 @@
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   };
 
-  // 10. DOM READY
+  // 10. RAZORPAY INTEGRATION
+  const initRazorpay = () => {
+    const form = document.getElementById('ProductForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+      if (form.dataset.paid === 'true') return;
+      
+      e.preventDefault();
+      const settings = window.ZybudsSettings || {};
+      const product = window.ShopifyProduct || {};
+      
+      if (!settings.razorpayKey || settings.razorpayKey.includes('YourKeyHere')) {
+        alert('Please configure Razorpay Key ID in Theme Settings');
+        return;
+      }
+
+      let amount = 99;
+      const payType = document.getElementById('paymentTypeInput')?.value || 'Advance';
+      if (payType === 'Full') {
+        amount = (product.price / 100) || 1400;
+      } else {
+        amount = settings.advanceAmount || 99;
+      }
+
+      const options = {
+        "key": settings.razorpayKey,
+        "amount": amount * 100,
+        "currency": "INR",
+        "name": "Zybuds",
+        "description": "Order Payment for " + (product.title || "AirPods Pro 2"),
+        "handler": function (response){
+          form.dataset.paid = "true";
+          const payIdInput = document.createElement('input');
+          payIdInput.type = 'hidden';
+          payIdInput.name = 'properties[Razorpay Payment ID]';
+          payIdInput.value = response.razorpay_payment_id;
+          form.appendChild(payIdInput);
+          form.submit();
+        },
+        "theme": { "color": "#e8c97a" }
+      };
+      const rzp = new Razorpay(options);
+      rzp.open();
+    });
+  };
+
+  // 11. DOM READY
   document.addEventListener('DOMContentLoaded', () => {
     initPopup();
     initCounters();
     initReveal();
+    initRazorpay();
 
     // Hide placeholders if video loaded
     document.querySelectorAll('.video-block video').forEach((vid, i) => {
