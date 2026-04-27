@@ -3,7 +3,7 @@
    Complete product landing page section
    ============================================================ -->
 
-{%- assign product_obj = product | default: section.settings.product -%}
+{%- assign product_obj = section.settings.product | default: product | default: all_products.first | default: collections.all.products.first -%}
 {%- assign advance_raw = settings.advance_amount | default: 99 | plus: 0 -%}
 {%- assign advance_cents = advance_raw | times: 100 -%}
 {%- assign city = settings.city | default: 'Hyderabad' -%}
