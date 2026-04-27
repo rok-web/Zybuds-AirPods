@@ -21,15 +21,7 @@
       <p>{{ city }}'s trusted local audio brand. Same-day delivery, open box, COD. Based in {{ city_area }} since 2024.</p>
     </div>
 
-    <div class="f2-col">
-      <h4>ABOUT</h4>
-      <a href="/pages/about">{{ 'sections.footer.our_story' | t | default: 'Our Story' }}</a>
-      {%- if settings.instagram_handle != blank -%}
-        <a href="https://instagram.com/{{ settings.instagram_handle }}" target="_blank" rel="noopener">{{ 'sections.footer.instagram' | t | default: 'Instagram' }}</a>
-      {%- endif -%}
-      <a href="/pages/contact">{{ 'sections.footer.contact' | t | default: 'Contact' }}</a>
-      <a href="/policies/privacy-policy">{{ 'sections.footer.privacy_policy' | t | default: 'Privacy Policy' }}</a>
-    </div>
+
   </div>
   <div class="footer2-bottom">
     <div>© {{ 'now' | date: '%Y' }} {{ brand }} · {{ founder_location }}, {{ city }}</div>
