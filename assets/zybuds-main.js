@@ -200,35 +200,49 @@
   // 10. RAZORPAY INTEGRATION
   const initRazorpay = () => {
     const form = document.getElementById('ProductForm');
+    const orderBtn = document.getElementById('orderBtn');
     if (!form) return;
 
-    form.addEventListener('submit', function(e) {
+    const startPayment = (e) => {
       if (form.dataset.paid === 'true') return;
       
       e.preventDefault();
+      e.stopPropagation();
+      
       const settings = window.ZybudsSettings || {};
       const product = window.ShopifyProduct || {};
       
-      if (!settings.razorpayKey || settings.razorpayKey.includes('YourKeyHere')) {
-        alert('Please configure Razorpay Key ID in Theme Settings');
+      if (typeof Razorpay === 'undefined') {
+        alert('Razorpay payment system is still loading. Please wait a second and try again.');
+        return;
+      }
+
+      if (!settings.razorpayKey || settings.razorpayKey.length < 10 || settings.razorpayKey.includes('YourKeyHere')) {
+        alert('Payment Error: Razorpay Key ID is missing or invalid. Please add your key in Theme Settings > Payments.');
+        console.error('Invalid Razorpay Key:', settings.razorpayKey);
         return;
       }
 
       let amount = 99;
-      const payType = document.getElementById('paymentTypeInput')?.value || 'Advance';
+      const payTypeInput = document.getElementById('paymentTypeInput');
+      const payType = payTypeInput ? payTypeInput.value : 'Advance';
+      
       if (payType === 'Full') {
         amount = (product.price / 100) || 1400;
       } else {
-        amount = settings.advanceAmount || 99;
+        amount = parseInt(settings.advanceAmount) || 99;
       }
+
+      console.log('Starting Razorpay Payment:', { amount, payType, key: settings.razorpayKey });
 
       const options = {
         "key": settings.razorpayKey,
-        "amount": amount * 100,
+        "amount": Math.round(amount * 100),
         "currency": "INR",
         "name": "Zybuds",
-        "description": "Order Payment for " + (product.title || "AirPods Pro 2"),
+        "description": "Payment for " + (product.title || "AirPods Pro 2"),
         "handler": function (response){
+          console.log('Razorpay Success:', response.razorpay_payment_id);
           form.dataset.paid = "true";
           const payIdInput = document.createElement('input');
           payIdInput.type = 'hidden';
@@ -237,10 +251,28 @@
           form.appendChild(payIdInput);
           form.submit();
         },
+        "modal": {
+          "ondismiss": function(){
+            console.log('Payment popup closed');
+          }
+        },
         "theme": { "color": "#e8c97a" }
       };
-      const rzp = new Razorpay(options);
-      rzp.open();
+      
+      try {
+        const rzp = new Razorpay(options);
+        rzp.open();
+      } catch(err) {
+        console.error('Razorpay Error:', err);
+        alert('Could not open payment popup. Error: ' + err.message);
+      }
+    };
+
+    form.addEventListener('submit', startPayment);
+    if (orderBtn) orderBtn.addEventListener('click', function(e) {
+        if (form.dataset.paid !== 'true') {
+            startPayment(e);
+        }
     });
   };
 
