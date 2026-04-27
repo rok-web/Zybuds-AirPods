@@ -21,24 +21,19 @@
       {%- endif -%}
     </div>
     <div class="founder2-content">
-      <div class="founder2-eyebrow">A Message From Our Founder</div>
-      <div class="founder2-title">Hi, I'm {{ founder_name }}.<br>I run {{ brand }} from {{ city_area }}.</div>
+      <div class="founder2-eyebrow">👤 A Message From Our Founder</div>
+      <div class="founder2-title">Hi, I'm <strong>{{ founder_name }}</strong>.<br>I run <strong>{{ brand }}</strong> from {{ city_area }}.</div>
       <div class="founder2-text">
-        {%- if section.settings.founder_message != blank -%}
-          {{ section.settings.founder_message }}
-        {%- else -%}
-          I started {{ brand }} because too many people in {{ city }} were overpaying for gadgets online — with nobody to call
-          when things went wrong. We are based in <strong>{{ founder_location }}</strong>. Every
-          product is personally tested before it leaves. I built the open box delivery system so you never take any
-          risk. The ₹{{ advance }} advance exists purely to avoid fake orders from people wasting our time. Genuine customers
-          have no risk — if you aren't happy, I refund your ₹{{ advance }} immediately.
-        {%- endif -%}
+        <p>I started {{ brand }} with one simple goal — to give people in {{ city }} high-quality gadgets without overpaying online and without the risk of scams.</p>
+        <p>Every product we sell is personally tested by our team before dispatch. We introduced <strong>open box delivery</strong> so you can check everything before paying — no surprises, no stress.</p>
+        <p>We also provide a <strong>{{ settings.warranty_years | default: '1' }}-year warranty</strong> because we stand behind what we sell.</p>
+        <p>If you ever need help, you can message me directly on WhatsApp — no bots, no waiting. I’ll personally make sure you're satisfied.</p>
       </div>
       <div class="founder2-meta">
-        <div class="f2-chip">👤 {{ founder_name }}, Founder</div>
-        <div class="f2-chip">📍 {{ founder_location }}</div>
-        <div class="f2-chip">🏙️ {{ city }}, Telangana</div>
-        <div class="f2-chip">🛡️ {{ settings.warranty_years | default: '1' }} Year Warranty on All Products</div>
+        <div class="f2-chip">📍 <strong>Location:</strong> {{ founder_location }}</div>
+        <div class="f2-chip">🏙️ <strong>City:</strong> {{ city }}, Telangana</div>
+        <div class="f2-chip">📞 <strong>Phone:</strong> 9704252065</div>
+        <div class="f2-chip">🛡️ <strong>Warranty:</strong> {{ settings.warranty_years | default: '1' }} Year on All Products</div>
       </div>
     </div>
   </div>
