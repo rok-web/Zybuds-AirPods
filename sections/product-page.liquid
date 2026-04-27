@@ -220,12 +220,18 @@
     <p class="sec2-sub">Watch each feature in action before you order.</p>
     <div class="feat2-grid">
       <div class="feat2">
-        <div class="feat2-video">
+        <div class="feat2-video" id="feat-v1-container">
           {%- assign v1_url = section.settings.video_url_1 -%}
           {%- if v1_url != blank -%}
             {%- if v1_url contains 'drive.google.com' -%}
               {%- assign v1_id = v1_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-              <iframe src="https://drive.google.com/file/d/{{ v1_id }}/preview" width="100%" height="100%" style="border:none; pointer-events: none;" allow="autoplay"></iframe>
+              {%- assign v1_direct = 'https://drive.google.com/uc?id=' | append: v1_id | append: '&export=media' -%}
+              <video autoplay muted loop playsinline preload="auto" 
+                style="width:100%; height:100%; object-fit:cover; display:block;"
+                onerror="this.parentElement.innerHTML='<iframe src=\'https://drive.google.com/file/d/{{ v1_id }}/preview\' width=\'100%\' height=\'100%\' style=\'border:none;\' allow=\'autoplay\'></iframe>'">
+                <source src="{{ v1_direct }}" type="video/mp4">
+                <source src="https://drive.google.com/uc?export=download&id={{ v1_id }}" type="video/mp4">
+              </video>
             {%- else -%}
               {%- if v1_url contains 'dropbox.com' -%}
                 {%- assign v1_url = v1_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
@@ -244,12 +250,18 @@
         </div>
       </div>
       <div class="feat2">
-        <div class="feat2-video">
+        <div class="feat2-video" id="feat-v2-container">
           {%- assign v2_url = section.settings.video_url_2 -%}
           {%- if v2_url != blank -%}
             {%- if v2_url contains 'drive.google.com' -%}
               {%- assign v2_id = v2_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-              <iframe src="https://drive.google.com/file/d/{{ v2_id }}/preview" width="100%" height="100%" style="border:none; pointer-events: none;" allow="autoplay"></iframe>
+              {%- assign v2_direct = 'https://drive.google.com/uc?id=' | append: v2_id | append: '&export=media' -%}
+              <video autoplay muted loop playsinline preload="auto" 
+                style="width:100%; height:100%; object-fit:cover; display:block;"
+                onerror="this.parentElement.innerHTML='<iframe src=\'https://drive.google.com/file/d/{{ v2_id }}/preview\' width=\'100%\' height=\'100%\' style=\'border:none;\' allow=\'autoplay\'></iframe>'">
+                <source src="{{ v2_direct }}" type="video/mp4">
+                <source src="https://drive.google.com/uc?export=download&id={{ v2_id }}" type="video/mp4">
+              </video>
             {%- else -%}
               {%- if v2_url contains 'dropbox.com' -%}
                 {%- assign v2_url = v2_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
@@ -268,12 +280,18 @@
         </div>
       </div>
       <div class="feat2">
-        <div class="feat2-video">
+        <div class="feat2-video" id="feat-v3-container">
           {%- assign v3_url = section.settings.video_url_3 -%}
           {%- if v3_url != blank -%}
             {%- if v3_url contains 'drive.google.com' -%}
               {%- assign v3_id = v3_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-              <iframe src="https://drive.google.com/file/d/{{ v3_id }}/preview" width="100%" height="100%" style="border:none; pointer-events: none;" allow="autoplay"></iframe>
+              {%- assign v3_direct = 'https://drive.google.com/uc?id=' | append: v3_id | append: '&export=media' -%}
+              <video autoplay muted loop playsinline preload="auto" 
+                style="width:100%; height:100%; object-fit:cover; display:block;"
+                onerror="this.parentElement.innerHTML='<iframe src=\'https://drive.google.com/file/d/{{ v3_id }}/preview\' width=\'100%\' height=\'100%\' style=\'border:none;\' allow=\'autoplay\'></iframe>'">
+                <source src="{{ v3_direct }}" type="video/mp4">
+                <source src="https://drive.google.com/uc?export=download&id={{ v3_id }}" type="video/mp4">
+              </video>
             {%- else -%}
               {%- if v3_url contains 'dropbox.com' -%}
                 {%- assign v3_url = v3_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
@@ -292,12 +310,18 @@
         </div>
       </div>
       <div class="feat2">
-        <div class="feat2-video">
+        <div class="feat2-video" id="feat-v4-container">
           {%- assign v4_url = section.settings.video_url_4 -%}
           {%- if v4_url != blank -%}
             {%- if v4_url contains 'drive.google.com' -%}
               {%- assign v4_id = v4_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-              <iframe src="https://drive.google.com/file/d/{{ v4_id }}/preview" width="100%" height="100%" style="border:none; pointer-events: none;" allow="autoplay"></iframe>
+              {%- assign v4_direct = 'https://drive.google.com/uc?id=' | append: v4_id | append: '&export=media' -%}
+              <video autoplay muted loop playsinline preload="auto" 
+                style="width:100%; height:100%; object-fit:cover; display:block;"
+                onerror="this.parentElement.innerHTML='<iframe src=\'https://drive.google.com/file/d/{{ v4_id }}/preview\' width=\'100%\' height=\'100%\' style=\'border:none;\' allow=\'autoplay\'></iframe>'">
+                <source src="{{ v4_direct }}" type="video/mp4">
+                <source src="https://drive.google.com/uc?export=download&id={{ v4_id }}" type="video/mp4">
+              </video>
             {%- else -%}
               {%- if v4_url contains 'dropbox.com' -%}
                 {%- assign v4_url = v4_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
