@@ -266,14 +266,14 @@
         if (!vid) return;
         if (entry.isIntersecting) {
           vid.muted = true;
+          vid.setAttribute('muted', '');
           vid.loop = true;
+          vid.setAttribute('playsinline', '');
           vid.removeAttribute('controls');
           vid.play().catch(() => {});
-        } else {
-          vid.pause();
         }
       });
-    }, { threshold: 0.25 });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.feat2').forEach(feat => {
       // Strip controls from all feature videos immediately

@@ -723,10 +723,24 @@
     function forceAutoplay() {
       document.querySelectorAll('video').forEach(v => {
         v.muted = true;
-        if (v.paused) v.play().catch(() => {});
+        v.setAttribute('muted', '');
+        v.setAttribute('playsinline', '');
+        if (v.paused) {
+          v.play().catch(err => {
+            // If blocked, we try again on next interval or interaction
+          });
+        }
       });
     }
-    setInterval(forceAutoplay, 3000);
-    ['touchstart', 'click'].forEach(e => document.addEventListener(e, forceAutoplay, { once: true }));
+    // Run every 2 seconds for the first 10 seconds, then every 5 seconds
+    let fastInterval = setInterval(forceAutoplay, 2000);
+    setTimeout(() => {
+      clearInterval(fastInterval);
+      setInterval(forceAutoplay, 5000);
+    }, 10000);
+
+    ['touchstart', 'click', 'scroll', 'mousedown'].forEach(e => {
+      document.addEventListener(e, forceAutoplay, { once: true });
+    });
   })();
 </script>
