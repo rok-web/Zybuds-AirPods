@@ -221,12 +221,17 @@
     <div class="feat2-grid">
       <div class="feat2">
         <div class="feat2-video">
-          {%- assign v1 = section.settings.video_url_1 -%}
-          {%- if v1 contains 'drive.google.com' -%}
-            {%- assign v1_id = v1 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-            <iframe src="https://drive.google.com/file/d/{{ v1_id }}/preview" width="100%" height="100%" style="border:none;" allow="autoplay"></iframe>
-          {%- elsif v1 != blank -%}
-            <video src="{{ v1 }}" autoplay muted loop playsinline preload="metadata"></video>
+          {%- assign v1_obj = section.settings.feat_video_1 -%}
+          {%- assign v1_url = section.settings.video_url_1 -%}
+          
+          {%- if v1_obj != blank -%}
+            {{ v1_obj | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false }}
+          {%- elsif v1_url != blank -%}
+            {%- if v1_url contains 'drive.google.com' -%}
+              {%- assign v1_id = v1_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
+              {%- assign v1_url = 'https://drive.google.com/uc?export=download&id=' | append: v1_id -%}
+            {%- endif -%}
+            <video src="{{ v1_url }}" autoplay muted loop playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">Working Pop-Up Clip</div>
           {%- endif -%}
@@ -238,12 +243,17 @@
       </div>
       <div class="feat2">
         <div class="feat2-video">
-          {%- assign v2 = section.settings.video_url_2 -%}
-          {%- if v2 contains 'drive.google.com' -%}
-            {%- assign v2_id = v2 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-            <iframe src="https://drive.google.com/file/d/{{ v2_id }}/preview" width="100%" height="100%" style="border:none;" allow="autoplay"></iframe>
-          {%- elsif v2 != blank -%}
-            <video src="{{ v2 }}" autoplay muted loop playsinline preload="metadata"></video>
+          {%- assign v2_obj = section.settings.feat_video_2 -%}
+          {%- assign v2_url = section.settings.video_url_2 -%}
+          
+          {%- if v2_obj != blank -%}
+            {{ v2_obj | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false }}
+          {%- elsif v2_url != blank -%}
+            {%- if v2_url contains 'drive.google.com' -%}
+              {%- assign v2_id = v2_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
+              {%- assign v2_url = 'https://drive.google.com/uc?export=download&id=' | append: v2_id -%}
+            {%- endif -%}
+            <video src="{{ v2_url }}" autoplay muted loop playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">Active Noise Cancellation Clip</div>
           {%- endif -%}
@@ -255,12 +265,17 @@
       </div>
       <div class="feat2">
         <div class="feat2-video">
-          {%- assign v3 = section.settings.video_url_3 -%}
-          {%- if v3 contains 'drive.google.com' -%}
-            {%- assign v3_id = v3 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-            <iframe src="https://drive.google.com/file/d/{{ v3_id }}/preview" width="100%" height="100%" style="border:none;" allow="autoplay"></iframe>
-          {%- elsif v3 != blank -%}
-            <video src="{{ v3 }}" autoplay muted loop playsinline preload="metadata"></video>
+          {%- assign v3_obj = section.settings.feat_video_3 -%}
+          {%- assign v3_url = section.settings.video_url_3 -%}
+          
+          {%- if v3_obj != blank -%}
+            {{ v3_obj | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false }}
+          {%- elsif v3_url != blank -%}
+            {%- if v3_url contains 'drive.google.com' -%}
+              {%- assign v3_id = v3_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
+              {%- assign v3_url = 'https://drive.google.com/uc?export=download&id=' | append: v3_id -%}
+            {%- endif -%}
+            <video src="{{ v3_url }}" autoplay muted loop playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">Find My Device Clip</div>
           {%- endif -%}
@@ -272,12 +287,17 @@
       </div>
       <div class="feat2">
         <div class="feat2-video">
-          {%- assign v4 = section.settings.video_url_4 -%}
-          {%- if v4 contains 'drive.google.com' -%}
-            {%- assign v4_id = v4 | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-            <iframe src="https://drive.google.com/file/d/{{ v4_id }}/preview" width="100%" height="100%" style="border:none;" allow="autoplay"></iframe>
-          {%- elsif v4 != blank -%}
-            <video src="{{ v4 }}" autoplay muted loop playsinline preload="metadata"></video>
+          {%- assign v4_obj = section.settings.feat_video_4 -%}
+          {%- assign v4_url = section.settings.video_url_4 -%}
+          
+          {%- if v4_obj != blank -%}
+            {{ v4_obj | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false }}
+          {%- elsif v4_url != blank -%}
+            {%- if v4_url contains 'drive.google.com' -%}
+              {%- assign v4_id = v4_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
+              {%- assign v4_url = 'https://drive.google.com/uc?export=download&id=' | append: v4_id -%}
+            {%- endif -%}
+            <video src="{{ v4_url }}" autoplay muted loop playsinline preload="metadata"></video>
           {%- else -%}
             <div class="feat2-video-empty">Touch Controls Clip</div>
           {%- endif -%}
@@ -461,28 +481,33 @@
       "default": true
     },
     {
+      "type": "header",
+      "content": "Feature Videos"
+    },
+    { "type": "video", "id": "feat_video_1", "label": "Working Pop-Up Video (Shopify Upload)" },
+    { "type": "video", "id": "feat_video_2", "label": "ANC Video (Shopify Upload)" },
+    { "type": "video", "id": "feat_video_3", "label": "Find My Video (Shopify Upload)" },
+    { "type": "video", "id": "feat_video_4", "label": "Touch Controls Video (Shopify Upload)" },
+    {
       "type": "text",
       "id": "video_url_1",
-      "label": "Working Pop-Up Video URL (MP4)",
-      "info": "Since you are on a trial account, upload your video to a host like Google Drive or Dropbox and paste the direct link here."
+      "label": "Working Pop-Up Video URL (External)",
+      "info": "Used if no Shopify video is selected."
     },
     {
       "type": "text",
       "id": "video_url_2",
-      "label": "Active Noise Cancellation Video URL (MP4)",
-      "info": "Paste the direct MP4 link here."
+      "label": "ANC Video URL (External)"
     },
     {
       "type": "text",
       "id": "video_url_3",
-      "label": "Find My Device Video URL (MP4)",
-      "info": "Paste the direct MP4 link here."
+      "label": "Find My Device Video URL (External)"
     },
     {
       "type": "text",
       "id": "video_url_4",
-      "label": "Touch Controls Video URL (MP4)",
-      "info": "Paste the direct MP4 link here."
+      "label": "Touch Controls Video URL (External)"
     },
 
     {
