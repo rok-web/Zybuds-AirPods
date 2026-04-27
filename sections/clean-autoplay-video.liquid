@@ -1,0 +1,115 @@
+{%- style -%}
+  /* Container styling */
+  .clean-video-wrapper-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #000;
+    line-height: 0;
+  }
+
+  .clean-video-wrapper-{{ section.id }} video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    pointer-events: none; /* Disable interaction to prevent default browser play buttons */
+  }
+
+  /* FORCE REMOVE THEME OVERLAYS */
+  .clean-video-wrapper-{{ section.id }} .deferred-media__poster,
+  .clean-video-wrapper-{{ section.id }} .deferred-media__poster-button,
+  .clean-video-wrapper-{{ section.id }} .video-section__poster,
+  .clean-video-wrapper-{{ section.id }} .media__play-button,
+  .clean-video-wrapper-{{ section.id }} [class*="play-button"],
+  .clean-video-wrapper-{{ section.id }} [class*="overlay"],
+  .clean-video-wrapper-{{ section.id }} .deferred-media__content {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* Ensure the video is visible and not deferred */
+  .clean-video-wrapper-{{ section.id }} deferred-media {
+    display: block !important;
+  }
+
+  @media (max-width: 768px) {
+    .clean-video-wrapper-{{ section.id }} {
+      border-radius: 12px;
+      margin: 20px auto;
+    }
+  }
+{%- endstyle -%}
+
+<div class="clean-video-wrapper-{{ section.id }}">
+  {%- if section.settings.video != blank -%}
+    {%- comment -%}
+      Using raw source extraction to avoid Shopify's default 'deferred-media' wrapper 
+      if the user just wants the cleanest possible video tag.
+    {%- endcomment -%}
+    <video 
+      autoplay 
+      muted 
+      loop 
+      playsinline 
+      preload="auto"
+      class="clean-autonomous-video"
+      oncontextmenu="return false;"
+    >
+      {%- for source in section.settings.video.sources -%}
+        <source src="{{ source.url }}" type="{{ source.mime_type }}">
+      {%- endfor -%}
+      Your browser does not support the video tag.
+    </video>
+  {%- else -%}
+    <div style="padding: 60px; color: #666; text-align: center; background: #1a1a1a;">
+      Please upload a video in Section Settings.
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  /* Ensure autoplay starts even if browser is strict */
+  document.addEventListener('DOMContentLoaded', function() {
+    const v = document.querySelector('.clean-video-wrapper-{{ section.id }} video');
+    if (v) {
+      v.muted = true;
+      const promise = v.play();
+      if (promise !== undefined) {
+        promise.catch(error => {
+          // Auto-play was prevented, retry on user interaction
+          const retry = () => {
+            v.play();
+            window.removeEventListener('click', retry);
+            window.removeEventListener('touchstart', retry);
+          };
+          window.addEventListener('click', retry, {once: true});
+          window.addEventListener('touchstart', retry, {once: true});
+        });
+      }
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Clean Autoplay Video",
+  "settings": [
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Clean Autoplay Video"
+    }
+  ]
+}
+{% endschema %}
