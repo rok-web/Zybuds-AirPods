@@ -1181,17 +1181,20 @@ nav {
   background: var(--bg3);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 0; /* Changed to 0 to let video be full width */
+  padding: 0;
   transition: all 0.3s;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  max-width: 380px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .feat2-video {
   width: 100% !important;
-  aspect-ratio: 9 / 16 !important;
+  aspect-ratio: 10 / 14 !important;
   height: auto !important;
   max-height: none !important;
   background: #000;
@@ -1599,8 +1602,8 @@ nav {
 /* CUSTOMER VIDEO GALLERY */
 .cv-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
   margin-top: 24px;
 }
 
@@ -1609,7 +1612,7 @@ nav {
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--bg3);
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 5;
   border: 1px solid var(--border);
 }
 
