@@ -1192,7 +1192,7 @@ nav {
 .feat2-video {
   width: 100% !important;
   aspect-ratio: 9 / 16 !important; /* Vertical */
-  height: 450px !important; /* Explicit tall height */
+  max-height: 500px !important; /* Limit maximum height */
   background: #000;
   overflow: hidden;
   position: relative;
@@ -1204,7 +1204,7 @@ nav {
   height: 100%;
   border: none;
   display: block;
-  object-fit: cover;
+  object-fit: contain; /* Show the WHOLE video without cropping */
 }
 
 .feat2-content {
