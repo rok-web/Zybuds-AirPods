@@ -207,17 +207,31 @@
       });
     });
 
-    // Hover to play feature videos
+    // Autoplay feature videos when scrolled into view — no controls, no hover needed
+    const featObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const vid = entry.target.querySelector('video');
+        if (!vid) return;
+        if (entry.isIntersecting) {
+          vid.muted = true;
+          vid.loop = true;
+          vid.removeAttribute('controls');
+          vid.play().catch(() => {});
+        } else {
+          vid.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+
     document.querySelectorAll('.feat2').forEach(feat => {
+      // Strip controls from all feature videos immediately
       const vid = feat.querySelector('video');
       if (vid) {
-        feat.addEventListener('mouseenter', () => {
-          vid.play().catch(() => {}); // Catch error if autoplay blocked
-        });
-        feat.addEventListener('mouseleave', () => {
-          vid.pause();
-        });
+        vid.muted = true;
+        vid.loop = true;
+        vid.removeAttribute('controls');
       }
+      featObs.observe(feat);
     });
   });
 

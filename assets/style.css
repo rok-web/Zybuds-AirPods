@@ -1191,20 +1191,24 @@ nav {
 
 .feat2-video {
   width: 100% !important;
-  aspect-ratio: 9 / 16 !important; /* Vertical */
-  max-height: 500px !important; /* Limit maximum height */
+  aspect-ratio: 9 / 16 !important;
+  height: auto !important;
+  max-height: none !important;
   background: #000;
   overflow: hidden;
-  position: relative;
+  position: relative !important;
 }
 
-.feat2-video video, 
+.feat2-video video,
 .feat2-video iframe {
-  width: 100%;
-  height: 100%;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
   border: none;
   display: block;
-  object-fit: contain; /* Show the WHOLE video without cropping */
+  object-fit: cover !important;
 }
 
 .feat2-content {
