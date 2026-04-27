@@ -423,7 +423,6 @@
   {% render 'faq' %}
 
 </div><!-- /below-fold -->
-
 <!-- FOUNDER SECTION -->
 {% render 'founder' %}
 
@@ -658,3 +657,47 @@
   ]
 }
 {% endschema %}
+
+<script>
+  (function() {
+    function forceAutoplay() {
+      // Find all videos
+      const videos = document.querySelectorAll('.feat2-video video, .cv-item video');
+      videos.forEach(v => {
+        v.muted = true;
+        v.playsInline = true;
+        v.setAttribute('autoplay', '');
+        v.setAttribute('muted', '');
+        v.setAttribute('playsinline', '');
+        v.setAttribute('loop', '');
+        
+        // Hide potential poster/play button injected by theme
+        const parent = v.parentElement;
+        if (parent) {
+          const overlays = parent.querySelectorAll('[class*="poster"], [class*="play"], [class*="overlay"]');
+          overlays.forEach(o => o.style.display = 'none');
+        }
+
+        // Force play
+        const promise = v.play();
+        if (promise !== undefined) {
+          promise.catch(() => {
+            // Retry on user interaction
+            const retry = () => {
+              v.play();
+              window.removeEventListener('touchstart', retry);
+              window.removeEventListener('click', retry);
+            };
+            window.addEventListener('touchstart', retry);
+            window.addEventListener('click', retry);
+          });
+        }
+      });
+    }
+
+    // Run on load and multiple times to ensure dynamic content is caught
+    window.addEventListener('load', forceAutoplay);
+    document.addEventListener('DOMContentLoaded', forceAutoplay);
+    setInterval(forceAutoplay, 3000);
+  })();
+</script>

@@ -1621,7 +1621,21 @@ nav {
   }
 }
 
-/* FAQ */
+/* VIDEO OVERRIDES */
+.feat2-video .deferred-media__poster,
+.feat2-video .media__play-button,
+.feat2-video .deferred-media__poster-button,
+.cv-item .deferred-media__poster,
+.cv-item .media__play-button {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.feat2-video video, 
+.cv-item video {
+  display: block !important;
+}
 .faq2-list {
   display: flex;
   flex-direction: column;
