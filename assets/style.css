@@ -1191,7 +1191,7 @@ nav {
 
 .feat2-video {
   width: 100%;
-  aspect-ratio: 16 / 9; /* Horizontal */
+  aspect-ratio: 9 / 16; /* Vertical */
   background: #000;
   overflow: hidden;
   position: relative;
