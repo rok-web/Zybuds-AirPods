@@ -225,18 +225,12 @@
           {%- if v1_url != blank -%}
             {%- if v1_url contains 'drive.google.com' -%}
               {%- assign v1_id = v1_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-              {%- assign v1_direct = 'https://drive.google.com/uc?id=' | append: v1_id | append: '&export=media' -%}
-              <video autoplay muted loop playsinline preload="auto" 
-                style="width:100%; height:100%; object-fit:cover; display:block;"
-                onerror="this.parentElement.innerHTML='<iframe src=\'https://drive.google.com/file/d/{{ v1_id }}/preview\' width=\'100%\' height=\'100%\' style=\'border:none;\' allow=\'autoplay\'></iframe>'">
-                <source src="{{ v1_direct }}" type="video/mp4">
-                <source src="https://drive.google.com/uc?export=download&id={{ v1_id }}" type="video/mp4">
-              </video>
+              <div class="drive-video-player" data-id="{{ v1_id }}"></div>
             {%- else -%}
               {%- if v1_url contains 'dropbox.com' -%}
                 {%- assign v1_url = v1_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
               {%- endif -%}
-              <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover;">
+              <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
                 <source src="{{ v1_url }}" type="video/mp4">
               </video>
             {%- endif -%}
@@ -255,18 +249,12 @@
           {%- if v2_url != blank -%}
             {%- if v2_url contains 'drive.google.com' -%}
               {%- assign v2_id = v2_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-              {%- assign v2_direct = 'https://drive.google.com/uc?id=' | append: v2_id | append: '&export=media' -%}
-              <video autoplay muted loop playsinline preload="auto" 
-                style="width:100%; height:100%; object-fit:cover; display:block;"
-                onerror="this.parentElement.innerHTML='<iframe src=\'https://drive.google.com/file/d/{{ v2_id }}/preview\' width=\'100%\' height=\'100%\' style=\'border:none;\' allow=\'autoplay\'></iframe>'">
-                <source src="{{ v2_direct }}" type="video/mp4">
-                <source src="https://drive.google.com/uc?export=download&id={{ v2_id }}" type="video/mp4">
-              </video>
+              <div class="drive-video-player" data-id="{{ v2_id }}"></div>
             {%- else -%}
               {%- if v2_url contains 'dropbox.com' -%}
                 {%- assign v2_url = v2_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
               {%- endif -%}
-              <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover;">
+              <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
                 <source src="{{ v2_url }}" type="video/mp4">
               </video>
             {%- endif -%}
@@ -285,18 +273,12 @@
           {%- if v3_url != blank -%}
             {%- if v3_url contains 'drive.google.com' -%}
               {%- assign v3_id = v3_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-              {%- assign v3_direct = 'https://drive.google.com/uc?id=' | append: v3_id | append: '&export=media' -%}
-              <video autoplay muted loop playsinline preload="auto" 
-                style="width:100%; height:100%; object-fit:cover; display:block;"
-                onerror="this.parentElement.innerHTML='<iframe src=\'https://drive.google.com/file/d/{{ v3_id }}/preview\' width=\'100%\' height=\'100%\' style=\'border:none;\' allow=\'autoplay\'></iframe>'">
-                <source src="{{ v3_direct }}" type="video/mp4">
-                <source src="https://drive.google.com/uc?export=download&id={{ v3_id }}" type="video/mp4">
-              </video>
+              <div class="drive-video-player" data-id="{{ v3_id }}"></div>
             {%- else -%}
               {%- if v3_url contains 'dropbox.com' -%}
                 {%- assign v3_url = v3_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
               {%- endif -%}
-              <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover;">
+              <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
                 <source src="{{ v3_url }}" type="video/mp4">
               </video>
             {%- endif -%}
@@ -315,18 +297,12 @@
           {%- if v4_url != blank -%}
             {%- if v4_url contains 'drive.google.com' -%}
               {%- assign v4_id = v4_url | split: '/d/' | last | split: '/' | first | split: '?' | first -%}
-              {%- assign v4_direct = 'https://drive.google.com/uc?id=' | append: v4_id | append: '&export=media' -%}
-              <video autoplay muted loop playsinline preload="auto" 
-                style="width:100%; height:100%; object-fit:cover; display:block;"
-                onerror="this.parentElement.innerHTML='<iframe src=\'https://drive.google.com/file/d/{{ v4_id }}/preview\' width=\'100%\' height=\'100%\' style=\'border:none;\' allow=\'autoplay\'></iframe>'">
-                <source src="{{ v4_direct }}" type="video/mp4">
-                <source src="https://drive.google.com/uc?export=download&id={{ v4_id }}" type="video/mp4">
-              </video>
+              <div class="drive-video-player" data-id="{{ v4_id }}"></div>
             {%- else -%}
               {%- if v4_url contains 'dropbox.com' -%}
                 {%- assign v4_url = v4_url | replace: 'www.dropbox.com', 'dl.dropboxusercontent.com' | replace: '?dl=0', '' | replace: '&dl=0', '' -%}
               {%- endif -%}
-              <video autoplay muted loop playsinline preload="auto" style="width:100%; height:100%; object-fit:cover;">
+              <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
                 <source src="{{ v4_url }}" type="video/mp4">
               </video>
             {%- endif -%}
@@ -672,44 +648,65 @@
 
 <script>
   (function() {
-    function forceAutoplay() {
-      // Find all videos
-      const videos = document.querySelectorAll('.feat2-video video, .cv-item video');
-      videos.forEach(v => {
-        v.muted = true;
-        v.playsInline = true;
-        v.setAttribute('autoplay', '');
-        v.setAttribute('muted', '');
-        v.setAttribute('playsinline', '');
-        v.setAttribute('loop', '');
+    function loadDriveVideos() {
+      const players = document.querySelectorAll('.drive-video-player');
+      players.forEach(p => {
+        if (p.dataset.loaded) return;
+        const id = p.dataset.id;
         
-        // Hide potential poster/play button injected by theme
-        const parent = v.parentElement;
-        if (parent) {
-          const overlays = parent.querySelectorAll('[class*="poster"], [class*="play"], [class*="overlay"]');
-          overlays.forEach(o => o.style.display = 'none');
-        }
+        // 1. Create native video element
+        const video = document.createElement('video');
+        video.autoplay = true;
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.objectFit = 'cover';
+        video.style.display = 'block';
 
-        // Force play
-        const promise = v.play();
-        if (promise !== undefined) {
-          promise.catch(() => {
-            // Retry on user interaction
-            const retry = () => {
-              v.play();
-              window.removeEventListener('touchstart', retry);
-              window.removeEventListener('click', retry);
-            };
-            window.addEventListener('touchstart', retry);
-            window.addEventListener('click', retry);
-          });
-        }
+        const source = document.createElement('source');
+        source.src = 'https://drive.google.com/uc?id=' + id + '&export=media';
+        source.type = 'video/mp4';
+        video.appendChild(source);
+
+        p.appendChild(video);
+        p.dataset.loaded = "true";
+
+        // 2. Set a timeout: If it hasn't started playing in 3 seconds, switch to iframe
+        let hasPlayed = false;
+        video.onplaying = () => { hasPlayed = true; };
+        
+        setTimeout(() => {
+          if (!hasPlayed) {
+            console.log('Video ' + id + ' timed out, switching to iframe fallback.');
+            p.innerHTML = '<iframe src="https://drive.google.com/file/d/' + id + '/preview" width="100%" height="100%" style="border:none;" allow="autoplay"></iframe>';
+          }
+        }, 3500);
+
+        // 3. Immediate error fallback
+        video.onerror = () => {
+          p.innerHTML = '<iframe src="https://drive.google.com/file/d/' + id + '/preview" width="100%" height="100%" style="border:none;" allow="autoplay"></iframe>';
+        };
       });
     }
 
-    // Run on load and multiple times to ensure dynamic content is caught
-    window.addEventListener('load', forceAutoplay);
-    document.addEventListener('DOMContentLoaded', forceAutoplay);
+    // Run loader
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadDriveVideos);
+    } else {
+      loadDriveVideos();
+    }
+    window.addEventListener('load', loadDriveVideos);
+
+    // Global force play logic
+    function forceAutoplay() {
+      document.querySelectorAll('video').forEach(v => {
+        v.muted = true;
+        if (v.paused) v.play().catch(() => {});
+      });
+    }
     setInterval(forceAutoplay, 3000);
+    ['touchstart', 'click'].forEach(e => document.addEventListener(e, forceAutoplay, { once: true }));
   })();
 </script>
