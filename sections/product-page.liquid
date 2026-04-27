@@ -56,11 +56,11 @@
     <!-- PAYMENT OPTION TOGGLE -->
     <div class="opt2-label">Payment Option:</div>
     <div class="payment-options">
-      <div class="pay-opt active" onclick="selectPayOption('advance', this)">
+      <div class="pay-opt advance-opt active" onclick="selectPayOption('advance', this)">
         <div class="po-title">Pay ₹{{ advance_raw }} Advance</div>
         <div class="po-sub">Rest on Delivery</div>
       </div>
-      <div class="pay-opt" onclick="selectPayOption('full', this)">
+      <div class="pay-opt full-opt" onclick="selectPayOption('full', this)">
         <div class="po-title">Pay Full {%- if product_obj -%}{{ product_obj.price | money }}{%- else -%}₹1,400{%- endif -%}</div>
         <div class="po-sub">Skip COD Process</div>
       </div>
@@ -401,6 +401,22 @@
   };
 </script>
 {%- endif -%}
+
+<script>
+  /* Video Autoplay on Scroll */
+  document.addEventListener('DOMContentLoaded', () => {
+    const vObs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.play().catch(() => {});
+        } else {
+          entry.target.pause();
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.feat2-video video').forEach(v => vObs.observe(v));
+  });
+</script>
 
 
 {% schema %}

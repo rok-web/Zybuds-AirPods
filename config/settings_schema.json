@@ -85,18 +85,7 @@
       }
     ]
   },
-  {
-    "name": "Notifications & Popups",
-    "settings": [
-      {
-        "type": "textarea",
-        "id": "popup_message",
-        "label": "Popup Notification Messages",
-        "info": "Separate multiple messages with | (pipe). Use {orders} for dynamic order count.",
-        "default": "🔥 {orders} people ordered today|📦 7 orders delivered this morning|⚡ 3 people just viewed this product|✅ 500+ orders completed in Hyderabad"
-      }
-    ]
-  },
+
   {
     "name": "Social & Contact",
     "settings": [

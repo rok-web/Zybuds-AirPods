@@ -2,33 +2,6 @@
    ZYBUDS — assets/script.js
    ============================================================ */
 
-/* [CHANGE 11] Popup notification on load */
-(function () {
-  const popup = document.getElementById('notifPopup');
-  if (!popup) return;
-  const orderCountVal = Math.floor(Math.random() * (42 - 18 + 1)) + 18;
-  const msgs = [
-    `🔥 ${orderCountVal} people ordered today`,
-    '📦 7 orders delivered this morning',
-    '⚡ 3 people just viewed this product',
-    '✅ 500+ orders completed in Hyderabad'
-  ];
-  let idx = 0;
-  function showNotif() {
-    const textSpan = popup.querySelector('#notifText');
-    if (textSpan) {
-      // If the msg starts with emoji, we can just put the whole thing in or handle logic
-      popup.innerHTML = `<div class="notif-dot"></div> ${msgs[idx]}`;
-    }
-    popup.classList.add('show');
-    setTimeout(() => {
-      popup.classList.remove('show');
-      idx = (idx + 1) % msgs.length;
-      setTimeout(showNotif, 4000); // show next after 4s hidden
-    }, 3500);
-  }
-  setTimeout(showNotif, 1200);
-})();
 
 /* [CHANGE 3] Animated activity counters */
 function animateCounter(el, start, end, duration) {
