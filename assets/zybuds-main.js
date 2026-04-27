@@ -204,6 +204,7 @@
     if (!form) return;
 
     const startPayment = (e) => {
+      // If payment is already done, let the form submit normally
       if (form.dataset.paid === 'true') return;
       
       e.preventDefault();
@@ -212,68 +213,87 @@
       const settings = window.ZybudsSettings || {};
       const product = window.ShopifyProduct || {};
       
+      console.log('--- Razorpay Debug Info ---');
+      console.log('Settings:', settings);
+      console.log('Product:', product);
+
       if (typeof Razorpay === 'undefined') {
-        alert('Razorpay payment system is still loading. Please wait a second and try again.');
+        alert('Razorpay system is not loaded yet. Please wait 2-3 seconds for the page to finish loading.');
         return;
       }
 
-      if (!settings.razorpayKey || settings.razorpayKey.length < 10 || settings.razorpayKey.includes('YourKeyHere')) {
-        alert('Payment Error: Razorpay Key ID is missing or invalid. Please add your key in Theme Settings > Payments.');
-        console.error('Invalid Razorpay Key:', settings.razorpayKey);
+      const key = settings.razorpayKey || '';
+      if (!key || key.includes('YourKeyHere') || key.length < 5) {
+        alert('Missing Razorpay Key ID. Please go to Theme Settings > Payments (Razorpay) and enter your rzp_live_... or rzp_test_... key.');
         return;
       }
 
-      let amount = 99;
+      // Calculate amount in Paise
+      let amountInPaise = 9900; // Default 99 INR
       const payTypeInput = document.getElementById('paymentTypeInput');
       const payType = payTypeInput ? payTypeInput.value : 'Advance';
       
       if (payType === 'Full') {
-        amount = (product.price / 100) || 1400;
+        const fullPrice = product.price || 140000;
+        amountInPaise = fullPrice;
       } else {
-        amount = parseInt(settings.advanceAmount) || 99;
+        const adv = parseInt(settings.advanceAmount) || 99;
+        amountInPaise = adv * 100;
       }
 
-      console.log('Starting Razorpay Payment:', { amount, payType, key: settings.razorpayKey });
+      console.log('Payment Mode:', payType);
+      console.log('Amount (Paise):', amountInPaise);
 
       const options = {
-        "key": settings.razorpayKey,
-        "amount": Math.round(amount * 100),
+        "key": key.trim(),
+        "amount": Math.round(amountInPaise),
         "currency": "INR",
         "name": "Zybuds",
-        "description": "Payment for " + (product.title || "AirPods Pro 2"),
+        "description": "Order Payment - " + (product.title || "AirPods"),
+        "image": "https://cdn.shopify.com/s/files/1/0861/2243/0742/files/logo_black.png", 
         "handler": function (response){
-          console.log('Razorpay Success:', response.razorpay_payment_id);
+          console.log('Payment Successful:', response.razorpay_payment_id);
           form.dataset.paid = "true";
-          const payIdInput = document.createElement('input');
-          payIdInput.type = 'hidden';
-          payIdInput.name = 'properties[Razorpay Payment ID]';
+          
+          // Add Payment ID
+          let payIdInput = form.querySelector('input[name="properties[Razorpay Payment ID]"]');
+          if (!payIdInput) {
+            payIdInput = document.createElement('input');
+            payIdInput.type = 'hidden';
+            payIdInput.name = 'properties[Razorpay Payment ID]';
+            form.appendChild(payIdInput);
+          }
           payIdInput.value = response.razorpay_payment_id;
-          form.appendChild(payIdInput);
+          
+          // Add Payment Amount
+          let amtInput = form.querySelector('input[name="properties[Paid Amount]"]');
+          if (!amtInput) {
+            amtInput = document.createElement('input');
+            amtInput.type = 'hidden';
+            amtInput.name = 'properties[Paid Amount]';
+            form.appendChild(amtInput);
+          }
+          amtInput.value = '₹' + (amountInPaise / 100);
+
           form.submit();
         },
+        "theme": { "color": "#e8c97a" },
         "modal": {
-          "ondismiss": function(){
-            console.log('Payment popup closed');
-          }
-        },
-        "theme": { "color": "#e8c97a" }
+          "ondismiss": function() { console.log('Payment cancelled by user'); }
+        }
       };
       
       try {
         const rzp = new Razorpay(options);
         rzp.open();
       } catch(err) {
-        console.error('Razorpay Error:', err);
-        alert('Could not open payment popup. Error: ' + err.message);
+        console.error('Razorpay Initialization Failed:', err);
+        alert('Could not start Razorpay: ' + err.message);
       }
     };
 
     form.addEventListener('submit', startPayment);
-    if (orderBtn) orderBtn.addEventListener('click', function(e) {
-        if (form.dataset.paid !== 'true') {
-            startPayment(e);
-        }
-    });
+    if (orderBtn) orderBtn.addEventListener('click', startPayment);
   };
 
   // 11. DOM READY
