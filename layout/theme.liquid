@@ -78,7 +78,8 @@
       city: {{ settings.city | default: 'Hyderabad' | json }},
       founderName: {{ settings.founder_name | default: 'Mahesh' | json }},
       ordersDelivered: {{ settings.orders_delivered | default: '500+' | json }},
-      razorpayKey: {{ settings.razorpay_key_id | json }}
+      razorpayKey: {{ settings.razorpay_key_id | json }},
+      popupMessages: {{ settings.popup_messages | default: "Someone just bought AirPods Pro 2 in Hyderabad|Only 3 units left at this price!" | json }}
     };
   </script>
 

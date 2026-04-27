@@ -108,5 +108,17 @@
         "default": "rzp_test_YourKeyHere"
       }
     ]
+  },
+  {
+    "name": "Marketing & Popups",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "popup_messages",
+        "label": "Notification Messages",
+        "info": "Separate messages with a pipe symbol (|). Use {orders} for random numbers.",
+        "default": "Someone just bought AirPods Pro 2 in Hyderabad|Only 3 units left at this price!|Free Delivery to Hyderabad ending soon|{orders} people are viewing this product right now"
+      }
+    ]
   }
 ]

@@ -10,7 +10,7 @@
   const initPopup = () => {
     const popup = document.getElementById('notifPopup');
     const textSpan = document.getElementById('notifText');
-    if (!popup || !textSpan || !window.ZybudsSettings) return;
+    if (!popup || !textSpan || !window.ZybudsSettings || !window.ZybudsSettings.popupMessages) return;
 
     const messages = window.ZybudsSettings.popupMessages.split('|');
     let index = 0;
