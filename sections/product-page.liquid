@@ -362,6 +362,27 @@
   <!-- REVIEWS -->
   {% render 'reviews' %}
 
+  <!-- CUSTOMER VIDEO GALLERY -->
+  <div class="section2 reveal">
+    <div class="sec2-eyebrow">Visual Proof</div>
+    <div class="sec2-title">{{ section.settings.cv_heading | default: 'Our Customer Review' }}</div>
+    <p class="sec2-sub">Watch how our customers across Hyderabad are using their Zybuds.</p>
+    
+    <div class="cv-grid">
+      {%- for i in (1..5) -%}
+        {%- assign v_id = 'cv_video_' | append: i -%}
+        {%- assign v_obj = section.settings[v_id] -%}
+        <div class="cv-item">
+          {%- if v_obj != blank -%}
+            {{ v_obj | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false }}
+          {%- else -%}
+            <div class="cv-placeholder">Video {{ i }}</div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
   <!-- FAQ -->
   {% render 'faq' %}
 
@@ -480,7 +501,22 @@
       "label": "Founder Message",
       "info": "Leave as is for auto-generated message using global settings.",
       "default": "Hi, I'm Mahesh. I run Zybuds from Secunderabad."
-    }
+    },
+    {
+      "type": "header",
+      "content": "Customer Video Reviews"
+    },
+    {
+      "type": "text",
+      "id": "cv_heading",
+      "label": "Video Gallery Heading",
+      "default": "Our Customer Review"
+    },
+    { "type": "video", "id": "cv_video_1", "label": "Customer Video 1" },
+    { "type": "video", "id": "cv_video_2", "label": "Customer Video 2" },
+    { "type": "video", "id": "cv_video_3", "label": "Customer Video 3" },
+    { "type": "video", "id": "cv_video_4", "label": "Customer Video 4" },
+    { "type": "video", "id": "cv_video_5", "label": "Customer Video 5" }
   ],
   "blocks": [
     {

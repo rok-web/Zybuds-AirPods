@@ -1581,6 +1581,46 @@ nav {
   margin-top: 3px;
 }
 
+/* CUSTOMER VIDEO GALLERY */
+.cv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.cv-item {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg3);
+  aspect-ratio: 9 / 16;
+  border: 1px solid var(--border);
+}
+
+.cv-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cv-placeholder {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 12px;
+  background: var(--bg4);
+}
+
+@media (max-width: 768px) {
+  .cv-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
 /* FAQ */
 .faq2-list {
   display: flex;
