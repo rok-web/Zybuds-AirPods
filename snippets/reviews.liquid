@@ -250,8 +250,14 @@
       {{ static_reviews }}
     </div>
 
-    <div class="reviews2-load-more" style="text-align: center; margin-top: 20px;">
-      <button class="btn2-secondary" id="loadMoreReviewsBtn" onclick="loadMoreReviews()" style="background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 12px 24px; border-radius: 12px; cursor: pointer; font-family: inherit; font-weight: 700;">View More Reviews</button>
+    <div class="reviews2-controls">
+      <button class="rev2-arrow prev" onclick="changePage(-1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="rev2-page-indicator" id="revIndicator">1 / 1</div>
+      <button class="rev2-arrow next" onclick="changePage(1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
     </div>
   </div>
 </div>
@@ -259,28 +265,44 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const reviews = document.querySelectorAll('#reviewSlider .rev2');
-    const loadMoreBtn = document.getElementById('loadMoreReviewsBtn');
-    let visibleCount = 7;
+    const indicator = document.getElementById('revIndicator');
+    const prevBtn = document.querySelector('.rev2-arrow.prev');
+    const nextBtn = document.querySelector('.rev2-arrow.next');
+    
+    const itemsPerPage = 7;
+    const totalPages = Math.ceil(reviews.length / itemsPerPage);
+    let currentPage = 1;
 
-    // Hide reviews beyond the 7th
-    for (let i = visibleCount; i < reviews.length; i++) {
-      reviews[i].style.display = 'none';
-    }
-
-    if (reviews.length <= visibleCount) {
-      loadMoreBtn.style.display = 'none';
-    }
-
-    window.loadMoreReviews = function() {
-      const nextCount = visibleCount + 7;
-      for (let i = visibleCount; i < nextCount && i < reviews.length; i++) {
-        reviews[i].style.display = 'flex';
-      }
-      visibleCount = nextCount;
+    function renderPage() {
+      // Hide all
+      reviews.forEach(r => r.style.display = 'none');
       
-      if (visibleCount >= reviews.length) {
-        loadMoreBtn.style.display = 'none';
+      // Show only current page
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      for (let i = start; i < end && i < reviews.length; i++) {
+        reviews[i].style.display = 'block'; // Or flex if that was the original
       }
+      
+      indicator.innerText = `${currentPage} / ${totalPages}`;
+      
+      prevBtn.style.opacity = currentPage === 1 ? '0.5' : '1';
+      prevBtn.style.pointerEvents = currentPage === 1 ? 'none' : 'auto';
+      
+      nextBtn.style.opacity = currentPage === totalPages ? '0.5' : '1';
+      nextBtn.style.pointerEvents = currentPage === totalPages ? 'none' : 'auto';
+    }
+
+    renderPage();
+
+    window.changePage = function(dir) {
+      currentPage += dir;
+      if (currentPage < 1) currentPage = 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+      renderPage();
+      
+      // Scroll back to top of reviews section
+      document.querySelector('.reviews2-header').scrollIntoView({behavior: 'smooth', block: 'start'});
     };
   });
 </script>

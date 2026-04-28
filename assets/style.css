@@ -1467,9 +1467,9 @@ nav {
 }
 
 .reviews2-grid.slider-track {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
   padding-bottom: 20px;
 }
 
@@ -1599,12 +1599,15 @@ nav {
 .cv-grid {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  align-items: center;
+  gap: 24px;
   margin-top: 24px;
   padding-bottom: 20px;
 }
 
 .cv-item {
+  width: 100%;
+  max-width: 320px;
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
