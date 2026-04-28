@@ -265,12 +265,12 @@ nav {
   gap: 14px;
   position: sticky;
   top: 67px;
-  height: calc(100vh - 67px);
-  overflow: hidden;
+  max-height: calc(100vh - 67px);
+  overflow-y: auto;
 }
 
 .main-img {
-  flex: 1;
+  aspect-ratio: 1;
   background: var(--bg3);
   border-radius: var(--radius-lg);
   display: flex;
@@ -1468,21 +1468,12 @@ nav {
 
 .reviews2-grid.slider-track {
   display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  flex-direction: column;
   gap: 14px;
   padding-bottom: 20px;
-  scrollbar-width: none; /* Firefox */
-  scroll-behavior: smooth;
-}
-
-.reviews2-grid.slider-track::-webkit-scrollbar {
-  display: none; /* Safari/Chrome */
 }
 
 .rev2 {
-  flex: 0 0 calc(33.333% - 10px);
-  scroll-snap-align: start;
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -1607,22 +1598,13 @@ nav {
 /* CUSTOMER VIDEO GALLERY */
 .cv-grid {
   display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  flex-direction: column;
   gap: 16px;
   margin-top: 24px;
   padding-bottom: 20px;
-  scrollbar-width: none;
-  scroll-behavior: smooth;
-}
-
-.cv-grid::-webkit-scrollbar {
-  display: none;
 }
 
 .cv-item {
-  flex: 0 0 calc(33.333% - 11px);
-  scroll-snap-align: start;
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -1648,9 +1630,7 @@ nav {
 }
 
 @media (max-width: 768px) {
-  .cv-item {
-    flex: 0 0 85%;
-  }
+  /* No special mobile width needed for cv-item since it's vertically stacked full width */
 }
 
 /* VIDEO OVERRIDES */
