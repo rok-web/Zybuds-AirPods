@@ -54,6 +54,67 @@
 
       {%- comment -%} Static reviews + New requested reviews {%- endcomment -%}
       {%- capture static_reviews -%}
+        <div class="rev2">
+          <div class="rev2-top">
+            <div class="rev2-av" style="background:linear-gradient(135deg,#e53935,#ef9a9a);">R</div>
+            <div><div class="rev2-name">Ravi Kumar</div><div class="rev2-loc">📍 Ameerpet, {{ settings.city | default: 'Hyderabad' }}</div></div>
+          </div>
+          <div class="rev2-stars">★★★★★</div>
+          <div class="rev2-text">At first, I refused to pay ₹99, but Mahesh bhai explained that it’s needed because of fake orders. It made complete sense! The product arrived, I checked it in the open box, then made the payment. Absolutely the best!</div>
+          <div class="rev2-verified">✓ Verified Purchase</div>
+          <div class="rev2-date">4 days ago</div>
+        </div>
+        <div class="rev2">
+          <div class="rev2-top">
+            <div class="rev2-av" style="background:linear-gradient(135deg,#6a1b9a,#ab47bc);">P</div>
+            <div><div class="rev2-name">Priya Reddy</div><div class="rev2-loc">📍 Madhapur, {{ settings.city | default: 'Hyderabad' }}</div></div>
+          </div>
+          <div class="rev2-stars">★★★★★</div>
+          <div class="rev2-text">Ordered at 10 AM, delivered by 2 PM. The bass quality is genuinely impressive. I tested everything before paying — the delivery person waited patiently. The 1-year warranty gave me extra confidence. Highly recommend!</div>
+          <div class="rev2-verified">✓ Verified Purchase</div>
+          <div class="rev2-date">1 week ago</div>
+        </div>
+        <div class="rev2">
+          <div class="rev2-top">
+            <div class="rev2-av" style="background:linear-gradient(135deg,#1565c0,#42a5f5);">S</div>
+            <div><div class="rev2-name">Sai Teja</div><div class="rev2-loc">📍 LB Nagar, {{ settings.city | default: 'Hyderabad' }}</div></div>
+          </div>
+          <div class="rev2-stars">★★★★★</div>
+          <div class="rev2-text">This is my third order from GadgetHub — smartwatch, power bank, now AirPods. Every time it’s the same: same-day delivery, open box check, everything working perfectly. Mahesh anna is very trustworthy. The 1-year warranty is a game changer at this price!</div>
+          <div class="rev2-verified">✓ Verified Purchase</div>
+          <div class="rev2-date">2 weeks ago</div>
+        </div>
+        <div class="rev2">
+          <div class="rev2-top">
+            <div class="rev2-av" style="background:linear-gradient(135deg,#2e7d32,#43a047);">A</div>
+            <div><div class="rev2-name">Ananya Singh</div><div class="rev2-loc">📍 Begumpet, {{ settings.city | default: 'Hyderabad' }}</div></div>
+          </div>
+          <div class="rev2-stars">★★★★★</div>
+          <div class="rev2-text">The sound quality is amazing — I expected something average, but these really surprised me! The call mic is super clear. The ₹99 system is smart — it shows they care about genuine customers. Will definitely order again!</div>
+          <div class="rev2-verified">✓ Verified Purchase</div>
+          <div class="rev2-date">3 weeks ago</div>
+        </div>
+        <div class="rev2">
+          <div class="rev2-top">
+            <div class="rev2-av" style="background:linear-gradient(135deg,#c8410a,#e85d1a);">M</div>
+            <div><div class="rev2-name">Mohammed Farhan</div><div class="rev2-loc">📍 Dilsukhnagar, {{ settings.city | default: 'Hyderabad' }}</div></div>
+          </div>
+          <div class="rev2-stars">★★★★★</div>
+          <div class="rev2-text">I saw this on Instagram and thought it might be a scam. But the 1-year warranty and open box delivery convinced me. The product is completely genuine! They deliver from Secunderabad — it’s a local store, you can trust it!</div>
+          <div class="rev2-verified">✓ Verified Purchase</div>
+          <div class="rev2-date">1 month ago</div>
+        </div>
+        <div class="rev2">
+          <div class="rev2-top">
+            <div class="rev2-av" style="background:linear-gradient(135deg,#ad1457,#d81b60);">D</div>
+            <div><div class="rev2-name">Deepika Rao</div><div class="rev2-loc">📍 Kondapur, {{ settings.city | default: 'Hyderabad' }}</div></div>
+          </div>
+          <div class="rev2-stars">★★★★★</div>
+          <div class="rev2-text">I gifted this to my husband — he loves it! It paired instantly with his Samsung phone. The battery easily lasts his entire workday. And knowing there’s a 1-year warranty makes it a completely stress-free purchase ❤️</div>
+          <div class="rev2-verified">✓ Verified Purchase</div>
+          <div class="rev2-date">1 month ago</div>
+        </div>
+
         <!-- NEW REVIEWS -->
         <div class="rev2">
           <div class="rev2-top">
@@ -269,7 +330,7 @@
     const prevBtn = document.querySelector('.rev2-arrow.prev');
     const nextBtn = document.querySelector('.rev2-arrow.next');
     
-    const itemsPerPage = 7;
+    const itemsPerPage = 6;
     const totalPages = Math.ceil(reviews.length / itemsPerPage);
     let currentPage = 1;
 
