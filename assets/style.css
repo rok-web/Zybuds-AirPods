@@ -1216,7 +1216,7 @@ nav {
   height: 100% !important;
   border: none;
   display: block;
-  object-fit: cover !important;
+  object-fit: contain !important;
 }
 
 .feat2-content {
@@ -1680,7 +1680,7 @@ nav {
   width: 100% !important;
   height: 100% !important;
   display: block !important;
-  object-fit: cover !important;
+  object-fit: contain !important;
   pointer-events: none !important;
   position: absolute !important;
   top: 0 !important;
