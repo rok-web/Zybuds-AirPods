@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "shop_name_override": "Zybuds",
@@ -10,7 +19,7 @@
     "founder_name": "Mahesh",
     "founder_location": "Suman Housing Colony, near Sachin Studio, Secunderabad",
     "instagram_handle": "zybuds",
-    "razorpay_key_id": "rzp_test_SibdVTy0If1dzE",
+    "razorpay_key_id": "rzp_live_llNdHgFGbITSTX",
     "sections": {
       "header": {
         "type": "header",
