@@ -197,19 +197,120 @@
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   };
 
-  // 10. RAZORPAY INTEGRATION
+  // 10. RAZORPAY INTEGRATION WITH SHIPPING MODAL
   const initRazorpay = () => {
     const form = document.getElementById('ProductForm');
     const orderBtn = document.getElementById('orderBtn');
     if (!form) return;
 
-    const startPayment = (e) => {
-      // If payment is already done, let the form submit normally
-      if (form.dataset.paid === 'true') return;
+    // Modal elements
+    const overlay = document.getElementById('checkoutModalOverlay');
+    const closeBtn = document.getElementById('checkoutCloseBtn');
+    const submitBtn = document.getElementById('checkoutSubmitBtn');
+
+    // Input fields inside modal
+    const inputName = document.getElementById('shippingName');
+    const inputPincode = document.getElementById('shippingPincode');
+    const inputAddress = document.getElementById('shippingAddress');
+    const inputPhone = document.getElementById('shippingPhone');
+    const inputCity = document.getElementById('shippingCity');
+    const inputLandmark = document.getElementById('shippingLandmark');
+    const inputState = document.getElementById('shippingState');
+
+    // Hidden properties in ProductForm
+    const hiddenName = document.getElementById('hiddenShippingName');
+    const hiddenPincode = document.getElementById('hiddenShippingPincode');
+    const hiddenAddress = document.getElementById('hiddenShippingAddress');
+    const hiddenPhone = document.getElementById('hiddenShippingPhone');
+    const hiddenCity = document.getElementById('hiddenShippingCity');
+    const hiddenLandmark = document.getElementById('hiddenShippingLandmark');
+    const hiddenState = document.getElementById('hiddenShippingState');
+
+    // Validate a single field
+    const validateField = (input, isValid, errorId) => {
+      const errorMsg = document.getElementById(errorId);
+      if (!isValid) {
+        input.classList.add('error');
+        if (errorMsg) errorMsg.style.display = 'block';
+        return false;
+      } else {
+        input.classList.remove('error');
+        if (errorMsg) errorMsg.style.display = 'none';
+        return true;
+      }
+    };
+
+    // Auto-clear errors on input
+    [inputName, inputPincode, inputAddress, inputPhone, inputCity, inputState].forEach(input => {
+      if (!input) return;
+      input.addEventListener('input', () => {
+        input.classList.remove('error');
+        const errSpan = document.getElementById('error-' + input.id);
+        if (errSpan) errSpan.style.display = 'none';
+      });
+      if (input.tagName === 'SELECT') {
+        input.addEventListener('change', () => {
+          input.classList.remove('error');
+          const errSpan = document.getElementById('error-' + input.id);
+          if (errSpan) errSpan.style.display = 'none';
+        });
+      }
+    });
+
+    const openModal = () => {
+      const product = window.ShopifyProduct || {};
       
-      e.preventDefault();
-      e.stopPropagation();
+      // Update Title & Variant inside modal
+      const titleEl = document.getElementById('checkoutProductTitle');
+      const variantEl = document.getElementById('checkoutProductVariant');
+      const priceEl = document.getElementById('checkoutProductPrice');
       
+      if (titleEl) titleEl.textContent = product.title || "Zybuds AirPods Pro 2";
+      
+      // Get selected color
+      const colorNameEl = document.getElementById('col2Name');
+      const selectedColor = colorNameEl ? colorNameEl.textContent : 'White';
+      if (variantEl) variantEl.textContent = 'Color: ' + selectedColor;
+
+      // Calculate displayed price based on Payment Option (Advance vs. Full)
+      const payTypeInput = document.getElementById('paymentTypeInput');
+      const payType = payTypeInput ? payTypeInput.value : 'Advance';
+      
+      let priceText = '₹99';
+      if (payType === 'Full') {
+        if (product.price) {
+          const fullPrice = product.price / 100;
+          priceText = (product.currency || '₹') + fullPrice.toLocaleString('en-IN');
+        } else {
+          priceText = '₹1,400';
+        }
+      } else {
+        const adv = product.advanceAmount || 99;
+        priceText = '₹' + adv;
+      }
+
+      if (priceEl) priceEl.textContent = priceText;
+      if (submitBtn) submitBtn.textContent = 'COMPLETE ORDER - ' + priceText;
+
+      // Show overlay
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    };
+
+    const closeModal = () => {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    // Event listeners to close modal
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (overlay) {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal();
+      });
+    }
+
+    const triggerPaymentFlow = () => {
       const settings = window.ZybudsSettings || {};
       const product = window.ShopifyProduct || {};
       
@@ -229,7 +330,7 @@
       }
 
       // Calculate amount in Paise
-      let amountInPaise = 9900; // Default 99 INR
+      let amountInPaise = 9900;
       const payTypeInput = document.getElementById('paymentTypeInput');
       const payType = payTypeInput ? payTypeInput.value : 'Advance';
       
@@ -241,16 +342,17 @@
         amountInPaise = adv * 100;
       }
 
-      console.log('Payment Mode:', payType);
-      console.log('Amount (Paise):', amountInPaise);
-
       const options = {
         "key": key.trim(),
         "amount": Math.round(amountInPaise),
         "currency": "INR",
         "name": "Zybuds",
         "description": "Order Payment - " + (product.title || "AirPods"),
-        "image": "https://cdn.shopify.com/s/files/1/0861/2243/0742/files/logo_black.png", 
+        "image": "https://cdn.shopify.com/s/files/1/0861/2243/0742/files/logo_black.png",
+        "prefill": {
+          "name": inputName.value.trim(),
+          "contact": inputPhone.value.trim()
+        },
         "handler": function (response){
           console.log('Payment Successful:', response.razorpay_payment_id);
           form.dataset.paid = "true";
@@ -279,7 +381,12 @@
         },
         "theme": { "color": "#e8c97a" },
         "modal": {
-          "ondismiss": function() { console.log('Payment cancelled by user'); }
+          "ondismiss": function() { 
+            console.log('Payment cancelled by user'); 
+            // Re-open shipping modal if they cancel payment so they don't lose their data
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          }
         }
       };
       
@@ -292,8 +399,64 @@
       }
     };
 
-    form.addEventListener('submit', startPayment);
-    if (orderBtn) orderBtn.addEventListener('click', startPayment);
+    const handleFormSubmitIntercept = (e) => {
+      // If payment is already done, let the form submit normally
+      if (form.dataset.paid === 'true') return;
+      
+      e.preventDefault();
+      e.stopPropagation();
+      
+      openModal();
+    };
+
+    // Intercept checkout actions
+    form.addEventListener('submit', handleFormSubmitIntercept);
+    if (orderBtn) {
+      orderBtn.addEventListener('click', handleFormSubmitIntercept);
+    }
+
+    // Modal Complete Order click handler
+    if (submitBtn) {
+      submitBtn.addEventListener('click', () => {
+        // Validate shipping fields
+        const nameVal = inputName.value.trim();
+        const pincodeVal = inputPincode.value.trim();
+        const addressVal = inputAddress.value.trim();
+        const phoneVal = inputPhone.value.trim();
+        const cityVal = inputCity.value.trim();
+        const landmarkVal = inputLandmark.value.trim();
+        const stateVal = inputState.value;
+
+        let isFormValid = true;
+
+        isFormValid = validateField(inputName, nameVal.length > 0, 'error-shippingName') && isFormValid;
+        isFormValid = validateField(inputPincode, /^[0-9]{6}$/.test(pincodeVal), 'error-shippingPincode') && isFormValid;
+        isFormValid = validateField(inputAddress, addressVal.length > 0, 'error-shippingAddress') && isFormValid;
+        isFormValid = validateField(inputPhone, /^[0-9]{10}$/.test(phoneVal), 'error-shippingPhone') && isFormValid;
+        isFormValid = validateField(inputCity, cityVal.length > 0, 'error-shippingCity') && isFormValid;
+        isFormValid = validateField(inputState, stateVal !== "", 'error-shippingState') && isFormValid;
+
+        if (!isFormValid) {
+          // Highlight first invalid input
+          const firstErr = overlay.querySelector('.checkout-input.error');
+          if (firstErr) firstErr.focus();
+          return;
+        }
+
+        // Form is valid! Set hidden inputs in Shopify form
+        if (hiddenName) hiddenName.value = nameVal;
+        if (hiddenPincode) hiddenPincode.value = pincodeVal;
+        if (hiddenAddress) hiddenAddress.value = addressVal;
+        if (hiddenPhone) hiddenPhone.value = phoneVal;
+        if (hiddenCity) hiddenCity.value = cityVal;
+        if (hiddenLandmark) hiddenLandmark.value = landmarkVal;
+        if (hiddenState) hiddenState.value = stateVal;
+
+        // Close shipping modal and trigger payment flow
+        closeModal();
+        triggerPaymentFlow();
+      });
+    }
   };
 
   // 11. DOM READY

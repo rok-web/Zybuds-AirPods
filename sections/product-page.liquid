@@ -153,6 +153,13 @@
           <input type="hidden" name="id" value="{{ product_obj.selected_or_first_available_variant.id }}">
           <input type="hidden" name="quantity" value="1">
           <input type="hidden" name="properties[Payment Type]" value="Advance" id="paymentTypeInput">
+          <input type="hidden" name="properties[Shipping Name]" value="" id="hiddenShippingName">
+          <input type="hidden" name="properties[Shipping Pincode]" value="" id="hiddenShippingPincode">
+          <input type="hidden" name="properties[Shipping Address]" value="" id="hiddenShippingAddress">
+          <input type="hidden" name="properties[Shipping Phone]" value="" id="hiddenShippingPhone">
+          <input type="hidden" name="properties[Shipping City]" value="" id="hiddenShippingCity">
+          <input type="hidden" name="properties[Shipping Landmark]" value="" id="hiddenShippingLandmark">
+          <input type="hidden" name="properties[Shipping State]" value="" id="hiddenShippingState">
           
           <button type="submit" class="btn2-primary" id="orderBtn">
             <span>🛒 Confirm Order — Pay ₹{{ advance_raw }}</span>
@@ -450,6 +457,146 @@
   };
 </script>
 {%- endif -%}
+
+<!-- SHIPPING ADDRESS CHECKOUT MODAL -->
+<div class="checkout-overlay" id="checkoutModalOverlay">
+  <div class="checkout-modal">
+    <div class="checkout-header">
+      <h3 class="checkout-title">Cash on Delivery</h3>
+      <button class="checkout-close" id="checkoutCloseBtn" aria-label="Close modal">&times;</button>
+    </div>
+    
+    <div class="checkout-body">
+      <!-- Product Summary -->
+      <div class="checkout-product-card">
+        <div class="checkout-img-wrap">
+          {%- if product_obj and product_obj.featured_image -%}
+            <img id="checkoutProductImage" src="{{ product_obj.featured_image | image_url: width: 100 }}" alt="{{ product_obj.title }}">
+          {%- else -%}
+            <span style="font-size: 24px;">🎧</span>
+          {%- endif -%}
+          <div class="checkout-qty-badge">1</div>
+        </div>
+        <div class="checkout-product-info">
+          <h4 class="checkout-product-title" id="checkoutProductTitle">{{ product_obj.title | default: 'Zybuds AirPods Pro 2' }}</h4>
+          <span class="checkout-product-variant" id="checkoutProductVariant">Color: White</span>
+        </div>
+        <div class="checkout-product-price" id="checkoutProductPrice">
+          ₹{{ advance_raw }}
+        </div>
+      </div>
+
+      <!-- Shipping Method -->
+      <span class="checkout-section-title">Shipping method</span>
+      <div class="checkout-shipping-box">
+        <div class="checkout-shipping-left">
+          <input type="radio" class="checkout-shipping-radio" checked disabled>
+          <span>Free shipping</span>
+        </div>
+        <div class="checkout-shipping-right">Free</div>
+      </div>
+
+      <!-- Address Form -->
+      <span class="checkout-section-title">Enter your shipping address</span>
+      
+      <div class="checkout-form-group">
+        <label class="checkout-label" for="shippingName">Full name <span>*</span></label>
+        <div class="checkout-input-wrapper">
+          <div class="checkout-input-prefix">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <input type="text" id="shippingName" class="checkout-input" placeholder="Full name" required>
+        </div>
+        <span class="checkout-error-msg" id="error-shippingName">Please enter your full name</span>
+      </div>
+
+      <div class="checkout-form-group">
+        <label class="checkout-label" for="shippingPincode">Pincode <span>*</span></label>
+        <div class="checkout-input-wrapper">
+          <div class="checkout-input-prefix">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v2H4V4zm4 4h12v2H8V8zm-4 4h16v2H4v-2zm8 4h8v2h-8v-2z"/></svg>
+          </div>
+          <input type="tel" id="shippingPincode" class="checkout-input" placeholder="Pincode" maxlength="6" pattern="[0-9]{6}" required>
+        </div>
+        <span class="checkout-error-msg" id="error-shippingPincode">Please enter a valid 6-digit Pincode</span>
+      </div>
+
+      <div class="checkout-form-group">
+        <label class="checkout-label" for="shippingAddress">Address <span>*</span></label>
+        <div class="checkout-input-wrapper">
+          <div class="checkout-input-prefix">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <input type="text" id="shippingAddress" class="checkout-input" placeholder="Address (House No, Building, Street)" required>
+        </div>
+        <span class="checkout-error-msg" id="error-shippingAddress">Please enter your address</span>
+      </div>
+
+      <div class="checkout-form-group">
+        <label class="checkout-label" for="shippingPhone">Phone number <span>*</span></label>
+        <div class="checkout-input-wrapper">
+          <div class="checkout-input-prefix">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          </div>
+          <input type="tel" id="shippingPhone" class="checkout-input" placeholder="Phone" maxlength="10" pattern="[0-9]{10}" required>
+        </div>
+        <span class="checkout-error-msg" id="error-shippingPhone">Please enter a valid 10-digit phone number</span>
+      </div>
+
+      <div class="checkout-form-group">
+        <label class="checkout-label" for="shippingCity">City <span>*</span></label>
+        <div class="checkout-input-wrapper">
+          <div class="checkout-input-prefix">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <input type="text" id="shippingCity" class="checkout-input" placeholder="City" required>
+        </div>
+        <span class="checkout-error-msg" id="error-shippingCity">Please enter your city</span>
+      </div>
+
+      <div class="checkout-form-group">
+        <label class="checkout-label" for="shippingLandmark">Landmark</label>
+        <div class="checkout-input-wrapper">
+          <div class="checkout-input-prefix">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <input type="text" id="shippingLandmark" class="checkout-input" placeholder="Nearby school, hospital, shop, etc. (optional)">
+        </div>
+      </div>
+
+      <div class="checkout-form-group">
+        <label class="checkout-label" for="shippingState">State <span>*</span></label>
+        <div class="checkout-input-wrapper">
+          <div class="checkout-input-prefix">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <select id="shippingState" class="checkout-input" required>
+            <option value="" disabled selected>Select State</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="West Bengal">West Bengal</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <span class="checkout-error-msg" id="error-shippingState">Please select a state</span>
+      </div>
+    </div>
+    
+    <div class="checkout-footer">
+      <button type="button" class="checkout-submit-btn" id="checkoutSubmitBtn">
+        COMPLETE ORDER - Rs. {{ advance_raw }}
+      </button>
+    </div>
+  </div>
+</div>
 
 
 
