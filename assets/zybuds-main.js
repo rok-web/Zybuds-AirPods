@@ -173,13 +173,13 @@
     if (!isOpen) item.classList.add('open');
   };
 
-  // 8. ORDER BUTTON ACTION
-  window.handleOrder = () => {
+  // 8. ORDER BUTTON ACTION (Opens Shipping Details Modal directly)
+  window.handleOrder = (e) => {
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
     const form = document.getElementById('ProductForm');
     if (form) {
-      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      form.classList.add('pulse-glow');
-      setTimeout(() => form.classList.remove('pulse-glow'), 2000);
+      // Dispatch a submit event to trigger the shipping modal overlay interceptor
+      form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
     }
   };
 
