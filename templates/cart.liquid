@@ -1,42 +1,291 @@
-{% comment %} Simple cart page {% endcomment %}
+{% comment %} Premium Order Confirmation & Summary Page {% endcomment %}
 
-<div style="max-width:700px;margin:0 auto;padding:60px 5%;">
-  <div class="editorial-label">Your Cart</div>
-  <h1 class="p2-title" style="margin-bottom:30px;">Order <em>Summary</em></h1>
+<div class="cart-confirmation-container" style="max-width:760px;margin:40px auto;padding:40px 24px;background:linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%);border:1px solid var(--border);border-radius:var(--radius-lg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 30px 60px rgba(0,0,0,0.5);">
+  
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+    <div class="editorial-label" style="margin-bottom: 0;">Order Summary</div>
+    <div style="display:flex; align-items:center; gap:6px; font-size:12px; color:#10b981; font-weight:700; background:rgba(16,185,129,0.1); padding:4px 12px; border-radius:20px; border:1px solid rgba(16,185,129,0.2);">
+      <span style="width:6px; height:6px; background:#10b981; border-radius:50%; display:inline-block; animation: pulse-dot 1.5s infinite;"></span>
+      PAYMENT RECEIVED
+    </div>
+  </div>
+
+  <h1 class="p2-title" style="margin-bottom:24px; font-size:clamp(28px, 4vw, 42px); line-height:1.1;">Your Order <em>Confirmed</em></h1>
 
   {% if cart.item_count == 0 %}
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;text-align:center;">
-      <p style="color:var(--muted);margin-bottom:20px;">Your cart is empty.</p>
-      <a href="/collections/all" style="display:inline-block;background:var(--accent);color:#000;border-radius:12px;padding:13px 28px;font-weight:800;text-decoration:none;">
-        Continue Shopping
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:40px;text-align:center;">
+      <p style="color:var(--muted);margin-bottom:20px;">No active orders found.</p>
+      <a href="/" style="display:inline-block;background:var(--accent);color:#000;border-radius:12px;padding:13px 28px;font-weight:800;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='var(--accent2)';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='var(--accent)';this.style.transform='translateY(0)'">
+        Return to Home
       </a>
     </div>
   {% else %}
-    <form action="/cart" method="post">
-      {% for item in cart.items %}
-        <div style="display:flex;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--border);">
-          {% if item.image %}
-            <img src="{{ item.image | image_url: width: 80 }}" alt="{{ item.title }}" style="width:80px;height:80px;object-fit:contain;border-radius:10px;background:var(--bg3);">
-          {% endif %}
-          <div style="flex:1;">
-            <div style="font-weight:700;color:var(--ink);margin-bottom:4px;">{{ item.product.title }}</div>
-            <div style="font-size:12px;color:var(--muted);">{{ item.variant.title }}</div>
-            <div style="font-size:13px;color:var(--accent);margin-top:6px;font-weight:700;">{{ item.price | money }}</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <input type="number" name="updates[]" value="{{ item.quantity }}" min="0"
-              style="width:50px;background:var(--bg4);border:1px solid var(--border);color:var(--ink);border-radius:8px;padding:6px;text-align:center;font-family:inherit;">
-          </div>
+    <div>
+      <!-- Order Confirmed Success Alert -->
+      <div style="background: rgba(16, 185, 129, 0.07); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: var(--radius); padding: 22px; display: flex; align-items: center; gap: 18px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.04);">
+        <div style="background: #10b981; color: #fff; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; box-shadow: 0 0 20px rgba(16, 185, 129, 0.45); animation: pulse-glow 2s infinite;">
+          ✓
         </div>
-      {% endfor %}
-
-      <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-top:1px solid var(--border);margin-top:10px;">
-        <div style="font-size:18px;font-weight:700;color:var(--white);">Total: {{ cart.total_price | money }}</div>
-        <div style="display:flex;gap:10px;">
-          <button type="submit" name="update" style="background:var(--bg3);border:1px solid var(--border);color:var(--ink);border-radius:10px;padding:10px 20px;cursor:pointer;font-family:inherit;font-size:13px;">Update</button>
-          <a href="/checkout" style="background:var(--accent);color:#000;border-radius:10px;padding:10px 24px;font-weight:800;text-decoration:none;font-size:13px;">Checkout →</a>
+        <div>
+          <h3 style="color: #10b981; margin: 0 0 4px 0; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-family:'DM Sans', sans-serif;">Successful Confirmation</h3>
+          <p style="color: var(--ink2); margin: 0; font-size: 13px; line-height: 1.5; font-family:'DM Sans', sans-serif;">Thank you! Your advance booking has been confirmed. We are packing your premium AirPods. Mahesh will reach out to schedule delivery shortly.</p>
         </div>
       </div>
-    </form>
+
+      <!-- Item Details Grid -->
+      <div style="background:rgba(0,0,0,0.15); border-radius:var(--radius); border:1px solid var(--border); padding:20px; margin-bottom:24px;">
+        {% for item in cart.items %}
+          <div style="display:flex;gap:18px;align-items:center;padding:16px 0;{% unless forloop.last %}border-bottom:1px solid var(--border);{% endunless %}">
+            {% if item.image %}
+              <img src="{{ item.image | image_url: width: 90 }}" alt="{{ item.title }}" style="width:74px;height:74px;object-fit:contain;border-radius:10px;background:var(--bg3);border:1px solid var(--border);">
+            {% endif %}
+            <div style="flex:1;">
+              <div style="font-weight:700;color:var(--white);margin-bottom:4px;font-size:15px;line-height:1.4;">{{ item.product.title }}</div>
+              <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;">
+                <span>Variant: {{ item.variant.title }}</span>
+                {% if item.properties.size > 0 %}
+                  {% for prop in item.properties %}
+                    {% if prop.first == 'Razorpay Payment ID' or prop.first == 'Paid Amount' %}
+                      <span style="color:var(--border2);">|</span>
+                      <span style="color:var(--accent); font-weight:600;">{{ prop.first }}: {{ prop.last }}</span>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <div style="font-size:13.5px;color:var(--accent);margin-top:6px;font-weight:700;">{{ item.price | money }}</div>
+            </div>
+            
+            <!-- Static display instead of editable inputs -->
+            <div style="font-size: 13.5px; color: var(--muted); font-weight: 500; background: var(--bg3); padding: 6px 14px; border-radius: 8px; border:1px solid var(--border); height:fit-content;">
+              Qty: <span style="color: var(--white); font-weight: 700; margin-left:2px;">{{ item.quantity }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Price Receipt Footer -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:20px;background:rgba(255,255,255,0.01);border:1px solid var(--border);border-radius:var(--radius);margin-top:10px;">
+        <div>
+          <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Grand Total</div>
+          <div style="font-size:22px;font-weight:800;color:var(--white);font-family:'Playfair Display', serif;">Total: {{ cart.total_price | money }}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:11px;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">✓ Delivery Guaranteed</div>
+          <div style="font-size:12.5px;color:var(--muted);margin-top:4px;">Remaining cash on delivery</div>
+        </div>
+      </div>
+
+      <!-- Founder & Local Delivery Coordinates Details Box -->
+      <div class="founder-card-summary" style="background: linear-gradient(145deg, var(--bg3) 0%, var(--bg2) 100%); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 30px; margin-top: 30px; position: relative; overflow: hidden; box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);">
+        <div style="position: absolute; top: -50px; right: -50px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(232, 201, 122, 0.05) 0%, transparent 70%); pointer-events: none;"></div>
+        
+        <div style="display: flex; gap: 18px; align-items: center; margin-bottom: 20px;">
+          <div style="width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #cba343); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; color: #080808; flex-shrink: 0; box-shadow: 0 4px 15px rgba(232, 201, 122, 0.25);">
+            M
+          </div>
+          <div>
+            <h3 style="color: var(--white); margin: 0 0 3px 0; font-size: 17px; font-weight: 700; font-family: 'Playfair Display', serif; font-style: italic;">Hi, I'm Mahesh.</h3>
+            <p style="color: var(--accent); margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">Founder of Zybuds</p>
+          </div>
+        </div>
+        
+        <p style="color: var(--ink2); font-size: 13.5px; line-height: 1.65; margin: 0 0 24px 0; font-family: 'DM Sans', sans-serif;">
+          I run Zybuds from Secunderabad. I started Zybuds with one simple goal — to give people in Hyderabad high-quality gadgets without overpaying online and without the risk of scams.
+        </p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; border-top: 1px solid var(--border); padding-top: 24px;">
+          <!-- Location -->
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <span style="font-size: 20px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">📍</span>
+            <div>
+              <div style="font-size: 10px; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 0.8px; margin-bottom: 4px;">Location</div>
+              <div style="font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.4;">Suman Housing Colony, Secunderabad</div>
+            </div>
+          </div>
+          
+          <!-- City -->
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <span style="font-size: 20px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">🏙️</span>
+            <div>
+              <div style="font-size: 10px; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 0.8px; margin-bottom: 4px;">City</div>
+              <div style="font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.4;">Hyderabad, Telangana</div>
+            </div>
+          </div>
+          
+          <!-- Phone -->
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <span style="font-size: 20px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">📞</span>
+            <div>
+              <div style="font-size: 10px; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 0.8px; margin-bottom: 4px;">Phone</div>
+              <div style="font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.4; font-family: monospace;">9704252065</div>
+            </div>
+          </div>
+          
+          <!-- Warranty -->
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <span style="font-size: 20px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">🛡️</span>
+            <div>
+              <div style="font-size: 10px; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 0.8px; margin-bottom: 4px;">Warranty</div>
+              <div style="font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.4;">1 Year on All Products</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   {% endif %}
 </div>
+
+<!-- Premium Pop Notification Success Overlay Modal -->
+<div class="success-pop-overlay" id="successPopOverlay">
+  <div class="success-pop-card">
+    <div class="success-pop-icon">✓</div>
+    <h2 class="success-pop-title">Order Confirmed!</h2>
+    <p class="success-pop-msg">
+      Your advance payment was successfully received. Mahesh from Zybuds will contact you on your registered mobile number shortly to verify and confirm your delivery slot in Hyderabad.
+    </p>
+    <button class="success-pop-btn" id="successPopCloseBtn">Great, Thank you!</button>
+  </div>
+</div>
+
+<style>
+/* Custom animations & popup modal styles */
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.45); }
+  70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.success-pop-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(8, 8, 8, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.success-pop-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.success-pop-card {
+  background: #0f0f0f;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 44px 32px;
+  max-width: 480px;
+  width: 90%;
+  text-align: center;
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(16, 185, 129, 0.15);
+}
+
+.success-pop-overlay.active .success-pop-card {
+  transform: translateY(0) scale(1);
+}
+
+.success-pop-icon {
+  width: 72px;
+  height: 72px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  margin: 0 auto 24px;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+  animation: pulse-glow 2s infinite;
+}
+
+.success-pop-title {
+  color: #10b981;
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+}
+
+.success-pop-msg {
+  color: var(--ink2);
+  font-size: 14.5px;
+  line-height: 1.65;
+  margin-bottom: 28px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.success-pop-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 30px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+}
+
+.success-pop-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const overlay = document.getElementById("successPopOverlay");
+  const closeBtn = document.getElementById("successPopCloseBtn");
+  
+  // Check for successful payment parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has("payment_success")) {
+    // Wait briefly for optimal entry experience
+    setTimeout(() => {
+      if (overlay) {
+        overlay.classList.add("active");
+        document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
+      }
+    }, 400);
+  }
+
+  // Handle closing modal
+  if (closeBtn && overlay) {
+    const closeModal = () => {
+      overlay.classList.remove("active");
+      document.body.style.overflow = ""; // Re-enable scroll
+    };
+
+    closeBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", function(e) {
+      if (e.target === overlay) {
+        closeModal();
+      }
+    });
+  }
+});
+</script>

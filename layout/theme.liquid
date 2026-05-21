@@ -48,6 +48,7 @@
   <!-- Footer -->
   {% render 'footer' %}
 
+  {%- unless template == 'cart' -%}
   <!-- Mobile sticky bar -->
   <div class="mob-bar" id="mobBar">
     <div class="mob-price-wrap">
@@ -68,6 +69,7 @@
     </div>
     <button class="mob-order" id="mobOrderBtn" onclick="handleOrder()">Pay ₹{{ settings.advance_amount | default: '99' }} → Confirm</button>
   </div>
+  {%- endunless -%}
 
 
 
