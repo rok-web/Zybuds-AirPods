@@ -275,22 +275,36 @@
       // Calculate displayed price based on Payment Option (Advance vs. Full)
       const payTypeInput = document.getElementById('paymentTypeInput');
       const payType = payTypeInput ? payTypeInput.value : 'Advance';
-      
       let priceText = '₹99';
+      let remainingAmount = 1400;
       if (payType === 'Full') {
         if (product.price) {
           const fullPrice = product.price / 100;
           priceText = (product.currency || '₹') + fullPrice.toLocaleString('en-IN');
+          remainingAmount = fullPrice;
         } else {
           priceText = '₹1,400';
+          remainingAmount = 1400;
         }
       } else {
         const adv = product.advanceAmount || 99;
         priceText = '₹' + adv;
+        if (product.price) {
+          const fullPrice = product.price / 100;
+          remainingAmount = fullPrice - adv;
+        } else {
+          remainingAmount = 1400 - adv;
+        }
       }
 
       if (priceEl) priceEl.textContent = priceText;
       if (submitBtn) submitBtn.textContent = 'COMPLETE ORDER - ' + priceText;
+
+      // Update COD Remaining Amount in Modal
+      const codRemEl = document.getElementById('codRemainingAmount');
+      if (codRemEl) {
+        codRemEl.textContent = '₹' + remainingAmount;
+      }
 
       // Show overlay
       overlay.classList.add('active');
