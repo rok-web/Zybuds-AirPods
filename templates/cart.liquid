@@ -1,4 +1,25 @@
 {% comment %} Premium Order Confirmation & Summary Page {% endcomment %}
+{%- assign customer_name = "" -%}
+{%- assign customer_address = "" -%}
+{%- assign customer_phone = "" -%}
+{%- assign customer_city = "" -%}
+{%- assign customer_state = "" -%}
+{%- assign customer_pincode = "" -%}
+{%- assign customer_landmark = "" -%}
+
+{%- for item in cart.items -%}
+  {%- if item.properties.size > 0 -%}
+    {%- for prop in item.properties -%}
+      {%- if prop.first == "Shipping Name" -%}{%- assign customer_name = prop.last -%}{%- endif -%}
+      {%- if prop.first == "Shipping Address" -%}{%- assign customer_address = prop.last -%}{%- endif -%}
+      {%- if prop.first == "Shipping Phone" -%}{%- assign customer_phone = prop.last -%}{%- endif -%}
+      {%- if prop.first == "Shipping City" -%}{%- assign customer_city = prop.last -%}{%- endif -%}
+      {%- if prop.first == "Shipping State" -%}{%- assign customer_state = prop.last -%}{%- endif -%}
+      {%- if prop.first == "Shipping Pincode" -%}{%- assign customer_pincode = prop.last -%}{%- endif -%}
+      {%- if prop.first == "Shipping Landmark" -%}{%- assign customer_landmark = prop.last -%}{%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}
 
 <div class="cart-confirmation-container" style="max-width:760px;margin:40px auto;padding:40px 24px;background:linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%);border:1px solid var(--border);border-radius:var(--radius-lg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 30px 60px rgba(0,0,0,0.5);">
   
@@ -94,30 +115,51 @@
         </p>
         
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; border-top: 1px solid var(--border); padding-top: 24px;">
-          <!-- Location -->
+          <!-- Customer Name -->
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <span style="font-size: 20px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">👤</span>
+            <div>
+              <div style="font-size: 10px; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 0.8px; margin-bottom: 4px;">Customer Name</div>
+              <div style="font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.4;">
+                {% if customer_name != "" %}
+                  {{ customer_name }}
+                {% else %}
+                  Guest Customer
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          
+          <!-- Delivery Address -->
           <div style="display: flex; gap: 12px; align-items: flex-start;">
             <span style="font-size: 20px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">📍</span>
             <div>
-              <div style="font-size: 10px; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 0.8px; margin-bottom: 4px;">Location</div>
-              <div style="font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.4;">Suman Housing Colony, Secunderabad</div>
+              <div style="font-size: 10px; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 0.8px; margin-bottom: 4px;">Delivery Address</div>
+              <div style="font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.4;">
+                {% if customer_address != "" %}
+                  {{ customer_address }}
+                  {% if customer_landmark != "" %}, Near {{ customer_landmark }}{% endif %}
+                  <br>
+                  {{ customer_city }}, {{ customer_state }} - {{ customer_pincode }}
+                {% else %}
+                  Suman Housing Colony, Secunderabad<br>Hyderabad, Telangana
+                {% endif %}
+              </div>
             </div>
           </div>
           
-          <!-- City -->
-          <div style="display: flex; gap: 12px; align-items: flex-start;">
-            <span style="font-size: 20px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">🏙️</span>
-            <div>
-              <div style="font-size: 10px; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 0.8px; margin-bottom: 4px;">City</div>
-              <div style="font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.4;">Hyderabad, Telangana</div>
-            </div>
-          </div>
-          
-          <!-- Phone -->
+          <!-- Contact Phone -->
           <div style="display: flex; gap: 12px; align-items: flex-start;">
             <span style="font-size: 20px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">📞</span>
             <div>
-              <div style="font-size: 10px; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 0.8px; margin-bottom: 4px;">Phone</div>
-              <div style="font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.4; font-family: monospace;">9704252065</div>
+              <div style="font-size: 10px; text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 0.8px; margin-bottom: 4px;">Contact Phone</div>
+              <div style="font-size: 13px; color: var(--white); font-weight: 600; line-height: 1.4; font-family: monospace;">
+                {% if customer_phone != "" %}
+                  {{ customer_phone }}
+                {% else %}
+                  9704252065
+                {% endif %}
+              </div>
             </div>
           </div>
           
