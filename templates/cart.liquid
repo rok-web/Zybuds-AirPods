@@ -1,4 +1,7 @@
 {% comment %} Premium Order Confirmation & Summary Page {% endcomment %}
+<script>
+  console.log("Zybuds Cart JSON:", {{ cart | json }});
+</script>
 {%- assign customer_name = "" -%}
 {%- assign customer_address = "" -%}
 {%- assign customer_phone = "" -%}

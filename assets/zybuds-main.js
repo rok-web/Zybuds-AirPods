@@ -386,27 +386,111 @@
           console.log('Payment Successful:', response.razorpay_payment_id);
           form.dataset.paid = "true";
           
-          // Add Payment ID
-          let payIdInput = form.querySelector('input[name="properties[Razorpay Payment ID]"]');
-          if (!payIdInput) {
-            payIdInput = document.createElement('input');
-            payIdInput.type = 'hidden';
-            payIdInput.name = 'properties[Razorpay Payment ID]';
-            form.appendChild(payIdInput);
+          if (submitBtn) {
+            submitBtn.textContent = 'PROCESSING ORDER...';
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
           }
-          payIdInput.value = response.razorpay_payment_id;
-          
-          // Add Payment Amount
-          let amtInput = form.querySelector('input[name="properties[Paid Amount]"]');
-          if (!amtInput) {
-            amtInput = document.createElement('input');
-            amtInput.type = 'hidden';
-            amtInput.name = 'properties[Paid Amount]';
-            form.appendChild(amtInput);
-          }
-          amtInput.value = '₹' + (amountInPaise / 100);
 
-          form.submit();
+          // Clear cart first to avoid duplicate line items or stale states
+          fetch('/cart/clear.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            }
+          })
+          .then(clearRes => {
+            console.log('Cart cleared successfully');
+            
+            // Extract latest values
+            const paymentType = document.getElementById('paymentTypeInput') ? document.getElementById('paymentTypeInput').value : 'Advance';
+            const shippingName = inputName.value.trim();
+            const shippingPincode = inputPincode.value.trim();
+            const shippingAddress = inputAddress.value.trim();
+            const shippingPhone = inputPhone.value.trim();
+            const shippingCity = inputCity.value.trim();
+            const shippingLandmark = inputLandmark.value.trim();
+            const shippingState = inputState.value;
+            const rzpPaymentId = response.razorpay_payment_id;
+            const paidAmount = '₹' + (amountInPaise / 100);
+
+            const variantIdInput = form.querySelector('input[name="id"]');
+            let variantId = variantIdInput ? variantIdInput.value : (window.ShopifyProduct ? window.ShopifyProduct.variantId : '');
+            if (variantId) {
+              variantId = parseInt(variantId, 10);
+            }
+
+            if (!variantId) {
+              throw new Error('No Variant ID found');
+            }
+
+            console.log('Adding item via AJAX, Variant:', variantId);
+            return fetch('/cart/add.js', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                id: variantId,
+                quantity: 1,
+                properties: {
+                  "Payment Type": paymentType,
+                  "Shipping Name": shippingName,
+                  "Shipping Pincode": shippingPincode,
+                  "Shipping Address": shippingAddress,
+                  "Shipping Phone": shippingPhone,
+                  "Shipping City": shippingCity,
+                  "Shipping Landmark": shippingLandmark,
+                  "Shipping State": shippingState,
+                  "Razorpay Payment ID": rzpPaymentId,
+                  "Paid Amount": paidAmount
+                }
+              })
+            });
+          })
+          .then(addRes => {
+            if (addRes && addRes.ok) {
+              console.log('Item added successfully with shipping properties');
+              window.location.href = '/cart?payment_success=true';
+            } else {
+              throw new Error('Shopify cart addition failed');
+            }
+          })
+          .catch(err => {
+            console.error('AJAX order processing failed:', err);
+            
+            // Standard form fallback: populate properties & submit
+            let payIdInput = form.querySelector('input[name="properties[Razorpay Payment ID]"]');
+            if (!payIdInput) {
+              payIdInput = document.createElement('input');
+              payIdInput.type = 'hidden';
+              payIdInput.name = 'properties[Razorpay Payment ID]';
+              form.appendChild(payIdInput);
+            }
+            payIdInput.value = response.razorpay_payment_id;
+            
+            let amtInput = form.querySelector('input[name="properties[Paid Amount]"]');
+            if (!amtInput) {
+              amtInput = document.createElement('input');
+              amtInput.type = 'hidden';
+              amtInput.name = 'properties[Paid Amount]';
+              form.appendChild(amtInput);
+            }
+            amtInput.value = '₹' + (amountInPaise / 100);
+
+            // Populate other fields just in case
+            if (hiddenName) hiddenName.value = inputName.value.trim();
+            if (hiddenPincode) hiddenPincode.value = inputPincode.value.trim();
+            if (hiddenAddress) hiddenAddress.value = inputAddress.value.trim();
+            if (hiddenPhone) hiddenPhone.value = inputPhone.value.trim();
+            if (hiddenCity) hiddenCity.value = inputCity.value.trim();
+            if (hiddenLandmark) hiddenLandmark.value = inputLandmark.value.trim();
+            if (hiddenState) hiddenState.value = inputState.value;
+
+            form.submit();
+          });
         },
         "theme": { "color": "#e8c97a" },
         "modal": {
