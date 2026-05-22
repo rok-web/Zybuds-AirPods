@@ -433,20 +433,22 @@
                 'Accept': 'application/json'
               },
               body: JSON.stringify({
-                id: variantId,
-                quantity: 1,
-                properties: {
-                  "Payment Type": paymentType,
-                  "Shipping Name": shippingName,
-                  "Shipping Pincode": shippingPincode,
-                  "Shipping Address": shippingAddress,
-                  "Shipping Phone": shippingPhone,
-                  "Shipping City": shippingCity,
-                  "Shipping Landmark": shippingLandmark,
-                  "Shipping State": shippingState,
-                  "Razorpay Payment ID": rzpPaymentId,
-                  "Paid Amount": paidAmount
-                }
+                items: [{
+                  id: variantId,
+                  quantity: 1,
+                  properties: {
+                    "Payment Type": paymentType,
+                    "Shipping Name": shippingName,
+                    "Shipping Pincode": shippingPincode,
+                    "Shipping Address": shippingAddress,
+                    "Shipping Phone": shippingPhone,
+                    "Shipping City": shippingCity,
+                    "Shipping Landmark": shippingLandmark,
+                    "Shipping State": shippingState,
+                    "Razorpay Payment ID": rzpPaymentId,
+                    "Paid Amount": paidAmount
+                  }
+                }]
               })
             });
           })
