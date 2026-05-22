@@ -150,7 +150,9 @@
     <div class="product-form-container">
       {%- if has_product -%}
         {%- form 'product', product_obj, id: 'ProductForm', data-product-form: '' -%}
-          <input type="hidden" name="return_to" value="/cart?payment_success=true">
+          {%- if settings.enable_custom_checkout -%}
+            <input type="hidden" name="return_to" value="/cart?payment_success=true">
+          {%- endif -%}
           <input type="hidden" name="id" value="{{ product_obj.selected_or_first_available_variant.id }}">
           <input type="hidden" name="quantity" value="1">
           <input type="hidden" name="properties[Payment Type]" value="Advance" id="paymentTypeInput">

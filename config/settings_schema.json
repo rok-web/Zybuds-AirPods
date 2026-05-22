@@ -101,6 +101,13 @@
     "name": "Payments (Razorpay)",
     "settings": [
       {
+        "type": "checkbox",
+        "id": "enable_custom_checkout",
+        "label": "Enable Custom Razorpay Checkout Modal",
+        "info": "Uncheck this if you want to use standard Shopify Checkout or an App like EasySell.",
+        "default": true
+      },
+      {
         "type": "text",
         "id": "razorpay_key_id",
         "label": "Razorpay Key ID",

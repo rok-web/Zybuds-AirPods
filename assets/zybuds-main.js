@@ -178,8 +178,17 @@
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
     const form = document.getElementById('ProductForm');
     if (form) {
-      // Dispatch a submit event to trigger the shipping modal overlay interceptor
-      form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
+        // Trigger standard form submission so that Apps like EasySell or standard checkout can handle it
+        if (typeof form.requestSubmit === 'function') {
+          form.requestSubmit();
+        } else {
+          form.submit();
+        }
+      } else {
+        // Dispatch a submit event to trigger the shipping modal overlay interceptor
+        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      }
     }
   };
 
@@ -199,6 +208,12 @@
 
   // 10. RAZORPAY INTEGRATION WITH SHIPPING MODAL
   const initRazorpay = () => {
+    // Exit early if custom checkout is disabled (allows standard forms/apps like EasySell to run normally)
+    if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
+      console.log('Custom Razorpay checkout is disabled. Bypassing interceptors.');
+      return;
+    }
+
     const form = document.getElementById('ProductForm');
     const orderBtn = document.getElementById('orderBtn');
     if (!form) return;

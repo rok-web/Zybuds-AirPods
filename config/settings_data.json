@@ -20,6 +20,7 @@
     "founder_location": "Suman Housing Colony, Secunderabad",
     "instagram_handle": "zybuds",
     "razorpay_key_id": "rzp_live_llNdHgFGbITSTX",
+    "enable_custom_checkout": false,
     "sections": {
       "header": {
         "type": "header",
@@ -56,7 +57,7 @@
     "blocks": {
       "17754088914158789468": {
         "type": "shopify://apps/easysell-cod-form/blocks/app-embed/7bfd0a95-6839-4f02-b2ee-896832dbe67e",
-        "disabled": true,
+        "disabled": false,
         "settings": {}
       }
     }

@@ -75,6 +75,7 @@
 
   <script>
     window.ZybudsSettings = {
+      enableCustomCheckout: {{ settings.enable_custom_checkout | default: false | json }},
       advanceAmount: {{ settings.advance_amount | default: 99 }},
       warrantyYears: {{ settings.warranty_years | default: 1 }},
       city: {{ settings.city | default: 'Hyderabad' | json }},
