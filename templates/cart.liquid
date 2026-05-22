@@ -120,7 +120,7 @@
                 {% if customer_name != "" %}
                   {{ customer_name }}
                 {% else %}
-                  Guest Customer
+                  <span style="color: var(--border2); font-style: italic;">Not Provided</span>
                 {% endif %}
               </div>
             </div>
@@ -138,7 +138,7 @@
                   <br>
                   {{ customer_city }}, {{ customer_state }} - {{ customer_pincode }}
                 {% else %}
-                  Suman Housing Colony, Secunderabad<br>Hyderabad, Telangana
+                  <span style="color: var(--border2); font-style: italic;">Not Provided</span>
                 {% endif %}
               </div>
             </div>
@@ -153,7 +153,7 @@
                 {% if customer_phone != "" %}
                   {{ customer_phone }}
                 {% else %}
-                  9704252065
+                  <span style="color: var(--border2); font-style: italic;">Not Provided</span>
                 {% endif %}
               </div>
             </div>
