@@ -54,9 +54,9 @@
     },
     "content_for_index": [],
     "blocks": {
-      "17754088914158789468": {
-        "type": "shopify://apps/easysell-cod-form/blocks/app-embed/7bfd0a95-6839-4f02-b2ee-896832dbe67e",
-        "disabled": true,
+      "3557650678667880288": {
+        "type": "shopify://apps/razorpay-cod-magic-checkout/blocks/magicx-script/c13c688d-5c45-4054-b95f-1edd63faa705",
+        "disabled": false,
         "settings": {}
       }
     }
