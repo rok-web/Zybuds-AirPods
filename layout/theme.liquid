@@ -51,17 +51,19 @@
   {%- unless template == 'cart' -%}
   <!-- Mobile sticky bar -->
   <div class="mob-bar" id="mobBar">
+    {%- assign product_price = 140000 -%}
+    {%- assign product_compare_at_price = 349900 -%}
     <div class="mob-price-wrap">
       <div class="mob-price-main" id="mobPriceMain">
         {%- if template == 'product' -%}
-          {{ product.price | money }}
+          {{ product_price | money }}
         {%- else -%}
           ₹1,400
         {%- endif -%}
       </div>
       <div class="mob-price-old">
-        {%- if template == 'product' and product.compare_at_price > product.price -%}
-          MRP {{ product.compare_at_price | money }}
+        {%- if template == 'product' and product_compare_at_price > product_price -%}
+          MRP {{ product_compare_at_price | money }}
         {%- else -%}
           MRP ₹3,499
         {%- endif -%}

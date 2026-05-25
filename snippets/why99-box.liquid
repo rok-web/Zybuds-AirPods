@@ -7,11 +7,7 @@
 {%- assign advance_cents = advance_raw | times: 100 -%}
 {%- assign product_obj = product | default: section.settings.product -%}
 
-{%- if product_obj and product_obj.price > 0 -%}
-  {%- assign product_cost = product_obj.price -%}
-{%- else -%}
-  {%- assign product_cost = 140000 -%}
-{%- endif -%}
+{%- assign product_cost = 140000 -%}
 {%- assign remaining = product_cost | minus: advance_cents -%}
 
 {%- assign city = settings.city | default: 'Hyderabad' -%}
