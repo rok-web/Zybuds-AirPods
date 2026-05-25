@@ -69,7 +69,7 @@
         {%- endif -%}
       </div>
     </div>
-    <button class="mob-order es-popup-button-overwrite" id="mobOrderBtn" onclick="handleOrder()">Pay ₹{{ settings.advance_amount | default: '99' }} → Confirm</button>
+    <button class="mob-order{% unless settings.enable_custom_checkout %} es-popup-button-overwrite{% endunless %}" id="mobOrderBtn" onclick="handleOrder()">Pay ₹{{ settings.advance_amount | default: '99' }} → Confirm</button>
   </div>
   {%- endunless -%}
 
