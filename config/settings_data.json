@@ -9,18 +9,6 @@
  */
 {
   "current": {
-    "shop_name_override": "Zybuds",
-    "tagline": "Trendy Accessories",
-    "advance_amount": "1",
-    "warranty_years": "1",
-    "orders_delivered": "5867",
-    "city": "Hyderabad",
-    "city_area": "Secunderabad",
-    "founder_name": "Mahesh",
-    "founder_location": "Suman Housing Colony, Secunderabad",
-    "instagram_handle": "zybuds",
-    "enable_custom_checkout": true,
-    "razorpay_key_id": "rzp_live_llNdHgFGbITSTX",
     "sections": {
       "header": {
         "type": "header",
@@ -29,38 +17,26 @@
       "product-page": {
         "type": "product-page",
         "settings": {
-          "gallery_img_1": "shopify://shop_images/file_000000001804720baa73c2d48dbda353.png",
-          "gallery_img_2": "shopify://shop_images/file_00000000bd00720baa181f39d4af03b5.png",
-          "gallery_img_3": "shopify://shop_images/file_000000000af8720b9067f6144a3f2f99.png",
-          "gallery_img_4": "shopify://shop_images/file_00000000c1b4720bb71cdd7a47829fb9.png",
-          "box_img_1": "shopify://shop_images/file_00000000104872079f3cba05ae6e6982.png",
-          "box_img_2": "shopify://shop_images/file_00000000addc71faaad784a3c1922677_d872edda-2072-4bdc-a8a8-0f2843dab5c4.png",
-          "box_img_3": "shopify://shop_images/file_00000000c38c71fa80779aadaa4c62e3_064d3add-ba48-45e8-b9e2-111fdd8893f6.png",
-          "box_img_4": "shopify://shop_images/file_0000000075d471fa908adeb3d249e74a.png",
-          "product": "zybuds-airpods",
+          "gallery_img_1": "shopify://shop_images/download_1.png",
+          "gallery_img_2": "shopify://shop_images/download.png",
+          "gallery_img_3": "shopify://shop_images/download_2.png",
+          "gallery_img_4": "shopify://shop_images/download_3.png",
+          "box_img_1": "shopify://shop_images/file_00000000104872079f3cba05ae6e6982.avif",
+          "box_img_2": "shopify://shop_images/file_00000000addc71faaad784a3c1922677_d872edda-2072-4bdc-a8a8-0f2843dab5c4.webp",
+          "box_img_3": "shopify://shop_images/file_00000000c38c71fa80779aadaa4c62e3_064d3add-ba48-45e8-b9e2-111fdd8893f6.avif",
+          "box_img_4": "shopify://shop_images/file_0000000075d471fa908adeb3d249e74a.avif",
+          "product": "",
           "review_count": "214",
           "show_video_section": true,
-          "feat_video_1": "shopify://files/videos/Popup (1).mp4",
-          "feat_video_2": "shopify://files/videos/Touch (1).mp4",
-          "feat_video_3": "shopify://files/videos/Find my device (1).mp4",
-          "feat_video_4": "shopify://files/videos/Active (1).mp4",
-          "video_url_1": "https://drive.google.com/file/d/1s0b2VOvZ4r5pCv2yKYn6EXhxBJ-wAN0O/view",
-          "video_url_2": "https://drive.google.com/file/d/1ebFQufPwUv71FQzi37xHrtAb2WkZs5b-/view?usp=drivesdk",
-          "video_url_3": "https://drive.google.com/file/d/13kWgzp0BUmSYmdZwPNCIH4ANS3HJqBVD/view?pli=1",
-          "video_url_4": "https://drive.google.com/file/d/1noZW02dvvpVq7pHo6pQAas409SBYnWNk/view?usp=drivesdk",
+          "video_url_1": "",
+          "video_url_2": "",
+          "video_url_3": "",
+          "video_url_4": "",
           "founder_message": "Hi, I'm Mahesh. I run Zybuds from Secunderabad.",
           "cv_heading": "Our Customer Review"
         }
       }
     },
-    "content_for_index": [],
-    "blocks": {
-      "3557650678667880288": {
-        "type": "shopify://apps/razorpay-cod-magic-checkout/blocks/magicx-script/c13c688d-5c45-4054-b95f-1edd63faa705",
-        "disabled": false,
-        "settings": {}
-      }
-    }
-  },
-  "presets": {}
+    "content_for_index": []
+  }
 }
