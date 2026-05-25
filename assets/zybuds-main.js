@@ -180,10 +180,14 @@
     if (form) {
       if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
         // Trigger standard form submission so that Apps like EasySell or standard checkout can handle it
-        if (typeof form.requestSubmit === 'function') {
-          form.requestSubmit();
-        } else {
-          form.submit();
+        const submitEvent = new Event('submit', { cancelable: true, bubbles: true });
+        form.dispatchEvent(submitEvent);
+        if (!submitEvent.defaultPrevented) {
+          if (typeof form.requestSubmit === 'function') {
+            form.requestSubmit();
+          } else {
+            form.submit();
+          }
         }
       } else {
         // Dispatch a submit event to trigger the shipping modal overlay interceptor

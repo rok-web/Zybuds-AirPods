@@ -1,5 +1,9 @@
 {% comment %} Premium Order Confirmation & Summary Page {% endcomment %}
 <script>
+  const urlParamsCheck = new URLSearchParams(window.location.search);
+  if (!urlParamsCheck.has("payment_success")) {
+    window.location.href = "/";
+  }
   console.log("Zybuds Cart JSON:", {{ cart | json }});
 </script>
 {%- assign customer_name = "" -%}
