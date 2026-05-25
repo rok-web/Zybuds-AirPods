@@ -176,28 +176,17 @@
   // 8. ORDER BUTTON ACTION (Opens Shipping Details Modal directly)
   window.handleOrder = (e) => {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
+    
+    // If custom checkout is disabled, let EasySell's class interceptors handle it
+    if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
+      console.log('Custom checkout disabled. EasySell es-popup-button-overwrite intercepting.');
+      return;
+    }
+    
     const form = document.getElementById('ProductForm');
     if (form) {
-      if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
-        // Trigger standard form submission or click the standard button so that Apps like EasySell can handle it
-        const realButton = form.querySelector('button[name="add"]');
-        if (realButton) {
-          realButton.click();
-        } else {
-          const submitEvent = new Event('submit', { cancelable: true, bubbles: true });
-          form.dispatchEvent(submitEvent);
-          if (!submitEvent.defaultPrevented) {
-            if (typeof form.requestSubmit === 'function') {
-              form.requestSubmit();
-            } else {
-              form.submit();
-            }
-          }
-        }
-      } else {
-        // Dispatch a submit event to trigger the shipping modal overlay interceptor
-        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-      }
+      // Dispatch a submit event to trigger the shipping modal overlay interceptor
+      form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
     }
   };
 
