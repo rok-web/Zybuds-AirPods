@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "razorpay_key_id": "rzp_live_llNdHgFGbITSTX",
     "sections": {
       "header": {
         "type": "header",
