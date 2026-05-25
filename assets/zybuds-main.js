@@ -179,14 +179,19 @@
     const form = document.getElementById('ProductForm');
     if (form) {
       if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
-        // Trigger standard form submission so that Apps like EasySell or standard checkout can handle it
-        const submitEvent = new Event('submit', { cancelable: true, bubbles: true });
-        form.dispatchEvent(submitEvent);
-        if (!submitEvent.defaultPrevented) {
-          if (typeof form.requestSubmit === 'function') {
-            form.requestSubmit();
-          } else {
-            form.submit();
+        // Trigger standard form submission or click the standard button so that Apps like EasySell can handle it
+        const realButton = form.querySelector('button[name="add"]');
+        if (realButton) {
+          realButton.click();
+        } else {
+          const submitEvent = new Event('submit', { cancelable: true, bubbles: true });
+          form.dispatchEvent(submitEvent);
+          if (!submitEvent.defaultPrevented) {
+            if (typeof form.requestSubmit === 'function') {
+              form.requestSubmit();
+            } else {
+              form.submit();
+            }
           }
         }
       } else {
