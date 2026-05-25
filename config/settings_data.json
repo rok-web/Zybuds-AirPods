@@ -9,7 +9,17 @@
  */
 {
   "current": {
-    "advance_amount": "1",
+    "shop_name_override": "Zybuds",
+    "tagline": "Trendy Accessories",
+    "advance_amount": "99",
+    "warranty_years": "1",
+    "orders_delivered": "5867",
+    "city": "Hyderabad",
+    "city_area": "Secunderabad",
+    "founder_name": "Mahesh",
+    "founder_location": "Suman Housing Colony, Secunderabad",
+    "instagram_handle": "zybuds",
+    "enable_custom_checkout": true,
     "razorpay_key_id": "rzp_live_llNdHgFGbITSTX",
     "sections": {
       "header": {

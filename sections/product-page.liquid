@@ -82,8 +82,8 @@
             Save {{ product_obj.compare_at_price | minus: product_obj.price | money }}
           </div>
         {%- elsif product_obj == nil -%}
-          <div class="p2-old-price">₹3,499</div>
-          <div class="p2-save-chip">Save ₹2,099</div>
+          <div class="p2-old-price">₹4,899</div>
+          <div class="p2-save-chip">Save ₹3,499</div>
         {%- endif -%}
       </div>
       <div id="priceBreakdown" class="price-breakdown">
@@ -510,7 +510,7 @@
         <div class="checkout-cod-details">
           <h4 class="checkout-cod-title">Cash on Delivery (Most Popular)</h4>
           <p class="checkout-cod-confirm">Confirm Order with ₹{{ advance_raw }} Only</p>
-          <p class="checkout-cod-remaining">Remaining <strong id="codRemainingAmount">₹1400</strong> Pay After Delivery</p>
+          <p class="checkout-cod-remaining">Remaining <strong id="codRemainingAmount">{{ remaining | money_without_trailing_zeros }}</strong> Pay After Delivery</p>
           
           <div class="checkout-cod-why">
             <strong>Why ₹{{ advance_raw }}?</strong>
