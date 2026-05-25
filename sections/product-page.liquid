@@ -177,6 +177,13 @@
           <span class="btn-right">Same Day Delivery →</span>
         </button>
       {%- endif -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == '@app' -%}
+          <div class="product-app-block" style="margin-top:15px;" {{ block.shopify_attributes }}>
+            {% render block %}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
     </div>
 
     <!-- GUARANTEE -->
@@ -763,6 +770,9 @@
     { "type": "video", "id": "cv_video_5", "label": "Customer Video 5" }
   ],
   "blocks": [
+    {
+      "type": "@app"
+    },
     {
       "type": "spec_row",
       "name": "Spec Row",
