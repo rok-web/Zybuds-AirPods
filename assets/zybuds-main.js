@@ -380,6 +380,17 @@
           "name": inputName.value.trim(),
           "contact": inputPhone.value.trim()
         },
+        "notes": {
+          "Customer Name": inputName.value.trim().substring(0, 100),
+          "Contact Phone": inputPhone.value.trim().substring(0, 100),
+          "Pincode": inputPincode.value.trim().substring(0, 6),
+          "Address": inputAddress.value.trim().substring(0, 200),
+          "City": inputCity.value.trim().substring(0, 100),
+          "Landmark": (inputLandmark ? inputLandmark.value.trim() : '').substring(0, 100),
+          "State": inputState.value.substring(0, 100),
+          "Product": (product.title || "AirPods Pro 2").substring(0, 100),
+          "Color": (document.getElementById('col2Name') ? document.getElementById('col2Name').textContent : 'White').substring(0, 100)
+        },
         "handler": function (response){
           console.log('Payment Successful:', response.razorpay_payment_id);
           form.dataset.paid = "true";
