@@ -61,14 +61,14 @@
       animateCounter(el, curr, next, 1000);
     }, 8000);
 
-    // Increase daily viewed count every 6 seconds (social proof)
+    // Increase daily viewed count every 5 seconds (social proof)
     setInterval(() => {
       const el = document.getElementById('dailyViewCount');
       if (!el) return;
       const curr = parseInt(el.textContent);
-      const delta = Math.random() > 0.7 ? 1 : 0;
-      if (delta > 0) el.textContent = curr + delta;
-    }, 6000);
+      const delta = Math.floor(Math.random() * 2) + 1; // Increase by 1 or 2 views
+      el.textContent = curr + delta;
+    }, 5000);
   };
 
   // 3. IMAGE SWITCHER (Shopify Images)
