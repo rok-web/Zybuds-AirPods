@@ -3,32 +3,21 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- URL Path & Shopify Variable Spoofing to enable Product-specific Apps (like EasySell & Shiprocket) on the Homepage -->
+  <!-- Homepage Redirect to Product Landing Page (excludes Shopify Admin Customizer Editor) -->
   <script>
     (function() {
       if (window.location.pathname === '/') {
-        window.history.replaceState({}, '', '/products/earbuds-megasafe-power-bank');
-        window.__spoofedPath = true;
+        var isEditor = window.location.search.indexOf('design_theme_id') !== -1 || 
+                       window.location.search.indexOf('preview_theme_id') !== -1;
+        var isDesignMode = false;
+        try {
+          isDesignMode = (window.Shopify && window.Shopify.designMode) || 
+                         (window.parent && window.parent.Shopify && window.parent.Shopify.designMode);
+        } catch(e) {}
         
-        // Spoof all Shopify global variables to trick apps into thinking they are on a product page
-        window.meta = window.meta || {};
-        window.meta.page = window.meta.page || {};
-        window.meta.page.pageType = 'product';
-        
-        window.ShopifyAnalytics = window.ShopifyAnalytics || {};
-        window.ShopifyAnalytics.meta = window.ShopifyAnalytics.meta || {};
-        window.ShopifyAnalytics.meta.page = window.ShopifyAnalytics.meta.page || {};
-        window.ShopifyAnalytics.meta.page.pageType = 'product';
-        
-        window.Shopify = window.Shopify || {};
-        window.Shopify.template = 'product';
-        
-        // Restore the URL to '/' after 3000ms so the user sees the homepage URL
-        setTimeout(function() {
-          if (window.location.pathname === '/products/earbuds-megasafe-power-bank') {
-            window.history.replaceState({}, '', '/');
-          }
-        }, 3000);
+        if (!isEditor && !isDesignMode) {
+          window.location.replace('/products/earbuds-megasafe-power-bank');
+        }
       }
     })();
   </script>
@@ -143,6 +132,6 @@
   </script>
 
   <!-- Global Javascript -->
-  {{ 'zybuds-main.js' | asset_url | append: '&v=1.1.0' | script_tag }}
+  {{ 'zybuds-main.js' | asset_url | append: '&v=1.1.1' | script_tag }}
 </body>
 </html>
