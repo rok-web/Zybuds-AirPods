@@ -3,14 +3,27 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- URL Path Spoofing to enable Product-specific Apps (like EasySell & Shiprocket) on the Homepage -->
+  <!-- URL Path & Shopify Variable Spoofing to enable Product-specific Apps (like EasySell & Shiprocket) on the Homepage -->
   <script>
     (function() {
       if (window.location.pathname === '/') {
         window.history.replaceState({}, '', '/products/earbuds-megasafe-power-bank');
         window.__spoofedPath = true;
         
-        // Restore the URL to '/' after 3 seconds so the user sees the homepage URL
+        // Spoof all Shopify global variables to trick apps into thinking they are on a product page
+        window.meta = window.meta || {};
+        window.meta.page = window.meta.page || {};
+        window.meta.page.pageType = 'product';
+        
+        window.ShopifyAnalytics = window.ShopifyAnalytics || {};
+        window.ShopifyAnalytics.meta = window.ShopifyAnalytics.meta || {};
+        window.ShopifyAnalytics.meta.page = window.ShopifyAnalytics.meta.page || {};
+        window.ShopifyAnalytics.meta.page.pageType = 'product';
+        
+        window.Shopify = window.Shopify || {};
+        window.Shopify.template = 'product';
+        
+        // Restore the URL to '/' after 3000ms so the user sees the homepage URL
         setTimeout(function() {
           if (window.location.pathname === '/products/earbuds-megasafe-power-bank') {
             window.history.replaceState({}, '', '/');
@@ -130,6 +143,6 @@
   </script>
 
   <!-- Global Javascript -->
-  {{ 'zybuds-main.js' | asset_url | append: '&v=1.0.9' | script_tag }}
+  {{ 'zybuds-main.js' | asset_url | append: '&v=1.1.0' | script_tag }}
 </body>
 </html>
