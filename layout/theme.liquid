@@ -89,7 +89,7 @@
     };
   </script>
 
-  <!-- Theme JS -->
-  {{ 'zybuds-main.js' | asset_url | script_tag }}
+  <!-- Global Javascript -->
+  {{ 'zybuds-main.js' | asset_url | append: '&v=1.0.1' | script_tag }}
 </body>
 </html>
