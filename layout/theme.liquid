@@ -3,6 +3,23 @@
 <head>
   <meta charset="UTF-8">
 
+  <!-- URL Path Spoofing to enable Product-specific Apps (like EasySell & Shiprocket) on the Homepage -->
+  <script>
+    (function() {
+      if (window.location.pathname === '/') {
+        window.history.replaceState({}, '', '/products/earbuds-megasafe-power-bank');
+        window.__spoofedPath = true;
+        
+        // Restore the URL to '/' after 3 seconds so the user sees the homepage URL
+        setTimeout(function() {
+          if (window.location.pathname === '/products/earbuds-megasafe-power-bank') {
+            window.history.replaceState({}, '', '/');
+          }
+        }, 3000);
+      }
+    })();
+  </script>
+
   <!-- ============================================================
     Shiprocket Fetch Interceptor — MUST be first script on page.
     Shiprocket's uc.js reads the product handle from the page URL.
@@ -113,6 +130,6 @@
   </script>
 
   <!-- Global Javascript -->
-  {{ 'zybuds-main.js' | asset_url | append: '&v=1.0.8' | script_tag }}
+  {{ 'zybuds-main.js' | asset_url | append: '&v=1.0.9' | script_tag }}
 </body>
 </html>
