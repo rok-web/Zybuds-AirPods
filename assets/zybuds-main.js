@@ -201,18 +201,25 @@
 
   // 8. ORDER BUTTON ACTION (Opens Shipping Details Modal directly)
   window.handleOrder = (e) => {
-    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+    // Check if the event was triggered by clicking the static in-page order button
+    const isStaticBtn = e && e.target && (e.target.id === 'orderBtn' || e.target.closest('#orderBtn'));
     
-    // If custom checkout is disabled, let EasySell handle it via form submit
-    if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
-      console.log('Custom checkout disabled. Dispatching submit event for EasySell.');
-      const form = document.getElementById('ProductForm');
-      if (form) {
-        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    if (!isStaticBtn) {
+      const orderBtn = document.getElementById('orderBtn');
+      if (orderBtn) {
+        console.log('Redirecting click from sticky button/header to static #orderBtn');
+        orderBtn.click();
+        return;
       }
+    }
+    
+    // If EasySell is active, do not preventDefault on the native submit button click
+    if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
+      console.log('EasySell is active, letting the native event handle it.');
       return;
     }
     
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
     const form = document.getElementById('ProductForm');
     if (form) {
       form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
