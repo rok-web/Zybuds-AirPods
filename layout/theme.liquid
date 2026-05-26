@@ -97,11 +97,7 @@
     {%- assign product_compare_at_price = 349900 -%}
     <div class="mob-price-wrap">
       <div class="mob-price-main" id="mobPriceMain">
-        {%- if template == 'product' -%}
-          {{ product_price | money }}
-        {%- else -%}
-          ₹1,400
-        {%- endif -%}
+        ₹{{ settings.advance_amount | default: '99' }}
       </div>
       <div class="mob-price-old">
         {%- if template == 'product' and product_compare_at_price > product_price -%}
@@ -132,6 +128,6 @@
   </script>
 
   <!-- Global Javascript -->
-  {{ 'zybuds-main.js' | asset_url | append: '&v=1.1.3' | script_tag }}
+  {{ 'zybuds-main.js' | asset_url | append: '&v=1.1.4' | script_tag }}
 </body>
 </html>

@@ -132,6 +132,7 @@
 
     const variantIdInput = document.querySelector('form[action="/cart/add"] input[name="id"], #ProductForm input[name="id"]');
     const optSelectedLabel = document.getElementById('paymentOptionSelected');
+    const mobPriceMain = document.getElementById('mobPriceMain');
 
     if (type === 'full') {
       if (optSelectedLabel) optSelectedLabel.textContent = 'FULL PAYMENT';
@@ -139,6 +140,10 @@
       if (variantIdInput) {
         variantIdInput.value = '51435199791399';
         console.log('Switched to Full Payment variant ID:', variantIdInput.value);
+      }
+      
+      if (mobPriceMain) {
+        mobPriceMain.textContent = `${currencySymbol}${fullPrice.toLocaleString('en-IN')}`;
       }
       
       if (breakdown) {
@@ -158,6 +163,10 @@
       if (variantIdInput) {
         variantIdInput.value = '51435208638759';
         console.log('Switched to Advance Payment variant ID:', variantIdInput.value);
+      }
+
+      if (mobPriceMain) {
+        mobPriceMain.textContent = `₹${advanceAmount}`;
       }
 
       if (breakdown) {
