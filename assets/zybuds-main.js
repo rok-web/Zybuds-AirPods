@@ -130,7 +130,17 @@
     const currencySymbol = product.currency || '₹';
     const remaining = Math.max(0, fullPrice - advanceAmount);
 
+    const variantIdInput = document.querySelector('form[action="/cart/add"] input[name="id"], #ProductForm input[name="id"]');
+    const optSelectedLabel = document.getElementById('paymentOptionSelected');
+
     if (type === 'full') {
+      if (optSelectedLabel) optSelectedLabel.textContent = 'FULL PAYMENT';
+      
+      if (variantIdInput) {
+        variantIdInput.value = '51435199791399';
+        console.log('Switched to Full Payment variant ID:', variantIdInput.value);
+      }
+      
       if (breakdown) {
         breakdown.innerHTML = `You are paying <strong>${currencySymbol}${fullPrice.toLocaleString('en-IN')} in full</strong> upfront. No additional payment needed on delivery.`;
       }
@@ -143,6 +153,13 @@
       const payTypeInput = document.getElementById('paymentTypeInput');
       if (payTypeInput) payTypeInput.value = 'Full';
     } else {
+      if (optSelectedLabel) optSelectedLabel.textContent = 'ADVANCE PAYMENT';
+      
+      if (variantIdInput) {
+        variantIdInput.value = '51435208638759';
+        console.log('Switched to Advance Payment variant ID:', variantIdInput.value);
+      }
+
       if (breakdown) {
         breakdown.innerHTML = `Pay <strong>₹${advanceAmount} now</strong> to confirm → Remaining <strong>${currencySymbol}${remaining.toLocaleString('en-IN')} cash</strong> on delivery, after you check the product`;
       }

@@ -90,7 +90,7 @@
     {% render 'live-activity' %}
 
     <!-- PAYMENT OPTION TOGGLE -->
-    <div class="opt2-label">Payment Option:</div>
+    <div class="opt2-label">Payment Option: <span id="paymentOptionSelected">ADVANCE PAYMENT</span></div>
     <div class="payment-options">
       <div class="pay-opt advance-opt active" onclick="selectPayOption('advance', this)">
         <div class="po-title">Pay ₹{{ advance_raw }} Advance</div>
@@ -189,7 +189,7 @@
           {%- if settings.enable_custom_checkout -%}
             <input type="hidden" name="return_to" value="/cart?payment_success=true">
           {%- endif -%}
-          <input type="hidden" name="id" value="{{ product_obj.selected_or_first_available_variant.id }}">
+          <input type="hidden" name="id" value="51435208638759" id="productVariantIdInput">
           <input type="hidden" name="quantity" value="1">
           <input type="hidden" name="properties[Payment Type]" value="Advance" id="paymentTypeInput">
           <input type="hidden" name="properties[Shipping Name]" value="" id="hiddenShippingName">
