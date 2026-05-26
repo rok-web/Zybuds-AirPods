@@ -2657,4 +2657,17 @@ select.checkout-input {
   display: none !important;
 }
 
+/* Hide EasySell's own inline buttons on the page since we use our custom premium CTAs */
+.easysell-buy-button, 
+[data-easysell-button], 
+.es-buy-button, 
+#es-buy-button,
+.easysell-payment-button,
+.easysell-order-button,
+.easy-order-form-button,
+.easysell-sticky-button,
+[class*="easysell-buy-btn"] {
+  display: none !important;
+}
+
 
