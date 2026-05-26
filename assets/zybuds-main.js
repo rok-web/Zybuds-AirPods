@@ -152,9 +152,6 @@
       if (orderBtn) {
         orderBtn.innerHTML = `<span>🛍️ PAY ${fullPrice}/- FOR ORDER CONFORMATION</span>`;
       }
-      if (mobOrderBtn) {
-        mobOrderBtn.innerHTML = `<span>🛍️ PAY ${fullPrice}/- FOR ORDER CONFORMATION</span>`;
-      }
       const payTypeInput = document.getElementById('paymentTypeInput');
       if (payTypeInput) payTypeInput.value = 'Full';
     } else {
@@ -174,9 +171,6 @@
       }
       if (orderBtn) {
         orderBtn.innerHTML = `<span>🛍️ PAY ${advanceAmount}/- FOR ORDER CONFORMATION</span>`;
-      }
-      if (mobOrderBtn) {
-        mobOrderBtn.innerHTML = `<span>🛍️ PAY ${advanceAmount}/- FOR ORDER CONFORMATION</span>`;
       }
       const payTypeInput = document.getElementById('paymentTypeInput');
       if (payTypeInput) payTypeInput.value = 'Advance';
