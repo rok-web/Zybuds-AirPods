@@ -153,7 +153,7 @@
       const payTypeInput = document.getElementById('paymentTypeInput');
       if (payTypeInput) payTypeInput.value = 'Full';
     } else {
-      if (optSelectedLabel) optSelectedLabel.textContent = 'ADVANCE PAYMENT';
+      if (optSelectedLabel) optSelectedLabel.textContent = 'HALF PAYMENT';
       
       if (variantIdInput) {
         variantIdInput.value = '51435208638759';
@@ -191,6 +191,33 @@
   };
 
   // 8. ORDER BUTTON ACTION (Opens Shipping Details Modal directly)
+  window.watchAndFormatEasySellPopup = (paymentType) => {
+    let attempts = 0;
+    const interval = setInterval(() => {
+      attempts++;
+      
+      // Look for a button that contains the text 'ORDER CONFORMATION' or 'PAY' inside EasySell
+      let targetBtn = null;
+      const allBtns = document.querySelectorAll('button, .easysell-submit-btn, .es-submit-btn, [class*="easysell"]');
+      allBtns.forEach(b => {
+        if (b.textContent && (b.textContent.includes('ORDER CONFORMATION') || b.textContent.includes('ORDER CONFIRMATION'))) {
+          targetBtn = b;
+        }
+      });
+      
+      if (targetBtn) {
+        const priceText = paymentType === 'full' ? '1400/-' : '99/-';
+        targetBtn.innerHTML = `🛍️ PAY ${priceText} FOR ORDER CONFORMATION`;
+        console.log('EasySell green button formatted with:', priceText);
+        clearInterval(interval);
+      }
+      
+      if (attempts > 50) {
+        clearInterval(interval);
+      }
+    }, 100);
+  };
+
   window.handleOrder = (e) => {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
     
@@ -199,6 +226,10 @@
       console.log('Custom checkout disabled. Dispatching submit event for EasySell.');
       const form = document.getElementById('ProductForm');
       if (form) {
+        const payTypeInput = document.getElementById('paymentTypeInput');
+        const paymentType = payTypeInput ? payTypeInput.value.toLowerCase() : 'advance';
+        window.watchAndFormatEasySellPopup(paymentType);
+        
         form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
       }
       return;
