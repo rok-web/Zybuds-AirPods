@@ -213,15 +213,13 @@
       }
     }
     
-    // If EasySell is active, do not preventDefault on the native submit button click
-    if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
-      console.log('EasySell is active, letting the native event handle it.');
-      return;
-    }
-    
+    // Prevent default native action (which redirects to /cart)
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
-    const form = document.getElementById('ProductForm');
+    
+    // Dispatch submit event programmatically using a robust form selector
+    const form = document.querySelector('form[action="/cart/add"], #ProductForm, .shopify-product-form');
     if (form) {
+      console.log('Dispatching submit event on product form for EasySell.');
       form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
     }
   };
