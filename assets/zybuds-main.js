@@ -201,25 +201,42 @@
 
   // 8. ORDER BUTTON ACTION (Opens Shipping Details Modal directly)
   window.handleOrder = (e) => {
-    // Check if the event was triggered by clicking the static in-page order button
-    const isStaticBtn = e && e.target && (e.target.id === 'orderBtn' || e.target.closest('#orderBtn'));
-    
-    if (!isStaticBtn) {
-      const orderBtn = document.getElementById('orderBtn');
-      if (orderBtn) {
-        console.log('Redirecting click from sticky button/header to static #orderBtn');
-        orderBtn.click();
-        return;
-      }
-    }
-    
-    // Prevent default native action (which redirects to /cart)
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
     
-    // Dispatch submit event programmatically using a robust form selector
+    // If EasySell is active, try to trigger the popup via EasySell's native button first
+    if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
+      console.log('Custom checkout disabled. Trying to trigger EasySell native popup.');
+      
+      const selectors = [
+        '.easysell-buy-button',
+        '[data-easysell-button]',
+        '.es-buy-button',
+        '#es-buy-button',
+        '.easysell-payment-button',
+        '.easysell-order-button',
+        '.easy-order-form-button',
+        '[class*="easysell-buy-btn"]'
+      ];
+      for (const selector of selectors) {
+        const el = document.querySelector(selector);
+        if (el) {
+          console.log('Successfully found and clicking EasySell native button:', selector);
+          el.click();
+          return;
+        }
+      }
+      
+      console.log('EasySell native button not found. Falling back to form submit.');
+      const form = document.querySelector('form[action="/cart/add"], #ProductForm, .shopify-product-form');
+      if (form) {
+        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      }
+      return;
+    }
+    
+    // Normal Custom Checkout (Razorpay) Flow
     const form = document.querySelector('form[action="/cart/add"], #ProductForm, .shopify-product-form');
     if (form) {
-      console.log('Dispatching submit event on product form for EasySell.');
       form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
     }
   };
