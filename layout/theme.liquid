@@ -2,6 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
+  <!-- ============================================================
+    Shiprocket Fetch Interceptor — MUST be first script on page.
+    Shiprocket's uc.js reads the product handle from the page URL.
+    On custom landing pages the URL has no product handle, so
+    Shiprocket crashes with /products/null.json (404).
+    This intercepts that bad fetch call and silently redirects it
+    to the correct product URL so Shiprocket gets valid data.
+  ============================================================ -->
+  <script>
+    (function() {
+      var REAL_PRODUCT_HANDLE = 'earbuds-megasafe-power-bank';
+      var _nativeFetch = window.fetch;
+      window.fetch = function(resource, options) {
+        var url = (typeof resource === 'string') ? resource : (resource && resource.url) || '';
+        if (url.indexOf('/products/null') !== -1) {
+          url = url.replace('/products/null', '/products/' + REAL_PRODUCT_HANDLE);
+          resource = (typeof resource === 'string') ? url : new Request(url, resource);
+        }
+        return _nativeFetch.call(this, resource, options);
+      };
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
     {%- if template == 'product' -%}
