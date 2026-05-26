@@ -228,7 +228,6 @@
       return;
     }
 
-    const form = document.getElementById('ProductForm');
     const orderBtn = document.getElementById('orderBtn');
     if (!form) return;
 
