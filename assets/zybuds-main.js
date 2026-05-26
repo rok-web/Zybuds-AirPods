@@ -212,9 +212,19 @@
 
   // 10. RAZORPAY INTEGRATION WITH SHIPPING MODAL
   const initRazorpay = () => {
+    const form = document.getElementById('ProductForm');
+    
     // Exit early if custom checkout is disabled (allows standard forms/apps like EasySell to run normally)
     if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
       console.log('Custom Razorpay checkout is disabled. Bypassing interceptors.');
+      
+      // We must prevent native form submission so the browser doesn't navigate to /cart.
+      // EasySell will still intercept this event natively and handle the cart addition via AJAX.
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+        });
+      }
       return;
     }
 
