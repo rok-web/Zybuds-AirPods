@@ -177,27 +177,12 @@
   window.handleOrder = (e) => {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
     
-    // If custom checkout is disabled, trigger EasySell's own button
+    // If custom checkout is disabled, let EasySell handle it via form submit
     if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
-      // EasySell renders its own buy button somewhere on the page.
-      // We find it and click it programmatically to open the popup.
-      const easysellBtn = document.querySelector(
-        '.easysell-buy-button, [data-easysell-button], .es-buy-button, #es-buy-button, [class*="easysell"][class*="btn"]:not(.easysell-popup-button-overwrite):not(#orderBtn):not(#mobOrderBtn):not(.nav-order), [class*="easysell"][class*="button"]:not(.easysell-popup-button-overwrite):not(#orderBtn):not(#mobOrderBtn):not(.nav-order)'
-      );
-      if (easysellBtn) {
-        console.log('EasySell button found. Triggering popup.');
-        easysellBtn.click();
-      } else {
-        // Fallback: click our own form button directly (EasySell hooks into button clicks with name="add")
-        console.log('EasySell button not found. Clicking form submit button directly.');
-        const orderBtn = document.getElementById('orderBtn');
-        if (orderBtn) {
-          // Temporarily remove onclick to avoid infinite loop, then click
-          const originalOnclick = orderBtn.onclick;
-          orderBtn.onclick = null;
-          orderBtn.click();
-          orderBtn.onclick = originalOnclick;
-        }
+      console.log('Custom checkout disabled. Dispatching submit event for EasySell.');
+      const form = document.getElementById('ProductForm');
+      if (form) {
+        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
       }
       return;
     }
@@ -227,17 +212,9 @@
     const form = document.getElementById('ProductForm');
     
     // If custom checkout is disabled, EasySell handles everything.
-    // We only add a safety net to stop native form navigation to /cart.
+    // We completely bypass all interceptors and do not add any preventDefault listeners.
     if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
       console.log('Custom Razorpay checkout is disabled. Bypassing interceptors.');
-      if (form) {
-        // Safety net — prevent bare form submission from navigating to /cart.
-        // EasySell hooks in BEFORE this fires (via click, not submit), so this
-        // only catches the edge case where no app intercepts it.
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-        }, { capture: false });
-      }
       return;
     }
 
