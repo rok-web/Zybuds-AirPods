@@ -179,7 +179,13 @@
     
     // If custom checkout is disabled, let EasyCode/EasySell interceptors handle it
     if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
-      console.log('Custom checkout disabled. Bypassing interceptors.');
+      console.log('Custom checkout disabled. Dispatching submit event for EasySell.');
+      const form = document.getElementById('ProductForm');
+      if (form) {
+        // Dispatch a submit event to trigger EasySell's listener
+        // This does NOT natively navigate the browser, so it's safe from redirects!
+        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      }
       return;
     }
     
