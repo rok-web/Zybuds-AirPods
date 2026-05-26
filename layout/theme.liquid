@@ -107,7 +107,7 @@
         {%- endif -%}
       </div>
     </div>
-    <button class="mob-order add-to-cart easysell-popup-button-overwrite" id="mobOrderBtn" onclick="handleOrder(event)">Pay ₹{{ settings.advance_amount | default: '99' }} → Confirm</button>
+    <button class="mob-order add-to-cart easysell-popup-button-overwrite" id="mobOrderBtn" onclick="handleOrder(event)"><span>🛍️ PAY {{ settings.advance_amount | default: '99' }}/- FOR ORDER CONFORMATION</span></button>
   </div>
   {%- endunless -%}
 
@@ -128,7 +128,7 @@
   </script>
 
   <!-- Global Javascript -->
-  {{ 'zybuds-main.js' | asset_url | append: '&v=1.1.6' | script_tag }}
+  {{ 'zybuds-main.js' | asset_url | append: '&v=1.1.7' | script_tag }}
 </body>
 </html>
 
