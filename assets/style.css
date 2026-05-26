@@ -2670,4 +2670,10 @@ select.checkout-input {
   display: none !important;
 }
 
+/* Hide the main static order button inside the page as requested by the user */
+#orderBtn {
+  display: none !important;
+}
+
+
 
