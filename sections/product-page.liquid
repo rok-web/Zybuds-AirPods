@@ -131,26 +131,32 @@
     <!-- WHY ₹99 -->
     {% render 'why99-box' %}
 
-    <!-- COLOR / VARIANT PICKER -->
+    {%- comment -%} COLOR / VARIANT PICKER — Only show actual color options, skip payment variants {%- endcomment -%}
+    {%- assign show_color_picker = false -%}
     {%- if product_obj and product_obj.variants.size > 1 -%}
       {%- for option in product_obj.options_with_values -%}
-        <div class="opt2-label">{{ option.name }}: <span id="col2Name">{{ option.selected_value | default: option.values.first }}</span></div>
-        <div class="colors2">
-          {%- for value in option.values -%}
-            {%- assign color_class = value | downcase | replace: ' ', '' -%}
-            <div class="col2 {{ color_class }}2 {% if forloop.first %}active{% endif %}"
-                 title="{{ value }}"
-                 onclick="pickCol2('{{ value }}', this)">
-            </div>
-          {%- endfor -%}
-        </div>
+        {%- assign option_name_lower = option.name | downcase -%}
+        {%- unless option_name_lower contains 'payment' -%}
+          {%- assign show_color_picker = true -%}
+          <div class="opt2-label">{{ option.name }}: <span id="col2Name">{{ option.selected_value | default: option.values.first }}</span></div>
+          <div class="colors2">
+            {%- for value in option.values -%}
+              {%- assign color_class = value | downcase | replace: ' ', '' -%}
+              <div class="col2 {{ color_class }}2 {% if forloop.first %}active{% endif %}"
+                   title="{{ value }}"
+                   onclick="pickCol2('{{ value }}', this)">
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endunless -%}
       {%- endfor -%}
-    {%- else -%}
+    {%- endif -%}
+    {%- unless show_color_picker -%}
       <div class="opt2-label">Color: <span id="col2Name">White</span></div>
       <div class="colors2">
         <div class="col2 white2 active" title="White" onclick="pickCol2('White', this)"></div>
       </div>
-    {%- endif -%}
+    {%- endunless -%}
 
     <!-- STOCK / URGENCY -->
     <div class="stock2">
