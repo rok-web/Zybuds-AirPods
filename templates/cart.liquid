@@ -306,15 +306,32 @@
 document.addEventListener("DOMContentLoaded", function() {
   const overlay = document.getElementById("successPopOverlay");
   const closeBtn = document.getElementById("successPopCloseBtn");
+  const popMsg = document.querySelector(".success-pop-msg");
   
   // Check for successful payment parameter
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.has("payment_success")) {
+
+    // Enrich popup with real order number if available
+    const orderName = urlParams.get("order");   // e.g. "#6685"
+    const rzpId     = urlParams.get("rzp");     // e.g. "pay_AbcXyz..."
+
+    if (popMsg) {
+      let extraInfo = '';
+      if (orderName) {
+        extraInfo += `<br><br><strong style="color:#10b981;font-size:16px;">Order ${decodeURIComponent(orderName)}</strong> has been created in our system.`;
+      }
+      if (rzpId) {
+        extraInfo += `<br><span style="font-size:11px;color:#666;font-family:monospace;">Ref: ${decodeURIComponent(rzpId)}</span>`;
+      }
+      popMsg.innerHTML = popMsg.innerHTML + extraInfo;
+    }
+
     // Wait briefly for optimal entry experience
     setTimeout(() => {
       if (overlay) {
         overlay.classList.add("active");
-        document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
+        document.body.style.overflow = "hidden";
       }
     }, 400);
   }
@@ -323,14 +340,12 @@ document.addEventListener("DOMContentLoaded", function() {
   if (closeBtn && overlay) {
     const closeModal = () => {
       overlay.classList.remove("active");
-      document.body.style.overflow = ""; // Re-enable scroll
+      document.body.style.overflow = "";
     };
 
     closeBtn.addEventListener("click", closeModal);
     overlay.addEventListener("click", function(e) {
-      if (e.target === overlay) {
-        closeModal();
-      }
+      if (e.target === overlay) closeModal();
     });
   }
 });

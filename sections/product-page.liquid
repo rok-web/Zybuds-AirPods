@@ -165,14 +165,14 @@
           <input type="hidden" name="properties[Shipping Landmark]" value="" id="hiddenShippingLandmark">
           <input type="hidden" name="properties[Shipping State]" value="" id="hiddenShippingState">
           
-          <button type="submit" name="add" class="btn2-primary product-form__submit add-to-cart{% unless settings.enable_custom_checkout %} es-popup-button-overwrite{% endunless %}" id="orderBtn">
+          <button type="{% if settings.enable_custom_checkout %}submit{% else %}button{% endif %}" name="add" class="btn2-primary product-form__submit add-to-cart{% unless settings.enable_custom_checkout %} es-popup-button-overwrite{% endunless %}" id="orderBtn">
             <span>🛒 Confirm Order — Pay ₹{{ advance_raw }}</span>
             <span class="btn-right">Same Day Delivery →</span>
           </button>
         {%- endform -%}
       {%- else -%}
         <div class="no-product-warning" style="margin-bottom:10px; color:var(--red); font-size:12px; font-weight:700;">Please select a product in Theme Editor</div>
-        <button type="submit" name="add" class="btn2-primary product-form__submit add-to-cart{% unless settings.enable_custom_checkout %} es-popup-button-overwrite{% endunless %}" id="orderBtn" onclick="handleOrder()">
+        <button type="{% if settings.enable_custom_checkout %}submit{% else %}button{% endif %}" name="add" class="btn2-primary product-form__submit add-to-cart{% unless settings.enable_custom_checkout %} es-popup-button-overwrite{% endunless %}" id="orderBtn" onclick="handleOrder()">
           <span>🛒 Confirm Order — Pay ₹{{ advance_raw }}</span>
           <span class="btn-right">Same Day Delivery →</span>
         </button>
@@ -465,6 +465,22 @@
     advanceAmount: {{ settings.advance_amount | default: 99 }},
     currency: {{ cart.currency.symbol | json }},
     available: {{ product_obj.selected_or_first_available_variant.available | default: false }}
+  };
+
+  // EasySell and other apps rely on window.meta.product when not on a standard /products/ url
+  window.meta = window.meta || {};
+  window.meta.product = {
+    id: {{ product_obj.id | json }},
+    handle: {{ product_obj.handle | json }},
+    variants: [
+      {%- for variant in product_obj.variants -%}
+        {
+          id: {{ variant.id | json }},
+          price: {{ variant.price | json }},
+          name: {{ variant.title | json }}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
   };
 </script>
 {%- endif -%}

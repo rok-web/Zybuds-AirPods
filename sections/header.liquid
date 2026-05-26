@@ -33,7 +33,7 @@
     <a href="{{ routes.root_url }}">{{ 'sections.header.home' | t }}</a>
   </div>
   <div class="nav-right">
-    <button class="nav-order" onclick="handleOrder()">{{ 'sections.header.order_now' | t }}</button>
+    <button class="nav-order{% unless settings.enable_custom_checkout %} es-popup-button-overwrite{% endunless %}" onclick="handleOrder()">{{ 'sections.header.order_now' | t }}</button>
   </div>
 </nav>
 

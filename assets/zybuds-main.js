@@ -177,9 +177,9 @@
   window.handleOrder = (e) => {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
     
-    // If custom checkout is disabled, let EasySell's class interceptors handle it
+    // If custom checkout is disabled, let EasyCode/EasySell interceptors handle it
     if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
-      console.log('Custom checkout disabled. EasySell es-popup-button-overwrite intercepting.');
+      console.log('Custom checkout disabled. Bypassing interceptors.');
       return;
     }
     
@@ -369,6 +369,19 @@
         amountInPaise = adv * 100;
       }
 
+      // ✅ CAPTURE VALUES NOW — before Razorpay opens (async callback cannot reliably read DOM)
+      const capturedName     = inputName    ? inputName.value.trim()    : '';
+      const capturedPincode  = inputPincode ? inputPincode.value.trim() : '';
+      const capturedAddress  = inputAddress ? inputAddress.value.trim() : '';
+      const capturedPhone    = inputPhone   ? inputPhone.value.trim()   : '';
+      const capturedCity     = inputCity    ? inputCity.value.trim()    : '';
+      const capturedLandmark = inputLandmark ? inputLandmark.value.trim() : '';
+      const capturedState    = inputState   ? inputState.value          : '';
+      const capturedPayType  = payTypeInput ? payTypeInput.value        : 'Advance';
+      const capturedColor    = document.getElementById('col2Name') ? document.getElementById('col2Name').textContent.trim() : 'White';
+
+      console.log('📦 Captured before Razorpay:', { capturedName, capturedPhone, capturedAddress, capturedCity, capturedState });
+
       const options = {
         "key": key.trim(),
         "amount": Math.round(amountInPaise),
@@ -377,19 +390,19 @@
         "description": "Order Payment - " + (product.title || "AirPods"),
         "image": "https://cdn.shopify.com/s/files/1/0861/2243/0742/files/logo_black.png",
         "prefill": {
-          "name": inputName.value.trim(),
-          "contact": inputPhone.value.trim()
+          "name": capturedName,
+          "contact": capturedPhone
         },
         "notes": {
-          "Customer Name": inputName.value.trim().substring(0, 100),
-          "Contact Phone": inputPhone.value.trim().substring(0, 100),
-          "Pincode": inputPincode.value.trim().substring(0, 6),
-          "Address": inputAddress.value.trim().substring(0, 200),
-          "City": inputCity.value.trim().substring(0, 100),
-          "Landmark": (inputLandmark ? inputLandmark.value.trim() : '').substring(0, 100),
-          "State": inputState.value.substring(0, 100),
+          "Customer Name": capturedName.substring(0, 100),
+          "Contact Phone": capturedPhone.substring(0, 100),
+          "Pincode": capturedPincode.substring(0, 6),
+          "Address": capturedAddress.substring(0, 200),
+          "City": capturedCity.substring(0, 100),
+          "Landmark": capturedLandmark.substring(0, 100),
+          "State": capturedState.substring(0, 100),
           "Product": (product.title || "AirPods Pro 2").substring(0, 100),
-          "Color": (document.getElementById('col2Name') ? document.getElementById('col2Name').textContent : 'White').substring(0, 100)
+          "Color": capturedColor.substring(0, 100)
         },
         "handler": function (response){
           console.log('Payment Successful:', response.razorpay_payment_id);
@@ -401,78 +414,103 @@
             submitBtn.style.opacity = '0.7';
           }
 
-          // Clear cart first to avoid duplicate line items or stale states
+          // ── Step 1: Clear stale cart ──────────────────────────────────────
           fetch('/cart/clear.js', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
           })
-          .then(clearRes => {
-            console.log('Cart cleared successfully');
-            
-            // Extract latest values
-            const paymentType = document.getElementById('paymentTypeInput') ? document.getElementById('paymentTypeInput').value : 'Advance';
-            const shippingName = inputName.value.trim();
-            const shippingPincode = inputPincode.value.trim();
-            const shippingAddress = inputAddress.value.trim();
-            const shippingPhone = inputPhone.value.trim();
-            const shippingCity = inputCity.value.trim();
-            const shippingLandmark = inputLandmark.value.trim();
-            const shippingState = inputState.value;
+          .then(() => {
+            console.log('Cart cleared');
+
             const rzpPaymentId = response.razorpay_payment_id;
-            const paidAmount = '₹' + (amountInPaise / 100);
+            const paidAmount   = '₹' + (amountInPaise / 100);
 
             const variantIdInput = form.querySelector('input[name="id"]');
-            let variantId = variantIdInput ? variantIdInput.value : (window.ShopifyProduct ? window.ShopifyProduct.variantId : '');
-            if (variantId) {
-              variantId = parseInt(variantId, 10);
-            }
+            let variantId = variantIdInput
+              ? variantIdInput.value
+              : (window.ShopifyProduct ? window.ShopifyProduct.variantId : '');
+            if (variantId) variantId = parseInt(variantId, 10);
+            if (!variantId) throw new Error('No Variant ID found');
 
-            if (!variantId) {
-              throw new Error('No Variant ID found');
-            }
-
-            console.log('Adding item via AJAX, Variant:', variantId);
+            // ── Step 2: Add item to cart with all shipping properties ─────
+            console.log('Adding item, Variant:', variantId, 'Name:', capturedName);
             return fetch('/cart/add.js', {
               method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-              },
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
               body: JSON.stringify({
                 items: [{
                   id: variantId,
                   quantity: 1,
                   properties: {
-                    "Payment Type": paymentType,
-                    "Shipping Name": shippingName,
-                    "Shipping Pincode": shippingPincode,
-                    "Shipping Address": shippingAddress,
-                    "Shipping Phone": shippingPhone,
-                    "Shipping City": shippingCity,
-                    "Shipping Landmark": shippingLandmark,
-                    "Shipping State": shippingState,
+                    "Payment Type":       capturedPayType,
+                    "Shipping Name":      capturedName,
+                    "Shipping Pincode":   capturedPincode,
+                    "Shipping Address":   capturedAddress,
+                    "Shipping Phone":     capturedPhone,
+                    "Shipping City":      capturedCity,
+                    "Shipping Landmark":  capturedLandmark,
+                    "Shipping State":     capturedState,
                     "Razorpay Payment ID": rzpPaymentId,
-                    "Paid Amount": paidAmount
+                    "Paid Amount":        paidAmount
                   }
                 }]
               })
-            });
+            }).then(addRes => ({
+              addRes,
+              rzpPaymentId,
+              paidAmount,
+              variantId
+            }));
           })
-          .then(addRes => {
-            if (addRes && addRes.ok) {
-              console.log('Item added successfully with shipping properties');
-              window.location.href = '/cart?payment_success=true';
-            } else {
-              throw new Error('Shopify cart addition failed');
-            }
+          .then(({ addRes, rzpPaymentId, paidAmount, variantId }) => {
+            if (!addRes || !addRes.ok) throw new Error('Shopify cart add failed');
+            console.log('✅ Cart item added with properties');
+
+            // ── Step 3: Create real Shopify order via serverless API ──────
+            const apiUrl = (window.ZybudsSettings && window.ZybudsSettings.orderApiUrl)
+              ? window.ZybudsSettings.orderApiUrl
+              : 'https://zybuds-order-api.vercel.app/api/create-order';
+
+            return fetch(apiUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                customerName:      capturedName,
+                customerPhone:     capturedPhone,
+                address:           capturedAddress,
+                city:              capturedCity,
+                pincode:           capturedPincode,
+                state:             capturedState,
+                landmark:          capturedLandmark,
+                razorpayPaymentId: rzpPaymentId,
+                paidAmount:        paidAmount,
+                variantId:         variantId,
+                productTitle:      (window.ShopifyProduct && window.ShopifyProduct.title) || 'AirPods Pro 2',
+                paymentType:       capturedPayType
+              })
+            })
+            .then(apiRes => apiRes.json())
+            .then(apiData => {
+              if (apiData && apiData.success && apiData.orderName) {
+                console.log('✅ Shopify order created:', apiData.orderName);
+                // Pass order number to success page
+                window.location.href = '/cart?payment_success=true&order=' + encodeURIComponent(apiData.orderName) + '&rzp=' + encodeURIComponent(rzpPaymentId);
+              } else {
+                console.warn('Order API response:', apiData);
+                // Still show success even if order creation had an issue
+                window.location.href = '/cart?payment_success=true&rzp=' + encodeURIComponent(rzpPaymentId);
+              }
+            })
+            .catch(apiErr => {
+              console.error('Order API error (non-fatal):', apiErr);
+              // Still show success page — payment was captured
+              window.location.href = '/cart?payment_success=true&rzp=' + encodeURIComponent(rzpPaymentId);
+            });
           })
           .catch(err => {
             console.error('AJAX order processing failed:', err);
             
-            // Standard form fallback: populate properties & submit
+            // Standard form fallback: populate hidden properties & submit
             let payIdInput = form.querySelector('input[name="properties[Razorpay Payment ID]"]');
             if (!payIdInput) {
               payIdInput = document.createElement('input');
@@ -491,14 +529,13 @@
             }
             amtInput.value = '₹' + (amountInPaise / 100);
 
-            // Populate other fields just in case
-            if (hiddenName) hiddenName.value = inputName.value.trim();
-            if (hiddenPincode) hiddenPincode.value = inputPincode.value.trim();
-            if (hiddenAddress) hiddenAddress.value = inputAddress.value.trim();
-            if (hiddenPhone) hiddenPhone.value = inputPhone.value.trim();
-            if (hiddenCity) hiddenCity.value = inputCity.value.trim();
-            if (hiddenLandmark) hiddenLandmark.value = inputLandmark.value.trim();
-            if (hiddenState) hiddenState.value = inputState.value;
+            if (hiddenName) hiddenName.value = capturedName;
+            if (hiddenPincode) hiddenPincode.value = capturedPincode;
+            if (hiddenAddress) hiddenAddress.value = capturedAddress;
+            if (hiddenPhone) hiddenPhone.value = capturedPhone;
+            if (hiddenCity) hiddenCity.value = capturedCity;
+            if (hiddenLandmark) hiddenLandmark.value = capturedLandmark;
+            if (hiddenState) hiddenState.value = capturedState;
 
             form.submit();
           });
