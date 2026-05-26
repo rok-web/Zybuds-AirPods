@@ -707,12 +707,12 @@ nav {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--muted);
+  color: #ffffff;
   margin-bottom: 10px;
 }
 
 .opt2-label span {
-  color: var(--ink);
+  color: #ffffff;
   margin-left: 8px;
 }
 
@@ -2634,6 +2634,27 @@ select.checkout-input {
   line-height: 1.45;
   color: var(--muted);
   margin: 0;
+}
+
+/* Green Order Button Style for EasySell COD Checkout */
+#orderBtn, #mobOrderBtn {
+  background: #0f9f3f !important;
+  color: #ffffff !important;
+  justify-content: center !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 15px rgba(15, 159, 63, 0.3) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+#orderBtn:hover, #mobOrderBtn:hover {
+  background: #0d8b37 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(15, 159, 63, 0.4) !important;
+}
+#orderBtn .btn-right, #mobOrderBtn .btn-right {
+  display: none !important;
 }
 
 

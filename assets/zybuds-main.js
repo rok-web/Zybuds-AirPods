@@ -145,10 +145,10 @@
         breakdown.innerHTML = `You are paying <strong>${currencySymbol}${fullPrice.toLocaleString('en-IN')} in full</strong> upfront. No additional payment needed on delivery.`;
       }
       if (orderBtn) {
-        orderBtn.querySelector('span:first-child').textContent = `🛒 Confirm Order — Pay ${currencySymbol}${fullPrice.toLocaleString('en-IN')}`;
+        orderBtn.innerHTML = `<span>🛍️ PAY ${fullPrice}/- FOR ORDER CONFORMATION</span>`;
       }
       if (mobOrderBtn) {
-        mobOrderBtn.textContent = `Pay ${currencySymbol}${fullPrice.toLocaleString('en-IN')} → Confirm`;
+        mobOrderBtn.textContent = `PAY ${fullPrice}/- FOR ORDER CONFORMATION`;
       }
       const payTypeInput = document.getElementById('paymentTypeInput');
       if (payTypeInput) payTypeInput.value = 'Full';
@@ -164,10 +164,10 @@
         breakdown.innerHTML = `Pay <strong>₹${advanceAmount} now</strong> to confirm → Remaining <strong>${currencySymbol}${remaining.toLocaleString('en-IN')} cash</strong> on delivery, after you check the product`;
       }
       if (orderBtn) {
-        orderBtn.querySelector('span:first-child').textContent = `🛒 Confirm Order — Pay ₹${advanceAmount}`;
+        orderBtn.innerHTML = `<span>🛍️ PAY ${advanceAmount}/- FOR ORDER CONFORMATION</span>`;
       }
       if (mobOrderBtn) {
-        mobOrderBtn.textContent = `Pay ₹${advanceAmount} → Confirm`;
+        mobOrderBtn.textContent = `PAY ${advanceAmount}/- FOR ORDER CONFORMATION`;
       }
       const payTypeInput = document.getElementById('paymentTypeInput');
       if (payTypeInput) payTypeInput.value = 'Advance';
@@ -191,33 +191,6 @@
   };
 
   // 8. ORDER BUTTON ACTION (Opens Shipping Details Modal directly)
-  window.watchAndFormatEasySellPopup = (paymentType) => {
-    let attempts = 0;
-    const interval = setInterval(() => {
-      attempts++;
-      
-      // Look for a button that contains the text 'ORDER CONFORMATION' or 'PAY' inside EasySell
-      let targetBtn = null;
-      const allBtns = document.querySelectorAll('button, .easysell-submit-btn, .es-submit-btn, [class*="easysell"]');
-      allBtns.forEach(b => {
-        if (b.textContent && (b.textContent.includes('ORDER CONFORMATION') || b.textContent.includes('ORDER CONFIRMATION'))) {
-          targetBtn = b;
-        }
-      });
-      
-      if (targetBtn) {
-        const priceText = paymentType === 'full' ? '1400/-' : '99/-';
-        targetBtn.innerHTML = `🛍️ PAY ${priceText} FOR ORDER CONFORMATION`;
-        console.log('EasySell green button formatted with:', priceText);
-        clearInterval(interval);
-      }
-      
-      if (attempts > 50) {
-        clearInterval(interval);
-      }
-    }, 100);
-  };
-
   window.handleOrder = (e) => {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
     
@@ -226,10 +199,6 @@
       console.log('Custom checkout disabled. Dispatching submit event for EasySell.');
       const form = document.getElementById('ProductForm');
       if (form) {
-        const payTypeInput = document.getElementById('paymentTypeInput');
-        const paymentType = payTypeInput ? payTypeInput.value.toLowerCase() : 'advance';
-        window.watchAndFormatEasySellPopup(paymentType);
-        
         form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
       }
       return;

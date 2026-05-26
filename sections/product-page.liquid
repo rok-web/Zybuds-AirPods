@@ -132,32 +132,25 @@
     {% render 'why99-box' %}
 
     <!-- COLOR / VARIANT PICKER -->
-    {%- assign has_color_option = false -%}
     {%- if product_obj and product_obj.variants.size > 1 -%}
       {%- for option in product_obj.options_with_values -%}
-        {%- assign opt_name = option.name | downcase -%}
-        {%- if opt_name contains 'color' or opt_name contains 'colour' -%}
-          {%- assign has_color_option = true -%}
-          <div class="opt2-label">{{ option.name }}: <span id="col2Name">{{ option.selected_value | default: option.values.first }}</span></div>
-          <div class="colors2">
-            {%- for value in option.values -%}
-              {%- assign color_class = value | downcase | replace: ' ', '' -%}
-              <div class="col2 {{ color_class }}2 {% if forloop.first %}active{% endif %}"
-                   title="{{ value }}"
-                   onclick="pickCol2('{{ value }}', this)">
-              </div>
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
+        <div class="opt2-label">{{ option.name }}: <span id="col2Name">{{ option.selected_value | default: option.values.first }}</span></div>
+        <div class="colors2">
+          {%- for value in option.values -%}
+            {%- assign color_class = value | downcase | replace: ' ', '' -%}
+            <div class="col2 {{ color_class }}2 {% if forloop.first %}active{% endif %}"
+                 title="{{ value }}"
+                 onclick="pickCol2('{{ value }}', this)">
+            </div>
+          {%- endfor -%}
+        </div>
       {%- endfor -%}
-    {%- endif -%}
-    
-    {%- unless has_color_option -%}
+    {%- else -%}
       <div class="opt2-label">Color: <span id="col2Name">White</span></div>
       <div class="colors2">
         <div class="col2 white2 active" title="White" onclick="pickCol2('White', this)"></div>
       </div>
-    {%- endunless -%}
+    {%- endif -%}
 
     <!-- STOCK / URGENCY -->
     <div class="stock2">
@@ -208,8 +201,7 @@
           <input type="hidden" name="properties[Shipping State]" value="" id="hiddenShippingState">
           
           <button type="submit" name="add" class="btn2-primary product-form__submit add-to-cart easysell-popup-button-overwrite" id="orderBtn" onclick="handleOrder(event)">
-            <span>🛒 Confirm Order — Pay ₹{{ advance_raw }}</span>
-            <span class="btn-right">Same Day Delivery →</span>
+            <span>🛍️ PAY {{ advance_raw }}/- FOR ORDER CONFORMATION</span>
           </button>
           
           <!-- Render App Blocks (like EasySell) -->
@@ -220,8 +212,7 @@
       {%- else -%}
         <div class="no-product-warning" style="margin-bottom:10px; color:var(--red); font-size:12px; font-weight:700;">Please select a product in Theme Editor</div>
         <button type="submit" {% if settings.enable_custom_checkout %}name="add"{% endif %} class="btn2-primary product-form__submit {% if settings.enable_custom_checkout %}add-to-cart{% endif %}{% unless settings.enable_custom_checkout %} es-popup-button-overwrite{% endunless %}" id="orderBtn" onclick="handleOrder(event)">
-          <span>🛒 Confirm Order — Pay ₹{{ advance_raw }}</span>
-          <span class="btn-right">Same Day Delivery →</span>
+          <span>🛍️ PAY {{ advance_raw }}/- FOR ORDER CONFORMATION</span>
         </button>
       {%- endif -%}
       {%- for block in section.blocks -%}

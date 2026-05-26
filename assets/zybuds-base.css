@@ -696,12 +696,12 @@ nav {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--muted);
+  color: #ffffff;
   margin-bottom: 10px;
 }
 
 .opt2-label span {
-  color: var(--ink);
+  color: #ffffff;
   margin-left: 8px;
 }
 
