@@ -169,6 +169,11 @@
             <span>🛒 Confirm Order — Pay ₹{{ advance_raw }}</span>
             <span class="btn-right">Same Day Delivery →</span>
           </button>
+          
+          <!-- Render App Blocks (like EasySell) -->
+          {%- for block in section.blocks -%}
+            {%- render block -%}
+          {%- endfor -%}
         {%- endform -%}
       {%- else -%}
         <div class="no-product-warning" style="margin-bottom:10px; color:var(--red); font-size:12px; font-weight:700;">Please select a product in Theme Editor</div>
