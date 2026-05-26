@@ -4,6 +4,36 @@
    ============================================================ -->
 
 {%- assign product_obj = section.settings.product | default: product | default: all_products.first | default: collections.all.products.first -%}
+
+{%- if product_obj -%}
+<script>
+  // Fix for Shiprocket uc.js — it reads window.meta.product to get the product handle.
+  // On custom landing pages, the URL has no product handle so it crashes with /products/null.json.
+  // We manually inject the correct product data here so Shiprocket works correctly.
+  window.meta = window.meta || {};
+  window.meta.product = {
+    id: {{ product_obj.id | json }},
+    handle: {{ product_obj.handle | json }},
+    title: {{ product_obj.title | json }},
+    vendor: {{ product_obj.vendor | json }},
+    type: {{ product_obj.type | json }},
+    variants: [
+      {%- for variant in product_obj.variants -%}
+      {
+        id: {{ variant.id }},
+        title: {{ variant.title | json }},
+        price: {{ variant.price }},
+        available: {{ variant.available }}
+      }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  };
+  // Also set ShopifyAnalytics meta for broader compatibility
+  window.ShopifyAnalytics = window.ShopifyAnalytics || {};
+  window.ShopifyAnalytics.meta = window.ShopifyAnalytics.meta || {};
+  window.ShopifyAnalytics.meta.product = window.meta.product;
+</script>
+{%- endif -%}
 {%- assign advance_raw = settings.advance_amount | default: 99 | plus: 0 -%}
 {%- assign advance_cents = advance_raw | times: 100 -%}
 {%- assign city = settings.city | default: 'Hyderabad' -%}
