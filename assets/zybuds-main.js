@@ -177,21 +177,33 @@
   window.handleOrder = (e) => {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
     
-    // If custom checkout is disabled, let EasyCode/EasySell interceptors handle it
+    // If custom checkout is disabled, trigger EasySell's own button
     if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
-      console.log('Custom checkout disabled. Dispatching submit event for EasySell.');
-      const form = document.getElementById('ProductForm');
-      if (form) {
-        // Dispatch a submit event to trigger EasySell's listener
-        // This does NOT natively navigate the browser, so it's safe from redirects!
-        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      // EasySell renders its own buy button somewhere on the page.
+      // We find it and click it programmatically to open the popup.
+      const easysellBtn = document.querySelector(
+        '.easysell-buy-button, [data-easysell-button], .es-buy-button, #es-buy-button, [class*="easysell"][class*="btn"], [class*="easysell"][class*="button"]'
+      );
+      if (easysellBtn) {
+        console.log('EasySell button found. Triggering popup.');
+        easysellBtn.click();
+      } else {
+        // Fallback: click our own form button directly (EasySell hooks into button clicks with name="add")
+        console.log('EasySell button not found. Clicking form submit button directly.');
+        const orderBtn = document.getElementById('orderBtn');
+        if (orderBtn) {
+          // Temporarily remove onclick to avoid infinite loop, then click
+          const originalOnclick = orderBtn.onclick;
+          orderBtn.onclick = null;
+          orderBtn.click();
+          orderBtn.onclick = originalOnclick;
+        }
       }
       return;
     }
     
     const form = document.getElementById('ProductForm');
     if (form) {
-      // Dispatch a submit event to trigger the shipping modal overlay interceptor
       form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
     }
   };
@@ -214,16 +226,17 @@
   const initRazorpay = () => {
     const form = document.getElementById('ProductForm');
     
-    // Exit early if custom checkout is disabled (allows standard forms/apps like EasySell to run normally)
+    // If custom checkout is disabled, EasySell handles everything.
+    // We only add a safety net to stop native form navigation to /cart.
     if (window.ZybudsSettings && window.ZybudsSettings.enableCustomCheckout === false) {
       console.log('Custom Razorpay checkout is disabled. Bypassing interceptors.');
-      
-      // We must prevent native form submission so the browser doesn't navigate to /cart.
-      // EasySell will still intercept this event natively and handle the cart addition via AJAX.
       if (form) {
+        // Safety net — prevent bare form submission from navigating to /cart.
+        // EasySell hooks in BEFORE this fires (via click, not submit), so this
+        // only catches the edge case where no app intercepts it.
         form.addEventListener('submit', (e) => {
           e.preventDefault();
-        });
+        }, { capture: false });
       }
       return;
     }
