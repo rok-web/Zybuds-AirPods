@@ -1920,7 +1920,7 @@ footer {
   background: var(--bg2);
   border-top: 1px solid var(--border);
   padding: 12px 20px;
-  z-index: 200;
+  z-index: 999999 !important;
   align-items: center;
   gap: 14px;
   box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);

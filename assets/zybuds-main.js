@@ -209,7 +209,12 @@
         '.easysell-payment-button',
         '.easysell-order-button',
         '.easy-order-form-button',
-        '[class*="easysell-buy-btn"]'
+        '.easysell-sticky-button',
+        '[class*="easysell-buy-btn"]',
+        '[class*="easysell-sticky"]',
+        '[class*="es-sticky"]',
+        '[class*="easysell-fixed"]',
+        '[class*="es-fixed"]'
       ];
       for (const selector of selectors) {
         const el = document.querySelector(selector);
