@@ -182,7 +182,7 @@
       // EasySell renders its own buy button somewhere on the page.
       // We find it and click it programmatically to open the popup.
       const easysellBtn = document.querySelector(
-        '.easysell-buy-button, [data-easysell-button], .es-buy-button, #es-buy-button, [class*="easysell"][class*="btn"], [class*="easysell"][class*="button"]'
+        '.easysell-buy-button, [data-easysell-button], .es-buy-button, #es-buy-button, [class*="easysell"][class*="btn"]:not(.easysell-popup-button-overwrite):not(#orderBtn):not(#mobOrderBtn):not(.nav-order), [class*="easysell"][class*="button"]:not(.easysell-popup-button-overwrite):not(#orderBtn):not(#mobOrderBtn):not(.nav-order)'
       );
       if (easysellBtn) {
         console.log('EasySell button found. Triggering popup.');
