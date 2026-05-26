@@ -2666,9 +2666,20 @@ select.checkout-input {
 .easysell-order-button,
 .easy-order-form-button,
 .easysell-sticky-button,
-[class*="easysell-buy-btn"] {
+[class*="easysell-buy-btn"],
+[class*="easysell-sticky"],
+[class*="easysell-fixed"],
+[class*="easysell-bar"],
+[class*="easysell-button"],
+[class*="easysell-btn"],
+[class*="es-sticky"],
+[class*="es-fixed"],
+[class*="es-bar"],
+[class*="es-btn"],
+[class*="es-button"] {
   display: none !important;
 }
+
 
 
 
