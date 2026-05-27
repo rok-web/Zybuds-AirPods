@@ -691,6 +691,7 @@
               const style = document.createElement('style');
               style.id = styleId;
               style.textContent = `
+                :host > div:not(.easysell-modal):not(.easysell-popup):not([class*="modal"]):not([class*="popup"]):not([id*="modal"]):not([id*="popup"]),
                 .easysell-buy-button,
                 .es-buy-button,
                 .easysell-button,
@@ -702,8 +703,16 @@
                 [class*="easysell-bar"],
                 [class*="es-sticky"],
                 [class*="es-fixed"],
-                [class*="es-bar"] {
+                [class*="es-bar"],
+                button:not(.easysell-submit-btn):not([class*="submit"]):not([class*="confirm"]) {
                   display: none !important;
+                  height: 0 !important;
+                  padding: 0 !important;
+                  margin: 0 !important;
+                  overflow: hidden !important;
+                  opacity: 0 !important;
+                  visibility: hidden !important;
+                  pointer-events: none !important;
                 }
               `;
               host.shadowRoot.appendChild(style);
