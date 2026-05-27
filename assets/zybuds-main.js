@@ -679,53 +679,93 @@
     initReveal();
     initRazorpay();
 
-    // Shadow DOM EasySell inline button hiding
-    const hideEasySellShadowButton = () => {
-      const hostTags = ['easysell-form', 'easysell-button', 'easysell-sticky', 'easysell-widget', 'es-button', 'es-form'];
+    // Shadow DOM EasySell inline button styling and text injection
+    const styleEasySellShadowButton = () => {
+      const hostTags = ['easysell-form', 'easysell-button', 'es-button', 'easysell-widget'];
+      
+      // Determine the current correct text based on the active payment option
+      const settings = window.ZybudsSettings || {};
+      const product = window.ShopifyProduct || {};
+      const advanceAmount = parseInt(settings.advanceAmount) || 99;
+      const fullPrice = (product.price ? product.price / 100 : 1400);
+      const currencySymbol = product.currency || '₹';
+      
+      const activeOpt = document.querySelector('.pay-opt.active');
+      let isFullPayment = false;
+      if (activeOpt && activeOpt.classList.contains('full-opt')) {
+        isFullPayment = true;
+      }
+      
+      const buttonText = isFullPayment 
+        ? `BUY NOW — PAY ${currencySymbol}${fullPrice.toLocaleString('en-IN')}/-`
+        : `BUY NOW — PAY ₹${advanceAmount}/-`;
+
       hostTags.forEach(tag => {
         const hosts = document.querySelectorAll(tag);
         hosts.forEach(host => {
           if (host && host.shadowRoot) {
-            const styleId = 'zybuds-shadow-hide';
+            // 1. Inject Premium Styles into Shadow DOM
+            const styleId = 'zybuds-shadow-style';
             if (!host.shadowRoot.getElementById(styleId)) {
               const style = document.createElement('style');
               style.id = styleId;
               style.textContent = `
-                :host > div:not(.easysell-modal):not(.easysell-popup):not([class*="modal"]):not([class*="popup"]):not([id*="modal"]):not([id*="popup"]),
                 .easysell-buy-button,
                 .es-buy-button,
                 .easysell-button,
                 .es-button,
-                .easysell-sticky-button,
-                [class*="easysell-buy-btn"],
-                [class*="easysell-sticky"],
-                [class*="easysell-fixed"],
-                [class*="easysell-bar"],
-                [class*="es-sticky"],
-                [class*="es-fixed"],
-                [class*="es-bar"],
                 button:not(.easysell-submit-btn):not([class*="submit"]):not([class*="confirm"]) {
-                  display: none !important;
-                  height: 0 !important;
-                  padding: 0 !important;
-                  margin: 0 !important;
-                  overflow: hidden !important;
-                  opacity: 0 !important;
-                  visibility: hidden !important;
-                  pointer-events: none !important;
+                  background: #0f9f3f !important;
+                  color: #ffffff !important;
+                  display: flex !important;
+                  align-items: center !important;
+                  justify-content: center !important;
+                  width: 100% !important;
+                  min-height: 56px !important;
+                  border-radius: 12px !important;
+                  font-family: 'DM Sans', sans-serif !important;
+                  font-size: 15px !important;
+                  font-weight: 800 !important;
+                  box-shadow: 0 4px 15px rgba(15, 159, 63, 0.3) !important;
+                  text-transform: uppercase !important;
+                  letter-spacing: 0.5px !important;
+                  cursor: pointer !important;
+                  transition: all 0.2s !important;
+                  margin: 10px 0 !important;
+                  padding: 12px 24px !important;
+                  gap: 8px !important;
+                }
+                .easysell-buy-button:hover,
+                .es-buy-button:hover,
+                .easysell-button:hover,
+                .es-button:hover,
+                button:not(.easysell-submit-btn):not([class*="submit"]):not([class*="confirm"]):hover {
+                  background: #0d8b37 !important;
+                  transform: translateY(-2px) !important;
+                  box-shadow: 0 6px 20px rgba(15, 159, 63, 0.4) !important;
                 }
               `;
               host.shadowRoot.appendChild(style);
-              console.log(`Successfully injected style into ${tag} Shadow DOM.`);
+              console.log(`Successfully injected custom premium style into ${tag} Shadow DOM.`);
+            }
+            
+            // 2. Inject and Update the button text dynamically
+            const btn = host.shadowRoot.querySelector('button, .easysell-buy-button, .es-buy-button, .easysell-button, .es-button');
+            if (btn) {
+              const expectedHTML = `<span>🛍️ ${buttonText}</span>`;
+              if (btn.innerHTML !== expectedHTML) {
+                btn.innerHTML = expectedHTML;
+                console.log(`Updated EasySell button text to: 🛍️ ${buttonText}`);
+              }
             }
           }
         });
       });
     };
 
-    // Run immediately and also on a small interval to ensure we catch it when loaded
-    hideEasySellShadowButton();
-    setInterval(hideEasySellShadowButton, 500);
+    // Run immediately and also on a small interval to ensure we catch it when loaded or payment changes
+    styleEasySellShadowButton();
+    setInterval(styleEasySellShadowButton, 500);
 
     // Hide placeholders if video loaded
     document.querySelectorAll('.video-block video').forEach((vid, i) => {

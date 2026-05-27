@@ -2638,29 +2638,7 @@ select.checkout-input {
 
 /* Green Order Button Style for EasySell COD Checkout */
 #orderBtn {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  background: #0f9f3f !important;
-  color: #ffffff !important;
-  justify-content: center !important;
-  align-items: center !important;
-  width: 100% !important;
-  min-height: 56px !important;
-  border-radius: 12px !important;
-  font-family: 'DM Sans', sans-serif !important;
-  font-size: 15px !important;
-  font-weight: 800 !important;
-  box-shadow: 0 4px 15px rgba(15, 159, 63, 0.3) !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.5px !important;
-  cursor: pointer !important;
-  transition: all 0.2s !important;
-}
-#orderBtn:hover {
-  background: #0d8b37 !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 6px 20px rgba(15, 159, 63, 0.4) !important;
+  display: none !important;
 }
 #orderBtn .btn-right {
   display: none !important;
@@ -2693,30 +2671,14 @@ select.checkout-input {
 }
 
 
-/* Hide EasySell's own inline buttons on the page since we use our custom premium CTAs */
-easysell-button,
-es-button,
-easysell-btn,
-es-btn,
-.easysell-buy-button, 
-[data-easysell-button], 
-.es-buy-button, 
-#es-buy-button,
-.easysell-payment-button,
-.easysell-order-button,
-.easy-order-form-button,
+/* Hide EasySell's own sticky buttons and bars since we use our custom premium sticky CTAs */
 .easysell-sticky-button,
-[class*="easysell-buy-btn"],
 [class*="easysell-sticky"],
 [class*="easysell-fixed"],
 [class*="easysell-bar"],
-[class*="easysell-button"],
-[class*="easysell-btn"],
 [class*="es-sticky"],
 [class*="es-fixed"],
-[class*="es-bar"],
-[class*="es-btn"],
-[class*="es-button"] {
+[class*="es-bar"] {
   display: none !important;
 }
 
