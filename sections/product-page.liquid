@@ -211,9 +211,11 @@
           </button>
           
           <!-- Render App Blocks (like EasySell) -->
-          {%- for block in section.blocks -%}
-            {%- render block -%}
-          {%- endfor -%}
+          <div style="display: none !important;">
+            {%- for block in section.blocks -%}
+              {%- render block -%}
+            {%- endfor -%}
+          </div>
         {%- endform -%}
       {%- else -%}
         <div class="no-product-warning" style="margin-bottom:10px; color:var(--red); font-size:12px; font-weight:700;">Please select a product in Theme Editor</div>
@@ -223,7 +225,7 @@
       {%- endif -%}
       {%- for block in section.blocks -%}
         {%- if block.type == '@app' -%}
-          <div class="product-app-block" style="margin-top:15px;" {{ block.shopify_attributes }}>
+          <div class="product-app-block" style="margin-top:15px; display: none !important;" {{ block.shopify_attributes }}>
             {% render block %}
           </div>
         {%- endif -%}
