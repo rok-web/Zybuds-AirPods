@@ -679,6 +679,45 @@
     initReveal();
     initRazorpay();
 
+    // Shadow DOM EasySell inline button hiding
+    const hideEasySellShadowButton = () => {
+      const hostTags = ['easysell-form', 'easysell-button', 'easysell-sticky', 'easysell-widget', 'es-button', 'es-form'];
+      hostTags.forEach(tag => {
+        const hosts = document.querySelectorAll(tag);
+        hosts.forEach(host => {
+          if (host && host.shadowRoot) {
+            const styleId = 'zybuds-shadow-hide';
+            if (!host.shadowRoot.getElementById(styleId)) {
+              const style = document.createElement('style');
+              style.id = styleId;
+              style.textContent = `
+                .easysell-buy-button,
+                .es-buy-button,
+                .easysell-button,
+                .es-button,
+                .easysell-sticky-button,
+                [class*="easysell-buy-btn"],
+                [class*="easysell-sticky"],
+                [class*="easysell-fixed"],
+                [class*="easysell-bar"],
+                [class*="es-sticky"],
+                [class*="es-fixed"],
+                [class*="es-bar"] {
+                  display: none !important;
+                }
+              `;
+              host.shadowRoot.appendChild(style);
+              console.log(`Successfully injected style into ${tag} Shadow DOM.`);
+            }
+          }
+        });
+      });
+    };
+
+    // Run immediately and also on a small interval to ensure we catch it when loaded
+    hideEasySellShadowButton();
+    setInterval(hideEasySellShadowButton, 500);
+
     // Hide placeholders if video loaded
     document.querySelectorAll('.video-block video').forEach((vid, i) => {
       vid.addEventListener('loadeddata', () => {
