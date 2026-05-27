@@ -207,7 +207,7 @@
           <input type="hidden" name="properties[Shipping State]" value="" id="hiddenShippingState">
           
           <button type="submit" name="add" class="btn2-primary product-form__submit add-to-cart easysell-popup-button-overwrite" id="orderBtn" onclick="handleOrder(event)">
-            <span>🛍️ PAY {{ advance_raw }}/- FOR ORDER CONFORMATION</span>
+            <span>🛍️ BUY NOW — PAY ₹{{ advance_raw }}/-</span>
           </button>
           
           <!-- Render App Blocks (like EasySell) -->
@@ -218,7 +218,7 @@
       {%- else -%}
         <div class="no-product-warning" style="margin-bottom:10px; color:var(--red); font-size:12px; font-weight:700;">Please select a product in Theme Editor</div>
         <button type="submit" {% if settings.enable_custom_checkout %}name="add"{% endif %} class="btn2-primary product-form__submit {% if settings.enable_custom_checkout %}add-to-cart{% endif %}{% unless settings.enable_custom_checkout %} es-popup-button-overwrite{% endunless %}" id="orderBtn" onclick="handleOrder(event)">
-          <span>🛍️ PAY {{ advance_raw }}/- FOR ORDER CONFORMATION</span>
+          <span>🛍️ BUY NOW — PAY ₹{{ advance_raw }}/-</span>
         </button>
       {%- endif -%}
       {%- for block in section.blocks -%}

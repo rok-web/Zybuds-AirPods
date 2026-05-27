@@ -150,7 +150,7 @@
         breakdown.innerHTML = `You are paying <strong>${currencySymbol}${fullPrice.toLocaleString('en-IN')} in full</strong> upfront. No additional payment needed on delivery.`;
       }
       if (orderBtn) {
-        orderBtn.innerHTML = `<span>🛍️ PAY ${fullPrice}/- FOR ORDER CONFORMATION</span>`;
+        orderBtn.innerHTML = `<span>🛍️ BUY NOW — PAY ${currencySymbol}${fullPrice.toLocaleString('en-IN')}/-</span>`;
       }
       const payTypeInput = document.getElementById('paymentTypeInput');
       if (payTypeInput) payTypeInput.value = 'Full';
@@ -170,7 +170,7 @@
         breakdown.innerHTML = `Pay <strong>₹${advanceAmount} now</strong> to confirm → Remaining <strong>${currencySymbol}${remaining.toLocaleString('en-IN')} cash</strong> on delivery, after you check the product`;
       }
       if (orderBtn) {
-        orderBtn.innerHTML = `<span>🛍️ PAY ${advanceAmount}/- FOR ORDER CONFORMATION</span>`;
+        orderBtn.innerHTML = `<span>🛍️ BUY NOW — PAY ₹${advanceAmount}/-</span>`;
       }
       const payTypeInput = document.getElementById('paymentTypeInput');
       if (payTypeInput) payTypeInput.value = 'Advance';

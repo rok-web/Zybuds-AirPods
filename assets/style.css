@@ -2638,15 +2638,24 @@ select.checkout-input {
 
 /* Green Order Button Style for EasySell COD Checkout */
 #orderBtn {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
   background: #0f9f3f !important;
   color: #ffffff !important;
   justify-content: center !important;
-  font-size: 16px !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-height: 56px !important;
+  border-radius: 12px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 15px !important;
   font-weight: 800 !important;
-  border-radius: 8px !important;
   box-shadow: 0 4px 15px rgba(15, 159, 63, 0.3) !important;
   text-transform: uppercase !important;
   letter-spacing: 0.5px !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
 }
 #orderBtn:hover {
   background: #0d8b37 !important;
@@ -2685,6 +2694,10 @@ select.checkout-input {
 
 
 /* Hide EasySell's own inline buttons on the page since we use our custom premium CTAs */
+easysell-button,
+es-button,
+easysell-btn,
+es-btn,
 .easysell-buy-button, 
 [data-easysell-button], 
 .es-buy-button, 
