@@ -19,7 +19,7 @@
     "founder_name": "Mahesh",
     "founder_location": "Suman Housing Colony, Secunderabad",
     "instagram_handle": "zybuds",
-    "enable_custom_checkout": true,
+    "enable_custom_checkout": false,
     "razorpay_key_id": "rzp_live_llNdHgFGbITSTX",
     "sections": {
       "header": {
