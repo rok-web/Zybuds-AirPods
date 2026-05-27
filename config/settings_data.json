@@ -61,5 +61,16 @@
         "settings": {}
       }
     }
+  },
+  "platform_customizations": {
+    "custom_css": [
+      ".easyorder-form,.modal-content{background:#fff!important;padding:18px!important;border-radius:18px!important;box-shadow:0 10px 30px rgba(0,0,0,.15);font-family:Poppins,sans-serif}",
+      ".easyorder-form h1,.easyorder-form h2{font-size:30px!important;font-weight:700;color:#111827}",
+      ".easyorder-form input,.easyorder-form textarea,.easyorder-form select{width:100%;padding:14px;border:1px solid #ddd;border-radius:12px;margin-top:10px}",
+      ".easyorder-form input:focus{border-color:#6366f1;outline:none;box-shadow:0 0 0 3px rgba(99,102,241,.15)}",
+      ".easyorder-form button{width:100%;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff;border:none;padding:15px;border-radius:14px;font-size:17px;font-weight:700;margin-top:18px}",
+      ".easyorder-form ul li{margin-bottom:10px;font-size:15px;font-weight:600}",
+      "@media(max-width:768px){.easyorder-form h1,.easyorder-form h2{font-size:24px!important}}"
+    ]
   }
 }
