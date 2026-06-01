@@ -27,10 +27,10 @@
     <div>© {{ 'now' | date: '%Y' }} {{ brand }} · {{ founder_location }}, {{ city }}</div>
     <div class="footer2-policies">
       <a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">Return and Refund Policy</a>
-      <a href="/pages/privacy-policy">Privacy Policy</a>
-      <a href="/pages/terms-of-service">Terms of Service</a>
+      <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy Policy</a>
+      <a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}">Terms of Service</a>
       <a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping Policy</a>
-      <a href="{{ shop.contact_information.url | default: '/pages/contact' }}">Contact Information</a>
+      <a href="{{ shop.contact_information.url | default: '/pages/contact-information' }}">Contact Information</a>
     </div>
     <div>📦 Open Box · 🚀 Same Day · 🛡️ {{ warranty }} Yr Warranty · 💰 COD</div>
   </div>
