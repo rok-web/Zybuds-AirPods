@@ -30,8 +30,197 @@
       <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy Policy</a>
       <a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}">Terms of Service</a>
       <a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping Policy</a>
-      <a href="{{ shop.contact_information.url | default: '/pages/contact' }}">Contact Information</a>
+      <a href="javascript:void(0);" onclick="openContactModal(); return false;">Contact Information</a>
     </div>
     <div>📦 Open Box · 🚀 Same Day · 🛡️ {{ warranty }} Yr Warranty · 💰 COD</div>
   </div>
 </footer>
+
+<!-- Premium Contact Information Modal -->
+<div id="contactInfoModal" class="contact-modal-backdrop" style="display: none;">
+  <div class="contact-modal-content">
+    <button class="contact-modal-close" onclick="closeContactModal()">&times;</button>
+    <h2 class="contact-modal-title">Contact Information</h2>
+    <p class="contact-modal-subtitle">We are here to assist you with any questions or support.</p>
+    
+    <div class="contact-modal-grid">
+      <div class="contact-modal-card">
+        <div class="contact-modal-card-title">🌐 Trade Name</div>
+        <div class="contact-modal-card-value">zybuds.com</div>
+      </div>
+      <div class="contact-modal-card">
+        <div class="contact-modal-card-title">✉️ Email Support</div>
+        <div class="contact-modal-card-value">
+          <a href="mailto:Ganimedia1@gmail.com" style="color:var(--white); text-decoration:none;">Ganimedia1@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-modal-card" style="grid-column: span 2;">
+        <div class="contact-modal-card-title">💬 WhatsApp Support</div>
+        <div class="contact-modal-card-value">9704252065</div>
+        <div class="contact-modal-card-sub" style="color:var(--accent); font-size:11px; margin-top:4px;">⚠️ WhatsApp only. Strictly no calls.</div>
+        <a href="https://wa.me/919704252065" target="_blank" class="modal-wa-btn">
+          💬 Chat on WhatsApp
+        </a>
+      </div>
+      <div class="contact-modal-card" style="grid-column: span 2;">
+        <div class="contact-modal-card-title">📍 Physical Address</div>
+        <div class="contact-modal-card-value" style="font-size:13px; line-height:1.5;">
+          Zybuds, Near Yellamma Temple, Nalgonda, Telangana - 508001, India
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .contact-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .contact-modal-backdrop.active {
+    opacity: 1;
+  }
+  .contact-modal-content {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 580px;
+    padding: 40px 30px;
+    position: relative;
+    transform: translateY(30px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  }
+  .contact-modal-backdrop.active .contact-modal-content {
+    transform: translateY(0);
+  }
+  .contact-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--ink2);
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+  }
+  .contact-modal-close:hover {
+    color: var(--white);
+  }
+  .contact-modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 900;
+    color: var(--white);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .contact-modal-subtitle {
+    font-size: 13px;
+    color: var(--ink2);
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .contact-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .contact-modal-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .contact-modal-card-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .contact-modal-card-value {
+    font-size: 14.5px;
+    color: var(--white);
+    font-weight: 500;
+  }
+  .modal-wa-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--green);
+    color: var(--white) !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin-top: 8px;
+    align-self: flex-start;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .modal-wa-btn:hover {
+    background: #3e965b;
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(76, 175, 110, 0.2);
+  }
+  @media (max-width: 580px) {
+    .contact-modal-grid {
+      grid-template-columns: 1fr;
+    }
+    .contact-modal-card {
+      grid-column: span 1 !important;
+    }
+    .contact-modal-content {
+      padding: 30px 20px;
+    }
+  }
+</style>
+
+<script>
+  function openContactModal() {
+    var modal = document.getElementById('contactInfoModal');
+    if(modal) {
+      modal.style.display = 'flex';
+      setTimeout(function() {
+        modal.classList.add('active');
+      }, 10);
+    }
+  }
+  function closeContactModal() {
+    var modal = document.getElementById('contactInfoModal');
+    if(modal) {
+      modal.classList.remove('active');
+      setTimeout(function() {
+        modal.style.display = 'none';
+      }, 300);
+    }
+  }
+  // Close modal when clicking outside content area
+  window.addEventListener('click', function(event) {
+    var modal = document.getElementById('contactInfoModal');
+    if (event.target === modal) {
+      closeContactModal();
+    }
+  });
+</script>
