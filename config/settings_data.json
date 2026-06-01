@@ -49,7 +49,11 @@
           "video_url_3": "",
           "video_url_4": "",
           "founder_message": "Hi, I'm Mahesh. I run Zybuds from Secunderabad.",
-          "cv_heading": "Our Customer Review"
+          "cv_heading": "Our Customer Review",
+          "cv_video_1": "shopify://files/videos/frist (1).mp4",
+          "cv_video_2": "shopify://files/videos/second vedio (1).mp4",
+          "cv_video_3": "shopify://files/videos/thirdvedio (1).mp4",
+          "cv_video_4": "shopify://files/videos/fourthvedio (1).mp4"
         }
       }
     },
