@@ -75,7 +75,7 @@
           {%- if video != blank -%}
             {{ video | video_tag: 
               autoplay: false, 
-              loop: true, 
+              loop: false, 
               muted: true, 
               playsinline: true, 
               controls: false,
@@ -110,9 +110,22 @@
       window.togglePlay = function(container) {
         const video = container.querySelector('.cv-video-el');
         const playBtn = container.querySelector('.cv-play-btn');
+        const volumeBtn = container.querySelector('.cv-volume-btn');
         if (!video || !playBtn) return;
         
         if (video.paused) {
+          // Automatically unmute when clicking play button!
+          video.muted = false;
+          if (volumeBtn) {
+            const muteIcon = volumeBtn.querySelector('.mute-icon');
+            const unmuteIcon = volumeBtn.querySelector('.unmute-icon');
+            if (muteIcon && unmuteIcon) {
+              muteIcon.style.display = 'none';
+              unmuteIcon.style.display = 'block';
+            }
+            volumeBtn.classList.add('unmuted');
+          }
+
           video.play().catch(err => {
             console.log('Video play failed:', err);
           });
@@ -146,6 +159,23 @@
         }
       };
     }
+
+    // Listen to video ended event to show play overlay button and reset timeline
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll('.cv-video-el').forEach(video => {
+        if (!video.dataset.hasEndedListener) {
+          video.addEventListener('ended', function() {
+            const container = this.closest('.cv-item');
+            const playBtn = container.querySelector('.cv-play-btn');
+            if (playBtn) {
+              playBtn.classList.add('paused');
+            }
+            this.currentTime = 0; // Reset video to beginning
+          });
+          video.dataset.hasEndedListener = "true";
+        }
+      });
+    });
   })();
 </script>
 
