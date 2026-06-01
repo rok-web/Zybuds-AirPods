@@ -1,0 +1,374 @@
+{% comment %}
+  snippets/policy-terms.liquid
+  Vibrant & Colorful Upgraded Terms of Service Snippet.
+  Features glowing gold-accented gradient headers, rich neon-tinted trust badges,
+  and high-contrast colorful card structures.
+{% endcomment %}
+
+<style>
+  .policy-container {
+    max-width: 860px;
+    margin: 50px auto;
+    padding: 60px 45px;
+    background: #0b0b14; /* Rich deep indigo-black base */
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 80px rgba(255, 179, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Tri-color glowing trust accent line */
+  .policy-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ff9933 0%, #ffcc00 50%, #4caf6e 100%);
+    box-shadow: 0 2px 10px rgba(255, 179, 0, 0.3);
+  }
+
+  .policy-header {
+    text-align: center;
+    margin-bottom: 45px;
+  }
+  
+  .policy-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 46px);
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffe082 0%, #ffb300 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+    text-shadow: 0 0 30px rgba(255, 179, 0, 0.15);
+  }
+  
+  .policy-meta {
+    font-size: 13px;
+    color: #ffb74d;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Trust Badges Widget (High-Contrast & Colorful) */
+  .trust-badge-container {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin: 25px 0 35px 0;
+    flex-wrap: wrap;
+  }
+  
+  .trust-badge {
+    padding: 9px 18px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+  }
+
+  .trust-badge:hover {
+    transform: translateY(-1px);
+  }
+  
+  .trust-badge-secured {
+    background: rgba(76, 175, 110, 0.08) !important;
+    border: 1px solid rgba(76, 175, 110, 0.35) !important;
+    color: #81c784 !important;
+  }
+  
+  .trust-badge-verified {
+    background: rgba(232, 201, 122, 0.08) !important;
+    border: 1px solid rgba(232, 201, 122, 0.35) !important;
+    color: #ffd54f !important;
+  }
+  
+  .trust-badge-compliant {
+    background: rgba(255, 153, 51, 0.08) !important;
+    border: 1px solid rgba(255, 153, 51, 0.35) !important;
+    color: #ffb74d !important;
+  }
+  
+  .trust-icon {
+    font-size: 13px;
+  }
+
+  /* Confidence Shield Box (Rich Green-Gold Gradient) */
+  .confidence-shield-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 24px 28px;
+    background: linear-gradient(135deg, rgba(76, 175, 110, 0.1) 0%, rgba(255, 179, 0, 0.05) 100%);
+    border: 1px solid rgba(255, 179, 0, 0.25);
+    border-left: 5px solid #4caf6e;
+    border-radius: var(--radius);
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(76, 175, 110, 0.08);
+  }
+  
+  .confidence-shield-icon {
+    font-size: 32px;
+    line-height: 1;
+  }
+  
+  .confidence-shield-text {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink2);
+  }
+  
+  .confidence-shield-text strong {
+    color: #ffffff;
+    font-size: 15.5px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* Colorful Legal Card Sections */
+  .policy-section-card {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius);
+    padding: 35px;
+    margin-bottom: 30px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .policy-section-card:hover {
+    border-color: rgba(255, 179, 0, 0.2);
+    box-shadow: 0 10px 35px rgba(255, 179, 0, 0.05);
+  }
+
+  .policy-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.5vw, 24px);
+    font-weight: 700;
+    color: #ffb300; /* Beautiful deep warm gold */
+    margin-top: 0;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .policy-content h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffb74d; /* Soft sunset orange */
+    margin-top: 24px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  
+  .policy-content p {
+    font-size: 14.5px;
+    color: var(--ink2);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  
+  .policy-content p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .policy-content ul {
+    margin-bottom: 20px;
+    padding-left: 20px;
+  }
+  
+  .policy-content li {
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.7;
+    margin-bottom: 8px;
+    list-style-type: square;
+  }
+  
+  .policy-contact-card {
+    background: #07070d;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius);
+    padding: 26px;
+    margin-top: 30px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  }
+  
+  .policy-contact-card p {
+    margin-bottom: 14px !important;
+  }
+  
+  .policy-contact-card p:last-child {
+    margin-bottom: 0 !important;
+  }
+  
+  .policy-contact-card strong {
+    color: #ffffff;
+  }
+  
+  @media (max-width: 768px) {
+    .policy-container {
+      margin: 20px 12px;
+      padding: 35px 22px;
+    }
+    .policy-section-card {
+      padding: 20px;
+    }
+  }
+</style>
+
+<div class="policy-container">
+  <div class="policy-header">
+    <h1 class="policy-title">Terms of Service</h1>
+    <div class="policy-meta">Last updated: June 1, 2026</div>
+  </div>
+
+  <!-- Trust Badges Widget -->
+  <div class="trust-badge-container">
+    <div class="trust-badge trust-badge-secured"><span class="trust-icon">📝</span> Legally Binding Agreement</div>
+    <div class="trust-badge trust-badge-verified"><span class="trust-icon">🛡️</span> Verified Service Provider</div>
+    <div class="trust-badge trust-badge-compliant"><span class="trust-icon">🛒</span> Secured Checkout System</div>
+  </div>
+
+  <!-- Confidence Shield Box -->
+  <div class="confidence-shield-box">
+    <div class="confidence-shield-icon">⚖️</div>
+    <div class="confidence-shield-text">
+      <strong>Terms of Service Agreement</strong>
+      These terms govern your usage of Zybuds.com and our products. By accessing our website, purchasing products, or using our services, you agree to be legally bound by these terms. If you do not agree to all provisions, please do not use our services.
+    </div>
+  </div>
+
+  <div class="policy-content">
+    <div class="policy-section-card">
+      <h2>📌 Overview</h2>
+      <p>This website is operated by <strong>Zybuds</strong>. Throughout the site, the terms "we", "us" and "our" refer to <strong>Zybuds</strong>. We offer this website, including all information, tools and Services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here.</p>
+      <p>By visiting our site and/or purchasing something from us, you engage in our "Service" and agree to be bound by the following terms and conditions ("Terms of Service", "Terms"), including those additional terms and conditions and policies referenced herein and/or available by hyperlink. These Terms of Service apply to all users of the site, including without limitation users who are browsers, vendors, customers, merchants, and/or contributors of content.</p>
+      <p>Please read these Terms of Service carefully before accessing or using our website. By accessing or using any part of the site, you agree to be bound by these Terms of Service. If you do not agree to all the terms and conditions of this agreement, then you may not access the website or use any Services.</p>
+      <p>Any new features or tools which are added to the current store shall also be subject to the Terms of Service. You can review the most current version of the Terms of Service at any time on this page. We reserve the right to update, change or replace any part of these Terms of Service by posting updates and/or changes to our website.</p>
+      <p>Our store is hosted on Shopify Inc. They provide us with the online e-commerce platform that allows us to sell our products and Services to you.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>⚖️ SECTION 1 - ONLINE STORE TERMS</h2>
+      <p>By agreeing to these Terms of Service, you represent that you are at least the age of majority in your state or province of residence, or that you are the age of majority in your state or province of residence and you have given us your consent to allow any of your minor dependents to use this site.</p>
+      <p>You may not use our products for any illegal or unauthorized purpose nor may you, in the use of the Service, violate any laws in your jurisdiction (including but not limited to copyright laws).</p>
+      <p>You must not transmit any worms or viruses or any code of a destructive nature.</p>
+      <p>A breach or violation of any of the Terms will result in an immediate termination of your Services.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>🛠️ SECTION 2 - GENERAL CONDITIONS</h2>
+      <p>We reserve the right to refuse Service to anyone for any reason at any time.</p>
+      <p>You understand that your content (not including credit card information), may be transferred unencrypted and involve (a) transmissions over various networks; and (b) changes to conform and adapt to technical requirements of connecting networks or devices. Credit card information is always encrypted during transfer over various networks.</p>
+      <p>You agree not to reproduce, duplicate, copy, sell, resell or exploit any portion of the Service, use of the Service, or access to the Service or any contact on the website through which the Service is provided, without express written permission by us.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>📊 SECTION 3 - ACCURACY, COMPLETENESS AND TIMELINESS</h2>
+      <p>We are not responsible if information made available on this site is not accurate, complete or current. The material on this site is provided for general information only and should not be relied upon or used as the sole basis for making decisions without consulting primary, more accurate, more complete or more timely sources of information.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>🏷️ SECTION 4 - MODIFICATIONS TO SERVICE AND PRICES</h2>
+      <p>Prices for our products are subject to change without notice.</p>
+      <p>We reserve the right at any time to modify or discontinue the Service (or any part or content thereof) without notice at any time.</p>
+      <p>We shall not be liable to you or to any third-party for any modification, price change, suspension or discontinuance of the Service.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>🎧 SECTION 5 - PRODUCTS OR SERVICES</h2>
+      <p>Certain products or Services may be available exclusively online through the website. These products or Services may have limited quantities and are subject to return or exchange only according to our Return & Refund Policy.</p>
+      <p>We have made every effort to display as accurately as possible the colors and images of our products that appear at the store. We cannot guarantee that your computer monitor's display of any color will be accurate.</p>
+      <p>We reserve the right, but are not obligated, to limit the sales of our products or Services to any person, geographic region or jurisdiction. We may exercise this right on a case-by-case basis. We reserve the right to limit the quantities of any products or Services that we offer. All descriptions of products or product pricing are subject to change at anytime without notice, at our sole discretion.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>💳 SECTION 6 - ACCURACY OF BILLING & ACCOUNT</h2>
+      <p>We reserve the right to refuse any order you place with us. We may, in our sole discretion, limit or cancel quantities purchased per person, per household or per order. These restrictions may include orders placed by or under the same customer account, the same credit card, and/or orders that use the same billing and/or shipping address. In the event that we make a change to or cancel an order, we may attempt to notify you by contacting the e‑mail and/or billing address/phone number provided at the time the order was made.</p>
+      <p>You agree to provide current, complete and accurate purchase and account information for all purchases made at our store. You agree to promptly update your account and other information, including your email address and credit card numbers and expiration dates, so that we can complete your transactions and contact you as needed.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>🔧 SECTION 7 - OPTIONAL TOOLS</h2>
+      <p>We may provide you with access to third-party tools over which we neither monitor nor have any control nor input. You acknowledge and agree that we provide access to such tools "as is" and "as available" without any warranties, representations or conditions of any kind and without any endorsement. We shall have no liability whatsoever arising from or relating to your use of optional third-party tools.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>🔗 SECTION 8 - THIRD-PARTY LINKS</h2>
+      <p>Certain content, products and Services available via our Service may include materials from third-parties. Third-party links on this site may direct you to third-party websites that are not affiliated with us. We are not responsible for examining or evaluating the content or accuracy and we do not warrant and will not have any liability or responsibility for any third-party materials or websites.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>💬 SECTION 9 - USER COMMENTS, FEEDBACK & SUBMISSIONS</h2>
+      <p>If, at our request, you send certain specific submissions or without a request from us, you send creative ideas, suggestions, proposals, plans, or other materials, whether online, by email, by postal mail, or otherwise, you agree that we may, at any time, without restriction, edit, copy, publish, distribute, translate and otherwise use in any medium any comments that you forward to us.</p>
+      <p>We may, but have no obligation to, monitor, edit or remove content that we determine in our sole discretion to be unlawful, offensive, threatening, libelous, defamatory, pornographic, obscene or otherwise objectionable or violates any party’s intellectual property or these Terms of Service.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>🔒 SECTION 10 - PERSONAL INFORMATION</h2>
+      <p>Your submission of personal information through the store is governed by our Privacy Policy.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>⚠️ SECTION 11 - ERRORS, INACCURACIES & OMISSIONS</h2>
+      <p>Occasionally there may be information on our site or in the Service that contains typographical errors, inaccuracies or omissions that may relate to product descriptions, pricing, promotions, offers, product shipping charges, transit times and availability. We reserve the right to correct any errors, inaccuracies or omissions, and to change or update information or cancel orders.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>🚫 SECTION 12 - PROHIBITED USES</h2>
+      <p>In addition to other prohibitions as set forth in the Terms of Service, you are prohibited from using the site or its content: (a) for any unlawful purpose; (b) to solicit others to perform or participate in any unlawful acts; (c) to violate any regulations, rules, laws, or local ordinances; (d) to infringe upon or violate our intellectual property rights or the intellectual property rights of others; (e) to harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate; (f) to submit false or misleading information; (g) to upload or transmit viruses or any other type of malicious code; (h) to collect or track the personal information of others; (i) to spam, phish, pharm, pretext, spider, crawl, or scrape; (j) for any obscene or immoral purpose; or (k) to interfere with or circumvent the security features of the Service.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>⚡ SECTION 13 - DISCLAIMER OF WARRANTIES; LIMITATION OF LIABILITY</h2>
+      <p>We do not guarantee, represent or warrant that your use of our Service will be uninterrupted, timely, secure or error-free. We do not warrant that the results that may be obtained from the use of the Service will be accurate or reliable.</p>
+      <p>In no case shall <strong>Zybuds</strong>, our directors, officers, employees, affiliates, agents, contractors, interns, suppliers, Service providers or licensors be liable for any injury, loss, claim, or any direct, indirect, incidental, punitive, special, or consequential damages of any kind, including, without limitation lost profits, lost revenue, lost savings, loss of data, replacement costs, or any similar damages.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>🛡️ SECTION 14 - INDEMNIFICATION</h2>
+      <p>You agree to indemnify, defend and hold harmless <strong>Zybuds</strong> and our parent, subsidiaries, affiliates, partners, officers, directors, agents, contractors, licensors, Service providers, subcontractors, suppliers, interns and employees, harmless from any claim or demand.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>💔 SECTIONS 15 to 19 - LEGALITIES</h2>
+      <h3>Section 15 - Severability</h3>
+      <p>In the event that any provision of these Terms of Service is determined to be unlawful, void or unenforceable, such provision shall nonetheless be enforceable to the fullest extent permitted by applicable law.</p>
+      <h3>Section 16 - Termination</h3>
+      <p>The obligations and liabilities of the parties incurred prior to the termination date shall survive the termination of this agreement for all purposes.</p>
+      <h3>Section 17 - Entire Agreement</h3>
+      <p>The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision.</p>
+      <h3>Section 18 - Governing Law</h3>
+      <p>These Terms of Service and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the laws of India.</p>
+      <h3>Section 19 - Changes to Terms</h3>
+      <p>We reserve the right, at our sole discretion, to update, change or replace any part of these Terms of Service by posting updates and changes to our website.</p>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>📞 SECTION 20 - CONTACT INFORMATION</h2>
+      <p>Questions about the Terms of Service should be sent to us at <a href="mailto:ganimedia1@gmail.com" style="color:var(--accent);">ganimedia1@gmail.com</a>.</p>
+      
+      <div class="policy-contact-card">
+        <p>Our contact details are posted below:</p>
+        <p><strong>🌐 Website:</strong> <a href="https://zybuds.com" target="_blank" style="color:var(--accent);">zybuds.com</a></p>
+        <p><strong>✉️ Mail:</strong> <a href="mailto:ganimedia1@gmail.com" style="color:var(--accent);">ganimedia1@gmail.com</a></p>
+        <p><strong>📞 Number:</strong> <a href="tel:9704252065" style="color:var(--accent);">9704252065</a></p>
+        <p><strong>📍 Address:</strong> Zybuds, Near Yellamma Temple, Nalgonda, Telangana - 508001, India.</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,24 @@
-{% comment %} Generic page template (About, FAQ, Contact, etc.) {% endcomment %}
+{% comment %}
+  templates/page.liquid
+  Generic page template (About, FAQ, Contact, etc.)
+  Upgraded to route premium custom styled policy snippets dynamically.
+{% endcomment %}
 
-<div style="max-width:780px;margin:0 auto;padding:60px 5%;">
-  <div class="editorial-label">{{ page.title }}</div>
-  <h1 class="p2-title" style="margin-bottom:24px;">{{ page.title }}</h1>
-  <div style="font-size:14px;color:var(--ink2);line-height:1.8;">
-    {{ page.content }}
+{%- assign page_handle = page.handle -%}
+{%- if page_handle == 'privacy-policy' -%}
+  {%- render 'policy-privacy' -%}
+{%- elsif page_handle == 'terms-of-service' -%}
+  {%- render 'policy-terms' -%}
+{%- elsif page_handle == 'shipping-policy' -%}
+  {%- render 'policy-shipping' -%}
+{%- elsif page_handle == 'contact' or page_handle == 'contact-information' -%}
+  {%- render 'policy-contact' -%}
+{%- else -%}
+  <div style="max-width:780px;margin:0 auto;padding:60px 5%;">
+    <div class="editorial-label">{{ page.title }}</div>
+    <h1 class="p2-title" style="margin-bottom:24px;">{{ page.title }}</h1>
+    <div style="font-size:14px;color:var(--ink2);line-height:1.8;">
+      {{ page.content }}
+    </div>
   </div>
-</div>
+{%- endif -%}

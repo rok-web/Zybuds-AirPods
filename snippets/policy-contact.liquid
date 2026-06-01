@@ -1,0 +1,283 @@
+{% comment %}
+  snippets/policy-contact.liquid
+  Vibrant & Colorful Upgraded Contact Information Snippet.
+  Features glowing gold-accented gradient headers, rich neon-tinted trust badges,
+  and high-contrast colorful card structures.
+{% endcomment %}
+
+<style>
+  .policy-container {
+    max-width: 860px;
+    margin: 50px auto;
+    padding: 60px 45px;
+    background: #0b0b14; /* Rich deep indigo-black base */
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 80px rgba(255, 179, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Tri-color glowing trust accent line */
+  .policy-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ff9933 0%, #ffcc00 50%, #4caf6e 100%);
+    box-shadow: 0 2px 10px rgba(255, 179, 0, 0.3);
+  }
+
+  .policy-header {
+    text-align: center;
+    margin-bottom: 45px;
+  }
+  
+  .policy-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 46px);
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffe082 0%, #ffb300 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+    text-shadow: 0 0 30px rgba(255, 179, 0, 0.15);
+  }
+  
+  .policy-meta {
+    font-size: 13px;
+    color: #ffb74d;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Trust Badges Widget (High-Contrast & Colorful) */
+  .trust-badge-container {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin: 25px 0 35px 0;
+    flex-wrap: wrap;
+  }
+  
+  .trust-badge {
+    padding: 9px 18px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+  }
+
+  .trust-badge:hover {
+    transform: translateY(-1px);
+  }
+  
+  .trust-badge-secured {
+    background: rgba(76, 175, 110, 0.08) !important;
+    border: 1px solid rgba(76, 175, 110, 0.35) !important;
+    color: #81c784 !important;
+  }
+  
+  .trust-badge-verified {
+    background: rgba(232, 201, 122, 0.08) !important;
+    border: 1px solid rgba(232, 201, 122, 0.35) !important;
+    color: #ffd54f !important;
+  }
+  
+  .trust-badge-compliant {
+    background: rgba(255, 153, 51, 0.08) !important;
+    border: 1px solid rgba(255, 153, 51, 0.35) !important;
+    color: #ffb74d !important;
+  }
+  
+  .trust-icon {
+    font-size: 13px;
+  }
+
+  /* Confidence Shield Box (Rich Green-Gold Gradient) */
+  .confidence-shield-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 24px 28px;
+    background: linear-gradient(135deg, rgba(76, 175, 110, 0.1) 0%, rgba(255, 179, 0, 0.05) 100%);
+    border: 1px solid rgba(255, 179, 0, 0.25);
+    border-left: 5px solid #4caf6e;
+    border-radius: var(--radius);
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(76, 175, 110, 0.08);
+  }
+  
+  .confidence-shield-icon {
+    font-size: 32px;
+    line-height: 1;
+  }
+  
+  .confidence-shield-text {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink2);
+  }
+  
+  .confidence-shield-text strong {
+    color: #ffffff;
+    font-size: 15.5px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+  }
+  
+  .contact-card {
+    background: #07070d;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius);
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .contact-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 179, 0, 0.25);
+    box-shadow: 0 8px 25px rgba(255, 179, 0, 0.08);
+  }
+  
+  .contact-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffb300;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .contact-card-value {
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+  
+  .contact-card-sub {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #4caf6e;
+    color: #ffffff !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 22px;
+    border-radius: 30px;
+    margin-top: 10px;
+    align-self: flex-start;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 15px rgba(76, 175, 110, 0.2);
+  }
+  
+  .wa-btn:hover {
+    background: #3e965b;
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(76, 175, 110, 0.35);
+  }
+  
+  @media (max-width: 768px) {
+    .policy-container {
+      margin: 20px 12px;
+      padding: 35px 22px;
+    }
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="policy-container">
+  <div class="policy-header">
+    <h1 class="policy-title">Contact Information</h1>
+    <div class="policy-meta">Get in touch with us</div>
+  </div>
+
+  <!-- Trust Badges Widget -->
+  <div class="trust-badge-container">
+    <div class="trust-badge trust-badge-secured"><span class="trust-icon">💬</span> Active Support</div>
+    <div class="trust-badge trust-badge-verified"><span class="trust-icon">🛡️</span> Verified Business</div>
+    <div class="trust-badge trust-badge-compliant"><span class="trust-icon">⚡</span> Fast Response</div>
+  </div>
+
+  <!-- Confidence Shield Box -->
+  <div class="confidence-shield-box">
+    <div class="confidence-shield-icon">💬</div>
+    <div class="confidence-shield-text">
+      <strong>Active Customer Escalations</strong>
+      Have any questions, concerns, or need support? Our dedicated support team is available to assist you with order queries, warranties, or refunds. Chat with us on WhatsApp for rapid assistance.
+    </div>
+  </div>
+
+  <div class="contact-grid">
+    <!-- Trade Name -->
+    <div class="contact-card">
+      <div class="contact-card-title">🌐 Trade Name</div>
+      <div class="contact-card-value">zybuds.com</div>
+      <div class="contact-card-sub">Official domain operated by Zybuds.</div>
+    </div>
+
+    <!-- Email Address -->
+    <div class="contact-card">
+      <div class="contact-card-title">✉️ Email Support</div>
+      <div class="contact-card-value">
+        <a href="mailto:Ganimedia1@gmail.com" style="color:var(--white); text-decoration:none;">Ganimedia1@gmail.com</a>
+      </div>
+      <div class="contact-card-sub">For general support, warranty claims, and order inquiries.</div>
+    </div>
+
+    <!-- WhatsApp Support -->
+    <div class="contact-card">
+      <div class="contact-card-title">💬 WhatsApp Support</div>
+      <div class="contact-card-value">9704252065</div>
+      <div class="contact-card-sub" style="color: var(--accent);">⚠️ Available only on WhatsApp. Note: strictly no voice/video calls.</div>
+      <a href="https://wa.me/919704252065" target="_blank" class="wa-btn">
+        💬 Chat on WhatsApp
+      </a>
+    </div>
+
+    <!-- Physical Address -->
+    <div class="contact-card">
+      <div class="contact-card-title">📍 Physical Address</div>
+      <div class="contact-card-value">
+        Zybuds<br>
+        Near Yellamma Temple, Nalgonda,<br>
+        Telangana - 508001, India
+      </div>
+      <div class="contact-card-sub">Registered operational address.</div>
+    </div>
+  </div>
+</div>
