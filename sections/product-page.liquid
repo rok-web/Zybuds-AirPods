@@ -482,7 +482,7 @@
         <div class="cv-item" onclick="togglePlay(this)">
           {%- if v_obj != blank -%}
             {{ v_obj | video_tag: 
-              autoplay: true, 
+              autoplay: false, 
               loop: true, 
               muted: true, 
               playsinline: true, 
@@ -490,7 +490,7 @@
               class: "cv-video-el"
             }}
             <!-- Play/Pause Centered Overlay Button -->
-            <div class="cv-play-btn">
+            <div class="cv-play-btn paused">
               <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
             <!-- Volume Toggle Button (Stays visible in corner) -->
