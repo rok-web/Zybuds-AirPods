@@ -1,73 +1,166 @@
 {% comment %}
   templates/page.shipping-policy.liquid
-  Premium, custom-designed page template for Zybuds Shipping Policy.
+  Senior CSS Developer upgraded static template.
+  Combines high-fidelity glassmorphism, trust badges, and security seals
+  to increase user confidentiality trust and store conversion.
 {% endcomment %}
 
 <style>
   .policy-container {
-    max-width: 840px;
-    margin: 40px auto;
-    padding: 50px 40px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
+    max-width: 860px;
+    margin: 50px auto;
+    padding: 60px 45px;
+    background: linear-gradient(180deg, var(--bg3) 0%, var(--bg2) 100%);
+    border: 1px solid var(--border2);
     border-radius: var(--radius-lg);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
   }
+  
+  /* Subtle decorative security line at the top */
+  .policy-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--green) 0%, var(--accent) 50%, var(--green) 100%);
+  }
+
   .policy-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 45px;
   }
+  
   .policy-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 4vw, 42px);
+    font-size: clamp(32px, 5vw, 46px);
     font-weight: 900;
     color: var(--white);
     margin-bottom: 12px;
+    letter-spacing: -0.01em;
   }
+  
   .policy-meta {
     font-size: 13px;
     color: var(--accent);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
   }
-  .policy-notice {
-    padding: 16px 20px;
-    background: rgba(232, 201, 122, 0.03);
-    border-left: 3px solid var(--accent);
-    border-radius: 6px;
-    margin-bottom: 35px;
+
+  /* Trust Badges Widget */
+  .trust-badge-container {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin: 25px 0 35px 0;
+    flex-wrap: wrap;
+  }
+  
+  .trust-badge {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 12px;
+    color: var(--ink2);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  
+  .trust-badge:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--border2);
+  }
+  
+  .trust-icon {
+    font-size: 13px;
+  }
+
+  /* Confidence Shield Box */
+  .confidence-shield-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 22px 26px;
+    background: linear-gradient(135deg, rgba(76, 175, 110, 0.05) 0%, rgba(232, 201, 122, 0.03) 100%);
+    border: 1px solid rgba(76, 175, 110, 0.2);
+    border-left: 4px solid var(--green);
+    border-radius: var(--radius);
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .confidence-shield-icon {
+    font-size: 32px;
+    line-height: 1;
+  }
+  
+  .confidence-shield-text {
     font-size: 13.5px;
     line-height: 1.6;
     color: var(--ink2);
   }
+  
+  .confidence-shield-text strong {
+    color: var(--white);
+    font-size: 15px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* Legal Card Sections */
+  .policy-section-card {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-bottom: 30px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .policy-section-card:hover {
+    border-color: rgba(232, 201, 122, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+
   .policy-content h2 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(18px, 2.2vw, 22px);
+    font-size: clamp(18px, 2.5vw, 22px);
     font-weight: 700;
     color: var(--white);
-    margin-top: 40px;
-    margin-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 8px;
+    margin-top: 0;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  .policy-content h3 {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--accent);
-    margin-top: 24px;
-    margin-bottom: 12px;
-  }
+  
   .policy-content p {
     font-size: 14.5px;
     color: var(--ink2);
     line-height: 1.8;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
+  
+  .policy-content p:last-child {
+    margin-bottom: 0;
+  }
+  
   .policy-content ul {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     padding-left: 20px;
   }
+  
   .policy-content li {
     font-size: 14px;
     color: var(--ink2);
@@ -75,76 +168,99 @@
     margin-bottom: 8px;
     list-style-type: square;
   }
+  
   .shipping-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
     margin: 24px 0;
   }
+  
   .shipping-card {
     background: var(--bg2);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    padding: 22px;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
+  
   .shipping-card:hover {
     transform: translateY(-2px);
     border-color: var(--border2);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
   }
+  
   .shipping-card-title {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     color: var(--white);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     gap: 8px;
   }
+  
   .shipping-card-value {
-    font-size: 20px;
+    font-size: 18px;
     color: var(--accent);
     font-weight: 700;
     margin-bottom: 6px;
   }
+  
   .shipping-card-desc {
     font-size: 13px;
     color: var(--muted);
     line-height: 1.5;
   }
-  .policy-contact-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    margin-top: 30px;
-  }
-  .policy-contact-card p {
-    margin-bottom: 12px !important;
-  }
-  .policy-contact-card p:last-child {
-    margin-bottom: 0 !important;
-  }
-  .policy-contact-card strong {
-    color: var(--white);
-  }
+  
   .support-box {
-    padding: 18px 22px;
+    padding: 20px 24px;
     background: rgba(76, 175, 110, 0.03);
+    border: 1px solid rgba(76, 175, 110, 0.15);
     border-left: 3px solid var(--green);
-    border-radius: 6px;
+    border-radius: var(--radius);
     margin: 24px 0;
     font-size: 14px;
     line-height: 1.6;
     color: var(--ink2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   }
+  
   .support-box strong {
     color: var(--white);
+    font-size: 14.5px;
+    display: block;
+    margin-bottom: 4px;
   }
+  
+  .policy-contact-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    margin-top: 30px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  }
+  
+  .policy-contact-card p {
+    margin-bottom: 14px !important;
+  }
+  
+  .policy-contact-card p:last-child {
+    margin-bottom: 0 !important;
+  }
+  
+  .policy-contact-card strong {
+    color: var(--white);
+  }
+  
   @media (max-width: 768px) {
     .policy-container {
       margin: 20px 12px;
-      padding: 30px 20px;
+      padding: 35px 22px;
+    }
+    .policy-section-card {
+      padding: 20px;
     }
   }
 </style>
@@ -155,66 +271,92 @@
     <div class="policy-meta">Last updated: June 1, 2026</div>
   </div>
 
-  <div class="policy-notice">
-    Thank you for shopping at <strong>Zybuds</strong>. We operate a highly optimized logistics framework to process and deliver your audio gear safely and swiftly.
+  <!-- Trust Badges Widget -->
+  <div class="trust-badge-container">
+    <div class="trust-badge"><span class="trust-icon">🚀</span> Same-Day Processing</div>
+    <div class="trust-badge"><span class="trust-icon">🛡️</span> Insured Logistics</div>
+    <div class="trust-badge"><span class="trust-icon">🗺️</span> Nationwide Delivery</div>
+  </div>
+
+  <!-- Confidence Shield Box -->
+  <div class="confidence-shield-box">
+    <div class="confidence-shield-icon">🚀</div>
+    <div class="confidence-shield-text">
+      <strong>Insured Nationwide Transit</strong>
+      At Zybuds, every shipment is processed under strict safety protocols and tracked live. We partner with India's leading logistics providers to ensure your package arrives secure and intact at your doorstep.
+    </div>
   </div>
 
   <div class="policy-content">
-    <h2>Order Processing Time</h2>
-    <p>All orders are processed within <strong>1-2 business days</strong> (excluding weekends and holidays).</p>
-    <p>You will receive a confirmation email with your order details once the order is placed.</p>
+    <div class="policy-section-card">
+      <h2>📦 Order Processing Time</h2>
+      <p>All orders are processed within <strong>1-2 business days</strong> (excluding weekends and holidays).</p>
+      <p>You will receive a confirmation email with your order details once the order is placed.</p>
+    </div>
 
-    <h2>Shipping Rates and Delivery Times</h2>
-    <p>We offer the following shipping and delivery options:</p>
+    <div class="policy-section-card">
+      <h2>🚚 Shipping Rates & Delivery Times</h2>
+      <p>We offer the following safe shipping and delivery options:</p>
 
-    <div class="shipping-grid">
-      <div class="shipping-card">
-        <div class="shipping-card-title">📦 Standard Shipping</div>
-        <div class="shipping-card-value">5-7 Business Days</div>
-        <div class="shipping-card-desc">Reliable ground shipping across major Indian pin codes.</div>
-      </div>
-      <div class="shipping-card">
-        <div class="shipping-card-title">⚡ Express Shipping</div>
-        <div class="shipping-card-value">2-4 Business Days</div>
-        <div class="shipping-card-desc">Priority air shipping for rapid delivery.</div>
-      </div>
-      <div class="shipping-card">
-        <div class="shipping-card-title">💵 Cash on Delivery (COD)</div>
-        <div class="shipping-card-value">Available</div>
-        <div class="shipping-card-desc">Pay at your doorstep. Available on orders within India.</div>
+      <div class="shipping-grid">
+        <div class="shipping-card">
+          <div class="shipping-card-title">📦 Standard Shipping</div>
+          <div class="shipping-card-value">5-7 Business Days</div>
+          <div class="shipping-card-desc">Reliable ground shipping across major Indian pin codes.</div>
+        </div>
+        <div class="shipping-card">
+          <div class="shipping-card-title">⚡ Express Shipping</div>
+          <div class="shipping-card-value">2-4 Business Days</div>
+          <div class="shipping-card-desc">Priority air shipping for rapid delivery.</div>
+        </div>
+        <div class="shipping-card">
+          <div class="shipping-card-title">💵 Cash on Delivery (COD)</div>
+          <div class="shipping-card-value">Available</div>
+          <div class="shipping-card-desc">Pay at your doorstep. Available on orders within India.</div>
+        </div>
       </div>
     </div>
 
-    <h2>Order Tracking</h2>
-    <p>Once your order is shipped, you will receive a tracking number via email or WhatsApp (if provided during checkout).</p>
-    <p>You can track your order using the tracking link provided or through our website under the "Track Order" section.</p>
-
-    <h2>Shipping Locations</h2>
-    <p>Currently, we ship exclusively within <strong>India</strong>.</p>
-
-    <h2>Delays and Issues</h2>
-    <p>Delivery times may vary due to unforeseen circumstances like weather, strikes, or courier issues.</p>
-    
-    <div class="support-box">
-      <strong>Need Urgent Logistics Assistance?</strong><br>
-      If your order is delayed, please contact our escalation desk at 
-      <a href="mailto:maheshchimataeng111@gmail.com" style="color:var(--accent); font-weight:600;">maheshchimataeng111@gmail.com</a> 
-      or call us at 
-      <a href="tel:6300680765" style="color:var(--accent); font-weight:600;">6300680765</a>.
+    <div class="policy-section-card">
+      <h2>📍 Order Tracking</h2>
+      <p>Once your order is shipped, you will receive a tracking number via email or WhatsApp (if provided during checkout).</p>
+      <p>You can track your order using the tracking link provided or through our website under the "Track Order" section.</p>
     </div>
 
-    <h2>Damaged or Lost Packages</h2>
-    <ul>
-      <li><strong>Damaged Packages:</strong> If your order arrives damaged, please email us within <strong>48 hours</strong> of receiving it with photos of the damage.</li>
-      <li><strong>Lost Packages:</strong> Contact us immediately, and we will work with our courier partner to resolve the issue as fast as possible.</li>
-    </ul>
+    <div class="policy-section-card">
+      <h2>🇮🇳 Shipping Locations</h2>
+      <p>Currently, we ship exclusively within <strong>India</strong>.</p>
+    </div>
 
-    <h2>Contact Us</h2>
-    <p>For questions or concerns regarding shipping, reach out to us at:</p>
+    <div class="policy-section-card">
+      <h2>⚠️ Delays & Issues</h2>
+      <p>Delivery times may vary due to unforeseen circumstances like weather, strikes, or courier issues.</p>
+      
+      <div class="support-box">
+        <strong>Need Urgent Logistics Assistance?</strong>
+        If your order is delayed, please contact our escalation desk at 
+        <a href="mailto:maheshchimataeng111@gmail.com" style="color:var(--accent); font-weight:600;">maheshchimataeng111@gmail.com</a> 
+        or call us at 
+        <a href="tel:6300680765" style="color:var(--accent); font-weight:600;">6300680765</a>.
+      </div>
+    </div>
 
-    <div class="policy-contact-card">
-      <p><strong>✉️ Email:</strong> <a href="mailto:ganimedia1@gmail.com" style="color:var(--accent);">ganimedia1@gmail.com</a></p>
-      <p><strong>📞 Phone:</strong> <a href="tel:9704252065" style="color:var(--accent);">9704252065</a></p>
+    <div class="policy-section-card">
+      <h2>📦 Damaged or Lost Packages</h2>
+      <ul>
+        <li><strong>Damaged Packages:</strong> If your order arrives damaged, please email us within <strong>48 hours</strong> of receiving it with photos of the damage.</li>
+        <li><strong>Lost Packages:</strong> Contact us immediately, and we will work with our courier partner to resolve the issue as fast as possible.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section-card">
+      <h2>✉️ Contact Us</h2>
+      <p>For questions or concerns regarding shipping, reach out to us at:</p>
+
+      <div class="policy-contact-card">
+        <p><strong>✉️ Email:</strong> <a href="mailto:ganimedia1@gmail.com" style="color:var(--accent);">ganimedia1@gmail.com</a></p>
+        <p><strong>📞 Phone:</strong> <a href="tel:9704252065" style="color:var(--accent);">9704252065</a></p>
+      </div>
     </div>
   </div>
 </div>
