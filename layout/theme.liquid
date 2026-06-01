@@ -84,7 +84,27 @@
 
   <!-- Main content -->
   <main>
-    {{ content_for_layout }}
+    {%- assign is_policy_page = false -%}
+    {%- if request.path == '/policies/privacy-policy' -%}
+      {%- render 'policy-privacy' -%}
+      {%- assign is_policy_page = true -%}
+    {%- elsif request.path == '/policies/terms-of-service' -%}
+      {%- render 'policy-terms' -%}
+      {%- assign is_policy_page = true -%}
+    {%- elsif request.path == '/policies/shipping-policy' -%}
+      {%- render 'policy-shipping' -%}
+      {%- assign is_policy_page = true -%}
+    {%- elsif request.path == '/policies/refund-policy' -%}
+      {%- render 'policy-refund' -%}
+      {%- assign is_policy_page = true -%}
+    {%- elsif request.path == '/policies/contact-information' or request.path == '/policies/contact' -%}
+      {%- render 'policy-contact' -%}
+      {%- assign is_policy_page = true -%}
+    {%- endif -%}
+
+    {%- if is_policy_page == false -%}
+      {{ content_for_layout }}
+    {%- endif -%}
   </main>
 
   <!-- Footer -->

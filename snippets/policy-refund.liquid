@@ -1,0 +1,329 @@
+{% comment %}
+  snippets/policy-refund.liquid
+  Vibrant & Colorful Upgraded Return & Refund Policy Snippet.
+  Features glowing gold-accented gradient headers, rich neon-tinted trust badges,
+  and high-contrast colorful card structures.
+{% endcomment %}
+
+<style>
+  .policy-container {
+    max-width: 860px;
+    margin: 50px auto;
+    padding: 60px 45px;
+    background: #0b0b14; /* Rich deep indigo-black base */
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 80px rgba(255, 179, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Tri-color glowing trust accent line */
+  .policy-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ff9933 0%, #ffcc00 50%, #4caf6e 100%);
+    box-shadow: 0 2px 10px rgba(255, 179, 0, 0.3);
+  }
+
+  .policy-header {
+    text-align: center;
+    margin-bottom: 45px;
+  }
+  
+  .policy-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 46px);
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffe082 0%, #ffb300 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+    text-shadow: 0 0 30px rgba(255, 179, 0, 0.15);
+  }
+  
+  .policy-meta {
+    font-size: 13px;
+    color: #ffb74d;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Trust Badges Widget (High-Contrast & Colorful) */
+  .trust-badge-container {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin: 25px 0 35px 0;
+    flex-wrap: wrap;
+  }
+  
+  .trust-badge {
+    padding: 9px 18px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+  }
+
+  .trust-badge:hover {
+    transform: translateY(-1px);
+  }
+  
+  .trust-badge-secured {
+    background: rgba(76, 175, 110, 0.08) !important;
+    border: 1px solid rgba(76, 175, 110, 0.35) !important;
+    color: #81c784 !important;
+  }
+  
+  .trust-badge-verified {
+    background: rgba(232, 201, 122, 0.08) !important;
+    border: 1px solid rgba(232, 201, 122, 0.35) !important;
+    color: #ffd54f !important;
+  }
+  
+  .trust-badge-compliant {
+    background: rgba(255, 153, 51, 0.08) !important;
+    border: 1px solid rgba(255, 153, 51, 0.35) !important;
+    color: #ffb74d !important;
+  }
+  
+  .trust-icon {
+    font-size: 13px;
+  }
+
+  /* Confidence Shield Box (Rich Green-Gold Gradient) */
+  .confidence-shield-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 24px 28px;
+    background: linear-gradient(135deg, rgba(76, 175, 110, 0.1) 0%, rgba(255, 179, 0, 0.05) 100%);
+    border: 1px solid rgba(255, 179, 0, 0.25);
+    border-left: 5px solid #4caf6e;
+    border-radius: var(--radius);
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(76, 175, 110, 0.08);
+  }
+  
+  .confidence-shield-icon {
+    font-size: 32px;
+    line-height: 1;
+  }
+  
+  .confidence-shield-text {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink2);
+  }
+  
+  .confidence-shield-text strong {
+    color: #ffffff;
+    font-size: 15.5px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* Colorful Legal Card Sections */
+  .policy-section-card {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius);
+    padding: 35px;
+    margin-bottom: 30px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .policy-section-card:hover {
+    border-color: rgba(255, 179, 0, 0.2);
+    box-shadow: 0 10px 35px rgba(255, 179, 0, 0.05);
+  }
+
+  .policy-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.5vw, 24px);
+    font-weight: 700;
+    color: #ffb300; /* Beautiful deep warm gold */
+    margin-top: 0;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .policy-content h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffb74d; /* Soft sunset orange */
+    margin-top: 24px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  
+  .policy-content p {
+    font-size: 14.5px;
+    color: var(--ink2);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  
+  .policy-content p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .policy-content ul {
+    margin-bottom: 20px;
+    padding-left: 20px;
+  }
+  
+  .policy-content li {
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.7;
+    margin-bottom: 8px;
+    list-style-type: none;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .policy-content li::before {
+    content: '➤';
+    position: absolute;
+    left: 0;
+    color: #ffb300;
+  }
+
+  .policy-content .cross-list li::before {
+    content: '✖';
+    color: #ef5350;
+  }
+
+  .policy-contact-card {
+    background: #07070d;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius);
+    padding: 26px;
+    margin-top: 30px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  }
+  
+  .policy-contact-card p {
+    margin-bottom: 14px !important;
+  }
+  
+  .policy-contact-card p:last-child {
+    margin-bottom: 0 !important;
+  }
+  
+  .policy-contact-card strong {
+    color: #ffffff;
+  }
+  
+  @media (max-width: 768px) {
+    .policy-container {
+      margin: 20px 12px;
+      padding: 35px 22px;
+    }
+    .policy-section-card {
+      padding: 20px;
+    }
+  }
+</style>
+
+<div class="policy-container">
+  <div class="policy-header">
+    <h1 class="policy-title">Return & Refund Policy</h1>
+    <div class="policy-meta">Last updated: June 1, 2026</div>
+  </div>
+
+  <!-- Trust Badges Widget -->
+  <div class="trust-badge-container">
+    <div class="trust-badge trust-badge-secured"><span class="trust-icon">🔄</span> 05-Day Return Policy</div>
+    <div class="trust-badge trust-badge-verified"><span class="trust-icon">🛡️</span> Defect Protection</div>
+    <div class="trust-badge trust-badge-compliant"><span class="trust-icon">🤝</span> Verified Buyer Trust</div>
+  </div>
+
+  <!-- Confidence Shield Box -->
+  <div class="confidence-shield-box">
+    <div class="confidence-shield-icon">🛡️</div>
+    <div class="confidence-shield-text">
+      <strong>Return & Refund Policy — Zybuds</strong>
+      At Zybuds, we provide high-quality premium audio products and a smooth shopping experience. Please read our Return & Refund Policy carefully before placing your order.
+    </div>
+  </div>
+
+  <div class="policy-content">
+    <!-- 1. Return Eligibility -->
+    <div class="policy-section-card">
+      <h2>1. Return Eligibility (Only for Defective Products)</h2>
+      <p>We accept returns <strong>only if the product received is defective or damaged</strong> upon arrival.</p>
+      
+      <h3>A product is considered defective or damaged if:</h3>
+      <ul>
+        <li>Not turning on or not functioning</li>
+        <li>Physical damage upon delivery</li>
+        <li>Missing major components</li>
+      </ul>
+
+      <h3 style="color: #ef5350; margin-top: 30px;">Returns are NOT accepted for non-defective issues, such as:</h3>
+      <ul class="cross-list">
+        <li>Sound quality not matching personal preference</li>
+        <li>Earbuds not fitting properly in your ears</li>
+        <li>Product not liked after purchase</li>
+        <li>Minor color differences</li>
+        <li>"Changed my mind" or "Not needed"</li>
+      </ul>
+    </div>
+
+    <!-- 2. Return Request Timeframe -->
+    <div class="policy-section-card">
+      <h2>2. Return Request Timeframe</h2>
+      <ul>
+        <li>Return requests must be raised within <strong>05 days</strong> of order delivery.</li>
+        <li>Any damage or missing component reports must be submitted within <strong>24 hours</strong> of delivery. Requests after this timeframe will not be accepted.</li>
+      </ul>
+    </div>
+
+    <!-- 3. Product Condition for Returns -->
+    <div class="policy-section-card">
+      <h2>3. Product Condition for Returns</h2>
+      <ul>
+        <li>The item must be in its original packaging, unused, and in the same condition as received.</li>
+        <li>All accessories, manuals, and free gifts (if any) must be returned together with the main product.</li>
+      </ul>
+    </div>
+
+    <!-- 4. How to Initiate a Return -->
+    <div class="policy-section-card">
+      <h2>4. How to Initiate a Return</h2>
+      <p>To start a return, contact our support team with your order details and photos/videos of the defect:</p>
+      
+      <div class="policy-contact-card">
+        <p><strong>💬 WhatsApp Support:</strong> <a href="https://wa.me/919704252065" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">9704252065</a> (Chat only, no voice calls)</p>
+        <p><strong>✉️ Email Support:</strong> <a href="mailto:ganimedia1@gmail.com" style="color: var(--accent); text-decoration: none; font-weight: 600;">ganimedia1@gmail.com</a></p>
+        <p style="color: #ffd54f; font-size: 13.5px; margin-top: 15px;">⚠️ <strong>Important Note:</strong> A clear unboxing video showing the shipping label and the product defect is strictly required to process any return request.</p>
+      </div>
+    </div>
+
+    <!-- 5. Refund Processing -->
+    <div class="policy-section-card">
+      <h2>5. Refund Process</h2>
+      <p>Once we receive and inspect your returned product, we will notify you of the approval or rejection of your refund request.</p>
+      <p>If approved, your refund will be processed to your original payment method or bank account within <strong>5-7 business days</strong>.</p>
+    </div>
+  </div>
+</div>
