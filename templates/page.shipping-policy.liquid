@@ -1,8 +1,8 @@
 {% comment %}
   templates/page.shipping-policy.liquid
-  Senior CSS Developer upgraded static template.
-  Combines high-fidelity glassmorphism, trust badges, and security seals
-  to increase user confidentiality trust and store conversion.
+  Vibrant & Colorful Upgraded Shipping Policy Template.
+  Features glowing gold-accented gradient headers, rich neon-tinted trust badges,
+  and high-contrast colorful card structures.
 {% endcomment %}
 
 <style>
@@ -10,15 +10,15 @@
     max-width: 860px;
     margin: 50px auto;
     padding: 60px 45px;
-    background: linear-gradient(180deg, var(--bg3) 0%, var(--bg2) 100%);
-    border: 1px solid var(--border2);
+    background: #0b0b14; /* Rich deep indigo-black base */
+    border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: var(--radius-lg);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 80px rgba(255, 179, 0, 0.03);
     position: relative;
     overflow: hidden;
   }
   
-  /* Subtle decorative security line at the top */
+  /* Tri-color glowing trust accent line */
   .policy-container::before {
     content: '';
     position: absolute;
@@ -26,7 +26,8 @@
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(90deg, var(--green) 0%, var(--accent) 50%, var(--green) 100%);
+    background: linear-gradient(90deg, #ff9933 0%, #ffcc00 50%, #4caf6e 100%);
+    box-shadow: 0 2px 10px rgba(255, 179, 0, 0.3);
   }
 
   .policy-header {
@@ -38,14 +39,17 @@
     font-family: 'Playfair Display', serif;
     font-size: clamp(32px, 5vw, 46px);
     font-weight: 900;
-    color: var(--white);
+    background: linear-gradient(135deg, #ffe082 0%, #ffb300 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin-bottom: 12px;
     letter-spacing: -0.01em;
+    text-shadow: 0 0 30px rgba(255, 179, 0, 0.15);
   }
   
   .policy-meta {
     font-size: 13px;
-    color: var(--accent);
+    color: #ffb74d;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     font-weight: 600;
@@ -54,7 +58,7 @@
     gap: 8px;
   }
 
-  /* Trust Badges Widget */
+  /* Trust Badges Widget (High-Contrast & Colorful) */
   .trust-badge-container {
     display: flex;
     justify-content: center;
@@ -64,40 +68,55 @@
   }
   
   .trust-badge {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border);
-    padding: 8px 16px;
+    padding: 9px 18px;
     border-radius: 30px;
     font-size: 12px;
-    color: var(--ink2);
     font-weight: 600;
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: background 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+  }
+
+  .trust-badge:hover {
+    transform: translateY(-1px);
   }
   
-  .trust-badge:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--border2);
+  .trust-badge-secured {
+    background: rgba(76, 175, 110, 0.08) !important;
+    border: 1px solid rgba(76, 175, 110, 0.35) !important;
+    color: #81c784 !important;
+  }
+  
+  .trust-badge-verified {
+    background: rgba(232, 201, 122, 0.08) !important;
+    border: 1px solid rgba(232, 201, 122, 0.35) !important;
+    color: #ffd54f !important;
+  }
+  
+  .trust-badge-compliant {
+    background: rgba(255, 153, 51, 0.08) !important;
+    border: 1px solid rgba(255, 153, 51, 0.35) !important;
+    color: #ffb74d !important;
   }
   
   .trust-icon {
     font-size: 13px;
   }
 
-  /* Confidence Shield Box */
+  /* Confidence Shield Box (Rich Green-Gold Gradient) */
   .confidence-shield-box {
     display: flex;
     align-items: flex-start;
     gap: 18px;
-    padding: 22px 26px;
-    background: linear-gradient(135deg, rgba(76, 175, 110, 0.05) 0%, rgba(232, 201, 122, 0.03) 100%);
-    border: 1px solid rgba(76, 175, 110, 0.2);
-    border-left: 4px solid var(--green);
+    padding: 24px 28px;
+    background: linear-gradient(135deg, rgba(76, 175, 110, 0.1) 0%, rgba(255, 179, 0, 0.05) 100%);
+    border: 1px solid rgba(255, 179, 0, 0.25);
+    border-left: 5px solid #4caf6e;
     border-radius: var(--radius);
     margin-bottom: 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 30px rgba(76, 175, 110, 0.08);
   }
   
   .confidence-shield-icon {
@@ -112,32 +131,32 @@
   }
   
   .confidence-shield-text strong {
-    color: var(--white);
-    font-size: 15px;
+    color: #ffffff;
+    font-size: 15.5px;
     display: block;
     margin-bottom: 4px;
   }
 
-  /* Legal Card Sections */
+  /* Colorful Legal Card Sections */
   .policy-section-card {
-    background: rgba(255, 255, 255, 0.01);
-    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius);
-    padding: 30px;
+    padding: 35px;
     margin-bottom: 30px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .policy-section-card:hover {
-    border-color: rgba(232, 201, 122, 0.2);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border-color: rgba(255, 179, 0, 0.2);
+    box-shadow: 0 10px 35px rgba(255, 179, 0, 0.05);
   }
 
   .policy-content h2 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(18px, 2.5vw, 22px);
+    font-size: clamp(20px, 2.5vw, 24px);
     font-weight: 700;
-    color: var(--white);
+    color: #ffb300; /* Beautiful deep warm gold */
     margin-top: 0;
     margin-bottom: 18px;
     display: flex;
@@ -177,8 +196,8 @@
   }
   
   .shipping-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
+    background: #07070d;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius);
     padding: 22px;
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
@@ -186,14 +205,14 @@
   
   .shipping-card:hover {
     transform: translateY(-2px);
-    border-color: var(--border2);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: rgba(255, 179, 0, 0.25);
+    box-shadow: 0 8px 25px rgba(255, 179, 0, 0.08);
   }
   
   .shipping-card-title {
     font-size: 15px;
     font-weight: 600;
-    color: var(--white);
+    color: #ffffff;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
@@ -202,7 +221,7 @@
   
   .shipping-card-value {
     font-size: 18px;
-    color: var(--accent);
+    color: #ffb300;
     font-weight: 700;
     margin-bottom: 6px;
   }
@@ -217,7 +236,7 @@
     padding: 20px 24px;
     background: rgba(76, 175, 110, 0.03);
     border: 1px solid rgba(76, 175, 110, 0.15);
-    border-left: 3px solid var(--green);
+    border-left: 3px solid #4caf6e;
     border-radius: var(--radius);
     margin: 24px 0;
     font-size: 14px;
@@ -227,15 +246,15 @@
   }
   
   .support-box strong {
-    color: var(--white);
+    color: #ffffff;
     font-size: 14.5px;
     display: block;
     margin-bottom: 4px;
   }
   
   .policy-contact-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
+    background: #07070d;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius);
     padding: 26px;
     margin-top: 30px;
@@ -251,7 +270,7 @@
   }
   
   .policy-contact-card strong {
-    color: var(--white);
+    color: #ffffff;
   }
   
   @media (max-width: 768px) {
@@ -273,9 +292,9 @@
 
   <!-- Trust Badges Widget -->
   <div class="trust-badge-container">
-    <div class="trust-badge"><span class="trust-icon">🚀</span> Same-Day Processing</div>
-    <div class="trust-badge"><span class="trust-icon">🛡️</span> Insured Logistics</div>
-    <div class="trust-badge"><span class="trust-icon">🗺️</span> Nationwide Delivery</div>
+    <div class="trust-badge trust-badge-secured"><span class="trust-icon">🚀</span> Same-Day Processing</div>
+    <div class="trust-badge trust-badge-verified"><span class="trust-icon">🛡️</span> Insured Logistics</div>
+    <div class="trust-badge trust-badge-compliant"><span class="trust-icon">🗺️</span> Nationwide Delivery</div>
   </div>
 
   <!-- Confidence Shield Box -->
