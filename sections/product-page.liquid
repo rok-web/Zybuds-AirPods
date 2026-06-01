@@ -1027,6 +1027,20 @@
       if (!video || !playBtn) return;
       
       if (video.paused) {
+        // Pause all other customer review videos on the page!
+        document.querySelectorAll('.cv-video-el').forEach(otherVideo => {
+          if (otherVideo !== video && !otherVideo.paused) {
+            otherVideo.pause();
+            const otherContainer = otherVideo.closest('.cv-item');
+            if (otherContainer) {
+              const otherPlayBtn = otherContainer.querySelector('.cv-play-btn');
+              if (otherPlayBtn) {
+                otherPlayBtn.classList.add('paused');
+              }
+            }
+          }
+        });
+
         // Automatically unmute when clicking play button!
         video.muted = false;
         if (volumeBtn) {
